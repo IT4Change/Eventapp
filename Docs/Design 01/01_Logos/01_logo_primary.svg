@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <title>Soul² primary logo — bohemian festival</title>
+  <desc>Stacked logo: cupped hand holding a sun-moon orb beneath flowing "Soul²" calligraphy, in cacao, rust and saffron earth tones.</desc>
+
+  <!-- Background (optional, transparent in real use) -->
+  <rect width="480" height="480" fill="#F7EFE0"/>
+
+  <!-- Symbol: hand cradling sun/moon orb with flowing energy ribbon -->
+  <g transform="translate(240, 230)">
+
+    <!-- Flowing energy ribbon (rising from the orb, like the original logo's wisp) -->
+    <path d="M -25 -25 C -55 -55, -50 -95, -15 -110 C 5 -118, 25 -100, 15 -80 C 5 -65, -15 -65, -20 -85 C -22 -100, -8 -110, 5 -100"
+          fill="none" stroke="#C25E2A" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="5" cy="-100" r="4" fill="#6B3410"/>
+
+    <!-- Cupped hand (stylized) -->
+    <path d="M -75 30
+             C -90 15, -90 -10, -75 -20
+             C -65 -25, -55 -20, -50 -10
+             L -45 20
+             C -45 45, -20 60, 5 60
+             L 45 60
+             C 70 60, 90 45, 90 20
+             L 90 -5
+             C 90 -15, 100 -15, 100 -5
+             L 100 25
+             C 100 60, 70 85, 35 85
+             L -5 85
+             C -45 85, -75 65, -75 30 Z"
+          fill="#7A8B4A" stroke="#6B3410" stroke-width="2"/>
+
+    <!-- Thumb -->
+    <path d="M -75 -20 C -85 -25, -90 -15, -85 -5 L -78 5"
+          fill="none" stroke="#6B3410" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Sun-moon orb (yin-yang inspired but warmer) -->
+    <circle cx="10" cy="25" r="32" fill="#D4A047" stroke="#6B3410" stroke-width="2.5"/>
+    <!-- Dark half (cacao) -->
+    <path d="M 10 -7 A 32 32 0 0 1 10 57 A 16 16 0 0 0 10 25 A 16 16 0 0 1 10 -7 Z"
+          fill="#6B3410"/>
+    <!-- Small dots -->
+    <circle cx="10" cy="9" r="3.5" fill="#F7EFE0"/>
+    <circle cx="10" cy="41" r="3.5" fill="#6B3410"/>
+  </g>
+
+  <!-- Wordmark "Soul²" -->
+  <g transform="translate(240, 360)">
+    <!-- Script-style "Soul" -->
+    <text x="0" y="0" text-anchor="middle"
+          font-family="Brush Script MT, 'Lucida Handwriting', cursive"
+          font-size="92" font-weight="400" fill="#6B3410"
+          font-style="italic">Soul</text>
+    <!-- Superscript 2 in rust -->
+    <text x="100" y="-32" text-anchor="middle"
+          font-family="Georgia, serif"
+          font-size="44" font-weight="500" fill="#C25E2A">2</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="240" y="420" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="500" fill="#6B3410"
+        letter-spacing="6">DANCE · SPIRIT · NATURE</text>
+
+</svg>

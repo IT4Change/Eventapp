@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <title>Forest clearing — retreat scene</title>
+  <desc>Forest clearing with sun streaming through trees and a meditation circle of stones. For nature/retreats imagery.</desc>
+
+  <defs>
+    <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F2D9A8"/>
+      <stop offset="100%" stop-color="#D4A047"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="500" fill="url(#forestSky)"/>
+
+  <!-- Sun rays through trees -->
+  <g opacity="0.4">
+    <polygon points="600,100 540,500 660,500" fill="#F2D9A8"/>
+    <polygon points="500,150 470,500 530,500" fill="#F2D9A8"/>
+    <polygon points="700,150 670,500 730,500" fill="#F2D9A8"/>
+  </g>
+
+  <!-- Distant trees (back layer) -->
+  <g fill="#5A6938">
+    <path d="M 0 500 L 50 350 L 70 400 L 100 320 L 130 410 L 160 360 L 200 500 Z"/>
+    <path d="M 180 500 L 230 330 L 260 390 L 290 300 L 320 410 L 350 350 L 380 500 Z"/>
+    <path d="M 800 500 L 850 330 L 880 390 L 910 300 L 940 410 L 970 350 L 1000 500 Z"/>
+    <path d="M 980 500 L 1030 340 L 1060 400 L 1090 310 L 1120 410 L 1150 360 L 1200 500 Z"/>
+  </g>
+
+  <!-- Mid trees (pine silhouettes) -->
+  <g fill="#3A4D26">
+    <g transform="translate(120, 400)">
+      <rect x="-8" y="0" width="16" height="60" fill="#6B3410"/>
+      <path d="M 0 -200 L -45 -100 L -25 -100 L -55 -40 L -30 -40 L -65 30 L 65 30 L 30 -40 L 55 -40 L 25 -100 L 45 -100 Z"/>
+    </g>
+    <g transform="translate(1080, 380)">
+      <rect x="-8" y="0" width="16" height="80" fill="#6B3410"/>
+      <path d="M 0 -220 L -50 -110 L -28 -110 L -60 -45 L -32 -45 L -70 30 L 70 30 L 32 -45 L 60 -45 L 28 -110 L 50 -110 Z"/>
+    </g>
+  </g>
+
+  <!-- Ground -->
+  <path d="M 0 500 Q 600 480 1200 500 L 1200 800 L 0 800 Z" fill="#7A8B4A"/>
+
+  <!-- Closer ground (richer) -->
+  <path d="M 0 600 Q 600 580 1200 600 L 1200 800 L 0 800 Z" fill="#5A6938"/>
+
+  <!-- Stone circle (foreground) -->
+  <g fill="#888378" stroke="#6B3410" stroke-width="1.5">
+    <ellipse cx="600" cy="660" rx="35" ry="14"/>
+    <ellipse cx="500" cy="680" rx="32" ry="13"/>
+    <ellipse cx="700" cy="680" rx="32" ry="13"/>
+    <ellipse cx="430" cy="720" rx="30" ry="12" fill="#A09A8E"/>
+    <ellipse cx="770" cy="720" rx="30" ry="12" fill="#A09A8E"/>
+    <ellipse cx="600" cy="760" rx="35" ry="14"/>
+  </g>
+
+  <!-- Center fire pit (subtle) -->
+  <ellipse cx="600" cy="700" rx="45" ry="12" fill="#3A1F0E"/>
+  <ellipse cx="600" cy="700" rx="30" ry="7" fill="#6B3410"/>
+
+  <!-- Foreground grass tufts -->
+  <g stroke="#3A4D26" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M 100 800 Q 105 760 110 740"/>
+    <path d="M 115 800 Q 122 770 128 750"/>
+    <path d="M 200 800 Q 208 760 215 735"/>
+    <path d="M 1000 800 Q 1005 760 1010 740"/>
+    <path d="M 1050 800 Q 1058 770 1065 745"/>
+    <path d="M 1100 800 Q 1108 760 1115 735"/>
+  </g>
+
+  <!-- Small flowers / mushrooms -->
+  <g>
+    <circle cx="320" cy="700" r="5" fill="#D4A047"/>
+    <line x1="320" y1="705" x2="320" y2="725" stroke="#3A4D26" stroke-width="1.5"/>
+
+    <circle cx="350" cy="740" r="5" fill="#C25E2A"/>
+    <line x1="350" y1="745" x2="350" y2="765" stroke="#3A4D26" stroke-width="1.5"/>
+
+    <circle cx="880" cy="710" r="5" fill="#D4A047"/>
+    <line x1="880" y1="715" x2="880" y2="735" stroke="#3A4D26" stroke-width="1.5"/>
+
+    <circle cx="910" cy="750" r="5" fill="#C25E2A"/>
+    <line x1="910" y1="755" x2="910" y2="775" stroke="#3A4D26" stroke-width="1.5"/>
+  </g>
+
+  <!-- Floating sparkles / pollen -->
+  <g fill="#F7EFE0" opacity="0.7">
+    <circle cx="300" cy="200" r="2"/>
+    <circle cx="450" cy="280" r="1.5"/>
+    <circle cx="380" cy="350" r="2"/>
+    <circle cx="750" cy="200" r="2"/>
+    <circle cx="850" cy="280" r="1.5"/>
+    <circle cx="900" cy="350" r="2"/>
+    <circle cx="600" cy="250" r="2"/>
+    <circle cx="550" cy="320" r="1.5"/>
+    <circle cx="650" cy="320" r="1.5"/>
+  </g>
+
+</svg>

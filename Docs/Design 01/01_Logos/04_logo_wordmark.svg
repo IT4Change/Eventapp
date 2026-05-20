@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 200" width="560" height="200">
+  <title>Soul² wordmark only</title>
+  <desc>Clean wordmark — no symbol. For headers, signatures, and tight layouts.</desc>
+
+  <rect width="560" height="200" fill="#F7EFE0"/>
+
+  <g transform="translate(280, 115)">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="Brush Script MT, 'Lucida Handwriting', cursive"
+          font-size="120" font-weight="400" fill="#6B3410"
+          font-style="italic">Soul</text>
+    <text x="135" y="-42" text-anchor="middle"
+          font-family="Georgia, serif"
+          font-size="58" font-weight="500" fill="#C25E2A">2</text>
+  </g>
+
+  <text x="280" y="172" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="500" fill="#6B3410"
+        letter-spacing="7">DANCE · SPIRIT · NATURE</text>
+
+</svg>

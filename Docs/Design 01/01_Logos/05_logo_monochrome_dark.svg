@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <title>Soul² monochrome (cacao)</title>
+  <desc>Single-color version for stamping, embossing, single-color print on cream stock.</desc>
+
+  <g transform="translate(240, 230)">
+    <path d="M -25 -25 C -55 -55, -50 -95, -15 -110 C 5 -118, 25 -100, 15 -80 C 5 -65, -15 -65, -20 -85 C -22 -100, -8 -110, 5 -100"
+          fill="none" stroke="#6B3410" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="5" cy="-100" r="4" fill="#6B3410"/>
+
+    <path d="M -75 30
+             C -90 15, -90 -10, -75 -20
+             C -65 -25, -55 -20, -50 -10
+             L -45 20
+             C -45 45, -20 60, 5 60
+             L 45 60
+             C 70 60, 90 45, 90 20
+             L 90 -5
+             C 90 -15, 100 -15, 100 -5
+             L 100 25
+             C 100 60, 70 85, 35 85
+             L -5 85
+             C -45 85, -75 65, -75 30 Z"
+          fill="none" stroke="#6B3410" stroke-width="3"/>
+
+    <circle cx="10" cy="25" r="32" fill="none" stroke="#6B3410" stroke-width="3"/>
+    <path d="M 10 -7 A 32 32 0 0 1 10 57 A 16 16 0 0 0 10 25 A 16 16 0 0 1 10 -7 Z"
+          fill="#6B3410"/>
+    <circle cx="10" cy="9" r="3.5" fill="#F7EFE0"/>
+    <circle cx="10" cy="41" r="3.5" fill="#6B3410"/>
+  </g>
+
+  <g transform="translate(240, 360)">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="Brush Script MT, 'Lucida Handwriting', cursive"
+          font-size="92" font-weight="400" fill="#6B3410"
+          font-style="italic">Soul</text>
+    <text x="100" y="-32" text-anchor="middle"
+          font-family="Georgia, serif"
+          font-size="44" font-weight="500" fill="#6B3410">2</text>
+  </g>
+
+  <text x="240" y="420" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="500" fill="#6B3410"
+        letter-spacing="6">DANCE · SPIRIT · NATURE</text>
+
+</svg>
