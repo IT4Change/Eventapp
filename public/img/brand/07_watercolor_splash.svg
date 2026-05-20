@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <title>Watercolor splash texture</title>
+  <desc>Organic watercolor blob — use as background wash behind text sections or as accent shape.</desc>
+
+  <!-- Saffron base -->
+  <path d="M 200 150
+           C 280 110, 380 110, 480 130
+           C 580 145, 660 180, 690 250
+           C 720 320, 700 410, 640 460
+           C 580 510, 470 530, 380 510
+           C 280 490, 180 440, 140 360
+           C 110 290, 130 200, 200 150 Z"
+        fill="#D4A047" opacity="0.4"/>
+
+  <!-- Rust overlay (offset) -->
+  <path d="M 240 180
+           C 320 150, 400 145, 480 170
+           C 555 195, 615 230, 640 290
+           C 660 350, 630 420, 570 450
+           C 500 480, 410 480, 340 460
+           C 270 440, 210 390, 200 330
+           C 195 270, 195 215, 240 180 Z"
+        fill="#C25E2A" opacity="0.35"/>
+
+  <!-- Olive blob (smaller, offset) -->
+  <path d="M 300 230
+           C 360 220, 420 220, 480 235
+           C 530 250, 570 275, 580 320
+           C 585 360, 555 400, 510 415
+           C 460 430, 390 425, 340 410
+           C 290 390, 270 350, 275 310
+           C 280 280, 285 250, 300 230 Z"
+        fill="#7A8B4A" opacity="0.25"/>
+
+  <!-- Drips / specks -->
+  <g fill="#6B3410" opacity="0.3">
+    <circle cx="150" cy="180" r="4"/>
+    <circle cx="170" cy="200" r="2"/>
+    <circle cx="120" cy="250" r="3"/>
+    <circle cx="700" cy="200" r="3"/>
+    <circle cx="720" cy="280" r="4"/>
+    <circle cx="680" cy="450" r="3"/>
+    <circle cx="200" cy="500" r="4"/>
+    <circle cx="500" cy="540" r="3"/>
+  </g>
+
+  <!-- Paper grain dots (subtle) -->
+  <g fill="#C25E2A" opacity="0.15">
+    <circle cx="350" cy="300" r="1"/>
+    <circle cx="400" cy="280" r="1"/>
+    <circle cx="430" cy="320" r="1"/>
+    <circle cx="380" cy="350" r="1"/>
+    <circle cx="450" cy="290" r="1"/>
+    <circle cx="320" cy="280" r="1"/>
+  </g>
+
+</svg>

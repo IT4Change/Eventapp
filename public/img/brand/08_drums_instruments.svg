@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>Drums and ceremony instruments</title>
+  <desc>Hand drums, rattle, and singing bowl arrangement for music/ceremony imagery.</desc>
+
+  <rect width="800" height="500" fill="#F7EFE0"/>
+
+  <!-- Frame drum (large, left) -->
+  <g transform="translate(220, 250)">
+    <!-- Side -->
+    <ellipse cx="0" cy="10" rx="130" ry="32" fill="#6B3410"/>
+    <!-- Skin -->
+    <ellipse cx="0" cy="0" rx="130" ry="30" fill="#F2D9A8" stroke="#6B3410" stroke-width="3"/>
+    <!-- Decorative pattern on skin -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#C25E2A" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#C25E2A" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="0" cy="0" r="20" fill="#D4A047" stroke="#6B3410" stroke-width="1.5"/>
+    <!-- Lacing dots -->
+    <g fill="#6B3410">
+      <circle cx="-115" cy="-5" r="3"/>
+      <circle cx="-80" cy="-22" r="3"/>
+      <circle cx="-40" cy="-30" r="3"/>
+      <circle cx="0" cy="-32" r="3"/>
+      <circle cx="40" cy="-30" r="3"/>
+      <circle cx="80" cy="-22" r="3"/>
+      <circle cx="115" cy="-5" r="3"/>
+    </g>
+  </g>
+
+  <!-- Singing bowl (center) -->
+  <g transform="translate(450, 290)">
+    <ellipse cx="0" cy="20" rx="70" ry="12" fill="#3A1F0E"/>
+    <path d="M -70 20 Q -65 55 -50 70 Q 0 80 50 70 Q 65 55 70 20 Z" fill="#C25E2A"/>
+    <path d="M -70 20 Q -65 55 -50 70 L -45 65 Q -55 50 -60 20 Z" fill="#6B3410" opacity="0.5"/>
+    <ellipse cx="0" cy="20" rx="70" ry="10" fill="#D4A047" opacity="0.7" stroke="#6B3410" stroke-width="1.5"/>
+    <ellipse cx="0" cy="20" rx="55" ry="7" fill="#3A1F0E" opacity="0.3"/>
+
+    <!-- Mallet -->
+    <line x1="80" y1="-40" x2="55" y2="15" stroke="#6B3410" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="55" cy="15" rx="8" ry="10" fill="#F2D9A8" stroke="#6B3410" stroke-width="1.5"/>
+  </g>
+
+  <!-- Rattle / shaker (right) -->
+  <g transform="translate(620, 250)">
+    <!-- Handle -->
+    <rect x="-5" y="-10" width="10" height="100" fill="#6B3410"/>
+    <!-- Decorative wrap -->
+    <g stroke="#D4A047" stroke-width="2">
+      <line x1="-5" y1="20" x2="5" y2="20"/>
+      <line x1="-5" y1="35" x2="5" y2="35"/>
+      <line x1="-5" y1="50" x2="5" y2="50"/>
+      <line x1="-5" y1="65" x2="5" y2="65"/>
+    </g>
+    <!-- Gourd head -->
+    <ellipse cx="0" cy="-40" rx="35" ry="45" fill="#C25E2A" stroke="#6B3410" stroke-width="2"/>
+    <!-- Decorative pattern -->
+    <g fill="#D4A047">
+      <circle cx="-12" cy="-50" r="3"/>
+      <circle cx="0" cy="-55" r="3"/>
+      <circle cx="12" cy="-50" r="3"/>
+      <circle cx="-15" cy="-30" r="3"/>
+      <circle cx="0" cy="-25" r="3"/>
+      <circle cx="15" cy="-30" r="3"/>
+    </g>
+    <!-- Feathers -->
+    <g stroke="#3A4D26" stroke-width="2" fill="#7A8B4A" stroke-linecap="round">
+      <path d="M -10 90 Q -25 110 -30 130 Q -25 132 -15 122 Q -8 110 -10 90 Z"/>
+      <path d="M 0 90 Q 0 115 -5 138 Q 5 138 5 115 Q 5 100 0 90 Z"/>
+      <path d="M 10 90 Q 25 110 30 130 Q 25 132 15 122 Q 8 110 10 90 Z"/>
+    </g>
+  </g>
+
+  <!-- Sound waves emanating -->
+  <g fill="none" stroke="#C25E2A" stroke-width="1.5" opacity="0.5">
+    <path d="M 50 200 Q 60 180 70 200"/>
+    <path d="M 40 220 Q 55 195 75 220"/>
+    <path d="M 35 245 Q 55 215 80 245"/>
+
+    <path d="M 730 200 Q 740 180 750 200"/>
+    <path d="M 720 220 Q 735 195 755 220"/>
+    <path d="M 715 245 Q 735 215 760 245"/>
+  </g>
+
+  <!-- Decorative notes -->
+  <g fill="#6B3410" opacity="0.7">
+    <circle cx="100" cy="120" r="5"/>
+    <line x1="105" y1="120" x2="105" y2="90" stroke="#6B3410" stroke-width="2"/>
+    <circle cx="700" cy="100" r="5"/>
+    <line x1="705" y1="100" x2="705" y2="70" stroke="#6B3410" stroke-width="2"/>
+    <circle cx="400" cy="80" r="4"/>
+    <line x1="403" y1="80" x2="403" y2="55" stroke="#6B3410" stroke-width="2"/>
+  </g>
+
+</svg>

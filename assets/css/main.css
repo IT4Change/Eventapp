@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cacao: #6B3410;
+    --cacao-dark: #3A1F0E;
+    --rust: #C25E2A;
+    --saffron: #D4A047;
+    --saffron-light: #F2D9A8;
+    --olive: #7A8B4A;
+    --olive-dark: #5A6938;
+    --sand: #F7EFE0;
+    --cream: #FAF6EE;
+  }
+
+  body {
+    @apply bg-sand text-cacao-dark font-sans;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  .script {
+    @apply font-script italic;
+    font-weight: 400;
+  }
+
+  .container-w {
+    @apply max-w-container mx-auto px-8;
+  }
+
+  .btn {
+    @apply inline-block px-8 py-3.5 bg-cacao text-sand no-underline text-[13px] tracking-[2px] uppercase font-medium border-none cursor-pointer rounded-sm transition-all duration-200;
+  }
+  .btn:hover {
+    @apply bg-rust -translate-y-px;
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-cacao border-[1.5px] border-cacao;
+  }
+  .btn-outline:hover {
+    @apply bg-cacao text-sand;
+  }
+
+  .section-eyebrow {
+    @apply text-[13px] tracking-[4px] uppercase text-rust mb-4 font-medium text-center;
+  }
+
+  .section-title {
+    @apply font-serif text-5xl text-center text-cacao mb-4 leading-[1.15] font-normal;
+  }
+
+  .section-intro {
+    @apply text-center max-w-[640px] mx-auto mb-16 text-cacao-dark text-[17px];
+  }
+}

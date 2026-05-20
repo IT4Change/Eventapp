@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <title>Hero: sunrise gathering — dancing figures, mountains, rising sun</title>
+  <desc>Wide hero illustration: silhouetted dancers in a circle beneath a rising sun, mountains and a forest treeline in the background.</desc>
+
+  <!-- Sky gradient (cream to saffron) -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7EFE0"/>
+      <stop offset="50%" stop-color="#F2D9A8"/>
+      <stop offset="100%" stop-color="#D4A047"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C25E2A"/>
+      <stop offset="100%" stop-color="#6B3410"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1600" height="650" fill="url(#sky)"/>
+
+  <!-- Sun -->
+  <circle cx="800" cy="500" r="180" fill="#F2D9A8"/>
+  <circle cx="800" cy="500" r="130" fill="#D4A047"/>
+  <circle cx="800" cy="500" r="80" fill="#C25E2A" opacity="0.5"/>
+
+  <!-- Sun rays (concentric) -->
+  <g stroke="#D4A047" stroke-width="2" opacity="0.4" fill="none">
+    <circle cx="800" cy="500" r="220"/>
+    <circle cx="800" cy="500" r="270"/>
+    <circle cx="800" cy="500" r="320"/>
+  </g>
+
+  <!-- Distant mountain layer -->
+  <path d="M 0 540 L 180 420 L 340 480 L 500 380 L 680 460 L 850 360 L 1030 460 L 1200 400 L 1380 470 L 1600 410 L 1600 650 L 0 650 Z"
+        fill="#7A8B4A" opacity="0.55"/>
+
+  <!-- Closer treeline -->
+  <path d="M 0 600 L 80 540 L 140 600 L 200 530 L 280 600 L 360 550 L 440 600 L 520 540 L 620 600 L 720 545 L 820 600 L 920 540 L 1020 600 L 1120 550 L 1220 600 L 1320 540 L 1420 600 L 1520 555 L 1600 600 L 1600 650 L 0 650 Z"
+        fill="#5A6938"/>
+
+  <!-- Ground -->
+  <rect x="0" y="650" width="1600" height="250" fill="url(#ground)"/>
+
+  <!-- Ground texture (decorative dashes) -->
+  <g stroke="#6B3410" stroke-width="2" opacity="0.4" stroke-linecap="round">
+    <line x1="60" y1="720" x2="100" y2="722"/>
+    <line x1="150" y1="745" x2="195" y2="748"/>
+    <line x1="280" y1="780" x2="335" y2="783"/>
+    <line x1="420" y1="800" x2="470" y2="802"/>
+    <line x1="580" y1="830" x2="640" y2="833"/>
+    <line x1="1050" y1="715" x2="1095" y2="717"/>
+    <line x1="1200" y1="750" x2="1255" y2="753"/>
+    <line x1="1340" y1="790" x2="1400" y2="793"/>
+    <line x1="1450" y1="820" x2="1510" y2="823"/>
+  </g>
+
+  <!-- Bonfire (central) -->
+  <ellipse cx="800" cy="755" rx="55" ry="14" fill="#6B3410" opacity="0.7"/>
+  <path d="M 770 750 L 800 690 L 820 720 L 815 685 L 830 750 Z" fill="#C25E2A"/>
+  <path d="M 778 750 L 800 705 L 815 730 L 820 700 L 825 750 Z" fill="#D4A047"/>
+  <path d="M 785 750 L 800 720 L 810 745 Z" fill="#F2D9A8"/>
+
+  <!-- Dancing figures (silhouettes in a circle around fire) -->
+  <g fill="#3A1F0E">
+    <!-- Figure 1 (left, arms raised) -->
+    <g transform="translate(580, 730)">
+      <circle cx="0" cy="-50" r="10"/>
+      <path d="M -3 -40 L -3 -5 L -12 25 L -8 25 L -3 0 L 3 0 L 8 25 L 12 25 L 3 -5 L 3 -40 Z"/>
+      <path d="M -3 -35 L -25 -55 L -23 -52 Z M 3 -35 L 25 -55 L 23 -52 Z" stroke="#3A1F0E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="-3" y1="-35" x2="-22" y2="-58" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3" y1="-35" x2="22" y2="-58" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Figure 2 (left-center) -->
+    <g transform="translate(670, 745)">
+      <circle cx="0" cy="-48" r="9"/>
+      <path d="M -3 -38 L -3 -5 L -10 22 L -6 22 L -3 0 L 3 0 L 6 22 L 10 22 L 3 -5 L 3 -38 Z"/>
+      <line x1="-3" y1="-33" x2="-18" y2="-15" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3" y1="-33" x2="20" y2="-45" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Figure 3 (right-center) -->
+    <g transform="translate(920, 745)">
+      <circle cx="0" cy="-48" r="9"/>
+      <path d="M -3 -38 L -3 -5 L -10 22 L -6 22 L -3 0 L 3 0 L 6 22 L 10 22 L 3 -5 L 3 -38 Z"/>
+      <line x1="-3" y1="-33" x2="-20" y2="-45" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3" y1="-33" x2="18" y2="-15" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Figure 4 (right, arms up) -->
+    <g transform="translate(1020, 730)">
+      <circle cx="0" cy="-50" r="10"/>
+      <path d="M -3 -40 L -3 -5 L -12 25 L -8 25 L -3 0 L 3 0 L 8 25 L 12 25 L 3 -5 L 3 -40 Z"/>
+      <line x1="-3" y1="-35" x2="-22" y2="-58" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+      <line x1="3" y1="-35" x2="22" y2="-58" stroke="#3A1F0E" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Foreground tall grass (decorative) -->
+  <g stroke="#3A1F0E" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M 80 900 Q 90 800 95 760"/>
+    <path d="M 100 900 Q 108 820 112 780"/>
+    <path d="M 1480 900 Q 1488 810 1492 770"/>
+    <path d="M 1500 900 Q 1510 820 1515 785"/>
+    <path d="M 1520 900 Q 1528 830 1532 790"/>
+  </g>
+
+  <!-- Birds in sky -->
+  <g stroke="#6B3410" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M 300 200 q 8 -8 16 0 q 8 -8 16 0"/>
+    <path d="M 340 240 q 6 -6 12 0 q 6 -6 12 0"/>
+    <path d="M 1280 180 q 8 -8 16 0 q 8 -8 16 0"/>
+    <path d="M 1320 220 q 6 -6 12 0 q 6 -6 12 0"/>
+  </g>
+
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="720" height="220">
+  <title>Soul² horizontal logo</title>
+  <desc>Horizontal layout — symbol on left, wordmark and tagline on right.</desc>
+
+  <rect width="720" height="220" fill="#F7EFE0"/>
+
+  <!-- Symbol -->
+  <g transform="translate(130, 110)">
+    <path d="M -25 -25 C -55 -55, -50 -95, -15 -110 C 5 -118, 25 -100, 15 -80 C 5 -65, -15 -65, -20 -85 C -22 -100, -8 -110, 5 -100"
+          fill="none" stroke="#C25E2A" stroke-width="6" stroke-linecap="round" transform="scale(0.7)"/>
+    <circle cx="3.5" cy="-70" r="3" fill="#6B3410"/>
+
+    <path d="M -52 21
+             C -63 10, -63 -7, -52 -14
+             C -45 -17, -38 -14, -35 -7
+             L -32 14
+             C -32 31, -14 42, 3 42
+             L 31 42
+             C 49 42, 63 31, 63 14
+             L 63 -3
+             C 63 -10, 70 -10, 70 -3
+             L 70 17
+             C 70 42, 49 60, 24 60
+             L -3 60
+             C -32 60, -52 46, -52 21 Z"
+          fill="#7A8B4A" stroke="#6B3410" stroke-width="1.8"/>
+
+    <circle cx="7" cy="17" r="22" fill="#D4A047" stroke="#6B3410" stroke-width="2"/>
+    <path d="M 7 -5 A 22 22 0 0 1 7 39 A 11 11 0 0 0 7 17 A 11 11 0 0 1 7 -5 Z"
+          fill="#6B3410"/>
+    <circle cx="7" cy="6" r="2.5" fill="#F7EFE0"/>
+    <circle cx="7" cy="28" r="2.5" fill="#6B3410"/>
+  </g>
+
+  <!-- Vertical divider -->
+  <line x1="240" y1="55" x2="240" y2="165" stroke="#6B3410" stroke-width="1" opacity="0.4"/>
+
+  <!-- Wordmark -->
+  <g transform="translate(270, 130)">
+    <text x="0" y="0"
+          font-family="Brush Script MT, 'Lucida Handwriting', cursive"
+          font-size="92" font-weight="400" fill="#6B3410"
+          font-style="italic">Soul</text>
+    <text x="200" y="-32"
+          font-family="Georgia, serif"
+          font-size="44" font-weight="500" fill="#C25E2A">2</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="270" y="170"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="13" font-weight="500" fill="#6B3410"
+        letter-spacing="5">DANCE · SPIRIT · NATURE</text>
+
+</svg>
