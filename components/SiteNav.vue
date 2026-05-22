@@ -1,22 +1,21 @@
 <template>
-  <nav class="sticky top-0 z-50 bg-sand/95 backdrop-blur border-b border-cacao/15">
-    <div class="flex items-center justify-between px-8 py-4 max-w-container mx-auto">
+  <nav class="sticky top-0 z-50 nav-bg backdrop-blur-md border-b border-ink/10">
+    <div class="flex items-center justify-between px-8 py-[26px] max-w-container mx-auto">
       <a href="#" class="flex items-center gap-3">
-        <img src="/img/logos/01_logo_primary.png" alt="Soul² Logo" class="w-11 h-11" />
         <BrandWordmark size="md" />
       </a>
 
-      <ul class="hidden md:flex gap-9 list-none items-center">
+      <ul class="hidden md:flex gap-[34px] list-none items-center">
         <li v-for="link in links" :key="link.href">
           <a
             :href="link.href"
-            class="text-cacao no-underline text-sm tracking-wider uppercase font-medium transition-colors duration-200 hover:text-rust"
+            class="text-ink no-underline text-[13px] tracking-[1.5px] uppercase font-normal transition-colors duration-200 hover:text-coral"
           >
             {{ link.label }}
           </a>
         </li>
-        <li class="text-xs text-cacao tracking-wider border-l border-cacao/30 pl-4">
-          <span class="text-rust font-semibold">DE</span> ·
+        <li class="text-xs text-ink-soft tracking-[1px] border-l border-ink/20 pl-[18px]">
+          <span class="text-coral font-medium">DE</span> ·
           <span>EN</span>
         </li>
       </ul>
@@ -32,3 +31,9 @@ const links = [
   { label: 'Kontakt', href: '#contact' },
 ]
 </script>
+
+<style scoped>
+.nav-bg {
+  background: rgba(251, 249, 245, 0.9);
+}
+</style>

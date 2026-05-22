@@ -1,10 +1,10 @@
 <template>
-  <section id="contact" class="newsletter text-center py-24">
+  <section id="contact" class="newsletter text-center py-[100px]">
     <div class="container-w">
-      <h2 class="font-serif text-[40px] mb-2 text-saffron-light font-normal">
-        Bleib in <span class="script text-saffron" style="font-size: 50px;">Verbindung</span>
+      <h2 class="text-white font-extralight" style="font-family: 'Helvetica Neue', sans-serif; font-size: 42px; margin-bottom: 8px;">
+        Bleib in <span class="script" style="font-size: 52px; font-weight: 400;">Verbindung</span>
       </h2>
-      <p class="text-sand/90 mb-8 max-w-[540px] mx-auto">
+      <p class="mb-[34px] max-w-[540px] mx-auto font-light" style="color: rgba(255,255,255,0.92);">
         Erhalte einmal im Monat eine kurze Nachricht über neue Events, kleine Schreibstücke und
         Vollmond-Erinnerungen. Keine Werbung. Versprochen.
       </p>
@@ -13,7 +13,7 @@
           v-model="email"
           type="email"
           placeholder="deine@email.de"
-          class="newsletter-input flex-1 min-w-[240px] px-5 py-3.5 text-sand text-sm rounded-sm font-inherit"
+          class="newsletter-input flex-1 min-w-[240px] px-[22px] py-[15px] text-ink text-sm rounded-full"
         />
         <button type="submit" class="btn newsletter-btn">Anmelden</button>
       </form>
@@ -24,7 +24,6 @@
 <script setup lang="ts">
 const email = ref('')
 function onSubmit() {
-  // TODO: connect newsletter service
   console.log('Newsletter signup:', email.value)
   email.value = ''
 }
@@ -32,24 +31,26 @@ function onSubmit() {
 
 <style scoped>
 .newsletter {
-  background-image: linear-gradient(rgba(107, 52, 16, 0.92), rgba(58, 31, 14, 0.96)),
+  background-image:
+    linear-gradient(135deg, rgba(232, 122, 93, 0.92), rgba(107, 168, 216, 0.92)),
     url('/img/brand/03_pattern_tile.png');
-  background-size: 300px;
-  color: var(--sand);
+  background-size: 320px;
+  color: #fff;
 }
 .newsletter-input {
-  border: 1.5px solid rgba(247, 239, 224, 0.4);
-  background: rgba(247, 239, 224, 0.1);
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  font-family: inherit;
 }
 .newsletter-input::placeholder {
-  color: rgba(247, 239, 224, 0.6);
+  color: var(--ink-soft);
 }
 .newsletter-btn {
-  background: var(--saffron);
-  color: var(--cacao-dark);
+  background: #fff;
+  color: var(--coral);
 }
 .newsletter-btn:hover {
-  background: var(--rust);
-  color: var(--sand);
+  background: var(--ink);
+  color: #fff;
 }
 </style>

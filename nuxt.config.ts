@@ -7,16 +7,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'de' },
-      title: 'Soul² · Dance · Spirit · Nature',
+      title: 'Soulevents · Dance · Spirit · Nature',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-      ],
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;600&display=swap',
-        },
       ],
     },
   },

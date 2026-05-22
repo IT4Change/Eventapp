@@ -1,9 +1,9 @@
 <template>
-  <section id="events" class="events bg-sand py-24">
+  <section id="events" class="events bg-white py-[100px]">
     <div class="container-w">
-      <div class="section-eyebrow">Kommende Events · Upcoming</div>
+      <div class="section-eyebrow grad-text inline-block">Kommende Events · Upcoming</div>
       <h2 class="section-title">
-        Wo wir uns <span class="script text-rust" style="font-size: 60px;">begegnen</span>
+        Wo wir uns <span class="script grad-text" style="font-size: 58px;">begegnen</span>
       </h2>
       <p class="section-intro">Drei Pfade, eine Reise. Wähle, was dich ruft — oder gehe alle drei.</p>
 
