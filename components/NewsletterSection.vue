@@ -1,28 +1,43 @@
 <template>
-  <section id="contact" class="newsletter text-center py-[100px]">
+  <section class="newsletter text-center py-[100px]">
     <div class="container-w">
-      <h2 class="text-white font-extralight" style="font-family: 'Helvetica Neue', sans-serif; font-size: 42px; margin-bottom: 8px;">
-        Bleib in <span class="script" style="font-size: 52px; font-weight: 400;">Verbindung</span>
+      <h2
+        class="text-white font-extralight"
+        style="font-family: 'Helvetica Neue', sans-serif; font-size: 42px; margin-bottom: 8px;"
+      >
+        {{ t.newsletter.form.heading.split(' ').slice(0, -1).join(' ') }}
+        <span class="script" style="font-size: 52px; font-weight: 400;">
+          {{ t.newsletter.form.heading.split(' ').slice(-1)[0] }}
+        </span>
       </h2>
-      <p class="mb-[34px] max-w-[540px] mx-auto font-light" style="color: rgba(255,255,255,0.92);">
-        Erhalte einmal im Monat eine kurze Nachricht über neue Events, kleine Schreibstücke und
-        Vollmond-Erinnerungen. Keine Werbung. Versprochen.
+      <p
+        class="mb-[34px] max-w-[540px] mx-auto font-light"
+        style="color: rgba(255,255,255,0.92);"
+      >
+        {{ t.newsletter.form.body }}
       </p>
-      <form class="flex gap-3 max-w-[480px] mx-auto flex-wrap justify-center" @submit.prevent="onSubmit">
+      <form
+        class="flex gap-3 max-w-[480px] mx-auto flex-wrap justify-center"
+        @submit.prevent="onSubmit"
+      >
         <input
           v-model="email"
           type="email"
-          placeholder="deine@email.de"
+          :placeholder="t.newsletter.form.placeholder"
           class="newsletter-input flex-1 min-w-[240px] px-[22px] py-[15px] text-ink text-sm rounded-full"
         />
-        <button type="submit" class="btn newsletter-btn">Anmelden</button>
+        <button type="submit" class="btn newsletter-btn">
+          {{ t.newsletter.form.submit }}
+        </button>
       </form>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+const t = useContent()
 const email = ref('')
+
 function onSubmit() {
   console.log('Newsletter signup:', email.value)
   email.value = ''

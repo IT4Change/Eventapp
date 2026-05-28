@@ -1,15 +1,27 @@
 <template>
   <section class="quote-band text-white text-center py-[110px] px-8 relative">
     <div class="container-w">
-      <blockquote class="font-serif italic text-[32px] leading-[1.5] max-w-[820px] mx-auto mb-[18px] text-white font-normal">
-        „And those who were seen dancing<br />
-        were thought to be insane<br />
-        by those who could not hear the music.“
+      <blockquote
+        class="font-serif italic text-[28px] md:text-[32px] leading-[1.5] max-w-[820px] mx-auto mb-[18px] text-white font-normal whitespace-pre-line"
+      >
+        {{ text }}
       </blockquote>
-      <cite class="text-[13px] tracking-[3px] uppercase not-italic" style="color: rgba(255,255,255,0.85);">— Friedrich Nietzsche</cite>
+      <cite
+        class="text-[13px] tracking-[3px] uppercase not-italic"
+        style="color: rgba(255,255,255,0.85);"
+      >
+        {{ author }}
+      </cite>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  text: string
+  author: string
+}>()
+</script>
 
 <style scoped>
 .quote-band {
