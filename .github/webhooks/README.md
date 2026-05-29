@@ -10,7 +10,7 @@ den aktuellen Stand von `origin/master`.
 |------------------------|----------------------------------------------------------------|
 | `hooks.json.template`  | Konfiguration für [`webhook`](https://github.com/adnanh/webhook) -- prüft HMAC-SHA256-Signatur und `ref == "refs/heads/master"`, ruft dann `deploy.sh` auf |
 | `deploy.sh`            | `git reset --hard origin/master`, Build (`npm ci && npm run build`) und (Re-)Start des pm2-Services |
-| `ecosystem.config.js`  | pm2-Service-Definition: startet `.output/server/index.mjs` auf `127.0.0.1:3000` |
+| `ecosystem.config.cjs` | pm2-Service-Definition: startet `.output/server/index.mjs` auf `127.0.0.1:3000`. CommonJS (`.cjs`), weil das Root-`package.json` `"type": "module"` setzt und pm2 ESM-Configs nicht versteht |
 | `webhook.template`     | OpenRC-Init-Skript für den `webhook`-Daemon                    |
 | `.gitignore`           | Hält die ausgefüllte `hooks.json` (Secret!) aus dem Repo       |
 

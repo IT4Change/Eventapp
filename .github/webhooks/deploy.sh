@@ -9,7 +9,7 @@ set -e
 SCRIPT_PATH=$(realpath "$0")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 PROJECT_ROOT="$SCRIPT_DIR/../.."
-PM2_CONFIG="$PROJECT_ROOT/.github/webhooks/ecosystem.config.js"
+PM2_CONFIG="$PROJECT_ROOT/.github/webhooks/ecosystem.config.cjs"
 
 cd "$PROJECT_ROOT"
 
