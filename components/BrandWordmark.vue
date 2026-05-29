@@ -1,13 +1,37 @@
 <template>
-  <span class="brand-wordmark" :class="size">{{ t.brand.name }}</span>
+  <span class="brand-lockup" :class="[size, { 'has-tagline': withTagline }]">
+    <span class="brand-wordmark">{{ t.brand.name }}</span>
+    <span v-if="withTagline" class="brand-tagline">{{ t.brand.tagline }}</span>
+  </span>
 </template>
 
 <script setup lang="ts">
-defineProps<{ size?: 'sm' | 'md' | 'lg' | 'xl' }>()
+withDefaults(
+  defineProps<{
+    size?: 'sm' | 'md' | 'lg' | 'xl'
+    withTagline?: boolean
+  }>(),
+  {
+    size: 'md',
+    withTagline: false,
+  },
+)
 const t = useContent()
 </script>
 
 <style scoped>
+.brand-lockup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  gap: 6px;
+}
+
+.brand-lockup.has-tagline {
+  gap: 4px;
+}
+
 .brand-wordmark {
   font-family: 'Brush Script MT', 'Lucida Handwriting', 'Snell Roundhand', cursive;
   font-style: italic;
@@ -30,9 +54,24 @@ const t = useContent()
   white-space: nowrap;
 }
 
-.brand-wordmark.sm { font-size: 32px; }
-.brand-wordmark.md { font-size: 48px; }
-.brand-wordmark.lg { font-size: 68px; }
-.brand-wordmark.xl { font-size: 88px; }
-.brand-wordmark { font-size: 48px; }
+.brand-tagline {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.brand-lockup.sm .brand-wordmark { font-size: 44px; }
+.brand-lockup.md .brand-wordmark { font-size: 78px; }
+.brand-lockup.lg .brand-wordmark { font-size: 92px; }
+.brand-lockup.xl .brand-wordmark { font-size: 116px; }
+
+.brand-lockup.sm .brand-tagline { font-size: 9px; }
+.brand-lockup.md .brand-tagline { font-size: 10.5px; }
+.brand-lockup.lg .brand-tagline { font-size: 12px; }
+.brand-lockup.xl .brand-tagline { font-size: 14px; }
+
 </style>

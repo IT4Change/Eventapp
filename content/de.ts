@@ -7,7 +7,7 @@ export default {
     events: 'Events',
     vision: 'Vision',
     categories: 'Kategorien',
-    postEvent: 'Events posten',
+    postEvent: 'Events teilen',
     contact: 'Kontakt',
     newsletter: 'Newsletter',
     language: { de: 'DE', en: 'EN' },
@@ -291,13 +291,13 @@ export default {
         title: 'Mitmachen',
         items: [
           { label: 'Events posten', href: '/events-posten' },
-          { label: 'Kontakt', href: '/kontakt' },
           { label: 'Newsletter', href: '/newsletter' },
         ],
       },
       {
         title: 'Rechtliches',
         items: [
+          { label: 'Kontakt', href: '/kontakt' },
           { label: 'Disclaimer', href: '/disclaimer' },
           { label: 'Impressum', href: '/impressum' },
         ],

@@ -4,6 +4,57 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-05-28 — Header-Redesign: Logo-Lockup, Menü-Refinement, Kontakt in Footer
+
+### Ausgangslage
+Nach der Multi-Page-Restrukturierung wirkte die Top-Nav noch zu zaghaft: Wordmark zu klein, Menüschrift mit nur 12px und engen Abständen unübersichtlich, Header setzte sich kaum vom Content ab. Außerdem war "Kontakt" als eigenständiger Top-Menüpunkt nicht nötig.
+
+### Ziel
+Klar strukturierter Header mit größerem, prägnanterem Logo (Wordmark + Tagline), besser lesbarem Hauptmenü und sauberer Trennung zum Content. Kontakt aus der oberen Leiste in den Footer verschieben.
+
+### Was umgesetzt wurde
+
+**[BrandWordmark.vue](components/BrandWordmark.vue) — Lockup-Modus**
+- Neue prop `with-tagline`: rendert unter dem Schriftzug eine kleine uppercase-Tagline (aus `content.brand.tagline`) in `ink-soft`
+- Lockup als Flex-Column (Wordmark + Tagline als ein visueller Block)
+- Wordmark-Größen angehoben: `sm` 38px, `md` 56px, `lg` 76px, `xl` 100px
+- Tagline-Größen abgestimmt: 9 / 10.5 / 12 / 14 px mit `letter-spacing: 2.5px`
+
+**[SiteNav.vue](components/SiteNav.vue) — drei klar getrennte Zonen**
+- Logo links: jetzt `size="md"` mit `with-tagline` (statt vorher `size="sm"` ohne Tagline)
+- Menü mittig-rechts: Font 14px (statt 12px), `tracking-[2px]`, Gap zwischen Items `36px` (statt `28px`), Hover mit `translate-Y(-1px)`
+- Active-State: 3px Gradient-Underline (statt 2px), zusätzlich `font-weight: 500`
+- Aktionen rechts (Newsletter-CTA + Sprache): durch vertikalen Divider `border-l border-ink/15` von Menü abgesetzt
+- Newsletter-Button: leicht vergrößert (10px×22px Padding, 12px Font, 2px Tracking)
+- **Kontakt aus Top-Nav-Links entfernt** — Link-Array enthält nur noch Events, Vision, Kategorien, Events posten
+
+**Trennung zum Content**
+- Bottom-Border verstärkt: `1.5px solid rgba(46, 90, 87, 0.12)` (statt `1px / 0.10`)
+- Dezenter Schatten unter Nav: `0 4px 14px rgba(46, 90, 87, 0.04)`
+- Hintergrund-Opacity erhöht auf `0.96` (statt `0.92`) — bessere Lesbarkeit beim Scrollen
+
+**[content/de.ts](content/de.ts) — Footer-Spalten umsortiert**
+- "Mitmachen": nur noch Events posten, Newsletter
+- "Rechtliches": Kontakt (neu), Disclaimer, Impressum
+
+**Mobile**
+- Mobile-Menü weiterhin per Burger; Link-Größe von 14px auf 15px erhöht, mehr vertikales Padding (3.5 statt 3)
+
+### Verifikation
+- Alle 8 Routes weiterhin HTTP 200 (`/`, `/vision`, `/kategorien`, `/events-posten`, `/kontakt`, `/newsletter`, `/disclaimer`, `/impressum`)
+- Nav-Inhalt geprüft: Logo + Tagline + 4 Menüpunkte + Newsletter-CTA + DE/EN — **kein Kontakt** mehr im Top-Nav
+- Footer-Spalte "Rechtliches" enthält Kontakt, Disclaimer, Impressum
+- Tagline rendert korrekt unter dem Wordmark
+- `/kontakt` direkt aufrufbar (Page bleibt erhalten)
+- HMR durch laufenden Dev-Server, keine Compile-Errors
+
+### Offene Punkte / nächste Schritte
+- Sticky-Verhalten beim Scrollen visuell prüfen (evtl. Header bei Scroll noch kompakter machen)
+- Active-State auf Mobile noch stärker hervorheben (aktuell nur Coral-Farbe ohne Underline)
+- Restliche offene Punkte aus dem 2026-05-28 Restrukturierungs-Eintrag (siehe unten)
+
+---
+
 ## 2026-05-28 — Restrukturierung von Single-Page zu Multi-Page
 
 **Plan:** [03_website-restrukturierung-plan.md](03_website-restrukturierung-plan.md)
