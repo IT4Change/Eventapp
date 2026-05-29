@@ -4,8 +4,13 @@ import { categories, categoryByKey } from '~/data/categories'
 import { locations, locationById } from '~/data/locations'
 import type { CategoryKey, Event } from '~/data/types'
 
+const PAGE_SIZE = 30
+
 const selectedCategories = ref<CategoryKey[]>([])
 const selectedLocationId = ref<string>('')
+const dateFrom = ref<string>('')
+const dateTo = ref<string>('')
+const visibleCount = ref(PAGE_SIZE)
 const weekOffset = ref(0)
 
 function startOfWeek(d: Date): Date {
@@ -13,6 +18,12 @@ function startOfWeek(d: Date): Date {
   const day = date.getDay()
   const diff = (day === 0 ? -6 : 1) - day
   date.setDate(date.getDate() + diff)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
+function startOfDay(d: Date): Date {
+  const date = new Date(d)
   date.setHours(0, 0, 0, 0)
   return date
 }
@@ -31,6 +42,10 @@ function isSameDay(a: Date, b: Date): boolean {
   )
 }
 
+function dayKey(d: Date): string {
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+}
+
 export const useEvents = () => {
   const referenceDate = computed(() => {
     const base = startOfWeek(new Date())
@@ -42,15 +57,43 @@ export const useEvents = () => {
   })
 
   const filtered = computed(() => {
-    return allEvents.filter((evt) => {
-      if (selectedCategories.value.length > 0 && !selectedCategories.value.includes(evt.category)) {
-        return false
-      }
-      if (selectedLocationId.value && evt.locationId !== selectedLocationId.value) {
-        return false
-      }
-      return true
-    })
+    const today = startOfDay(new Date())
+    return allEvents
+      .filter((evt) => {
+        const start = new Date(evt.start)
+        if (start < today) return false
+        if (selectedCategories.value.length > 0 && !selectedCategories.value.includes(evt.category)) {
+          return false
+        }
+        if (selectedLocationId.value && evt.locationId !== selectedLocationId.value) {
+          return false
+        }
+        if (dateFrom.value) {
+          const from = new Date(dateFrom.value)
+          if (start < from) return false
+        }
+        if (dateTo.value) {
+          const to = new Date(dateTo.value)
+          to.setHours(23, 59, 59, 999)
+          if (start > to) return false
+        }
+        return true
+      })
+      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+  })
+
+  const visibleEvents = computed(() => filtered.value.slice(0, visibleCount.value))
+
+  const visibleByDay = computed(() => {
+    const groups = new Map<string, { day: Date; events: Event[] }>()
+    for (const evt of visibleEvents.value) {
+      const start = new Date(evt.start)
+      const day = startOfDay(start)
+      const key = dayKey(day)
+      if (!groups.has(key)) groups.set(key, { day, events: [] })
+      groups.get(key)!.events.push(evt)
+    }
+    return Array.from(groups.values()).sort((a, b) => a.day.getTime() - b.day.getTime())
   })
 
   const eventsByDay = computed(() => {
@@ -66,15 +109,26 @@ export const useEvents = () => {
     eventsByDay.value.some((d) => d.events.length > 0),
   )
 
+  const hasMore = computed(() => filtered.value.length > visibleCount.value)
+  const totalCount = computed(() => filtered.value.length)
+
   function toggleCategory(key: CategoryKey) {
     const idx = selectedCategories.value.indexOf(key)
     if (idx === -1) selectedCategories.value.push(key)
     else selectedCategories.value.splice(idx, 1)
+    visibleCount.value = PAGE_SIZE
   }
 
   function clearFilters() {
     selectedCategories.value = []
     selectedLocationId.value = ''
+    dateFrom.value = ''
+    dateTo.value = ''
+    visibleCount.value = PAGE_SIZE
+  }
+
+  function loadMore() {
+    visibleCount.value += PAGE_SIZE
   }
 
   function nextWeek() {
@@ -102,12 +156,19 @@ export const useEvents = () => {
     locations,
     selectedCategories,
     selectedLocationId,
+    dateFrom,
+    dateTo,
+    visibleCount,
     weekOffset,
     weekDays,
     eventsByDay,
+    visibleByDay,
     hasAnyEventsThisWeek,
+    hasMore,
+    totalCount,
     toggleCategory,
     clearFilters,
+    loadMore,
     nextWeek,
     prevWeek,
     thisWeek,

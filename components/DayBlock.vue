@@ -15,11 +15,8 @@
       </div>
     </header>
 
-    <div v-if="events.length" class="day-events">
+    <div class="day-events">
       <EventListItem v-for="evt in events" :key="evt.id" :event="evt" />
-    </div>
-    <div v-else class="day-empty">
-      <p class="text-ink-soft/70 italic text-sm">{{ t.home.week.noEventsForDay }}</p>
     </div>
   </section>
 </template>
@@ -91,9 +88,6 @@ const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel :
   border-radius: 50%;
   margin-left: 8px;
   align-self: center;
-}
-.day-empty {
-  padding: 12px 0;
 }
 @media (max-width: 768px) {
   .day-block {

@@ -23,26 +23,21 @@ export default {
   },
   home: {
     hero: {
-      eyebrow: 'Conscious Events · Rhein · Main · Neckar',
-      title: 'Diese Woche',
-      titleScript: 'wartet auf dich',
-      subtitleEn: '— What\'s on this week —',
+      eyebrow: 'Aktuelle Events · Rhein · Main · Neckar',
+      title: 'Eine kuratierte',
+      titleScript: 'Wochenübersicht',
+      subtitleEn: '— Conscious-Veranstaltungen aus der Region —',
       body:
-        'Eine kuratierte Wochenübersicht aller bewussten Veranstaltungen in der Rhein-Main-Neckar-Region. Tanz, Heilsames, Klang, Lernen — an einem Ort, immer aktuell.',
-      primaryCta: 'Zur Wochenansicht',
+        'Eine kuratierte Wochenübersicht von Conscious-Veranstaltungen in der Rhein-Main-Neckar-Region. Tanz, Heilsame Angebote, Musik und mehr — an einem Ort, immer aktuell.',
+      primaryCta: 'Zu den Events',
       secondaryCta: 'Vision lesen',
     },
-    intro: {
-      quote:
-        '„Es geschieht etwas, wenn Menschen sich bewusst begegnen — und genau das wollen wir sichtbar machen."',
-      en: '— Something happens when people meet consciously — and that\'s what we want to make visible. —',
-    },
     week: {
-      title: 'Die Woche im Überblick',
-      intro: 'Wähle deine Kategorien und finde, was dich gerade ruft.',
-      emptyState: 'In dieser Auswahl sind diese Woche keine Events. Probiere andere Filter.',
+      title: 'Aktuelle Events im Überblick',
+      intro: 'Filter nach Kategorien, Datum und Ort.',
+      emptyState: 'In dieser Auswahl sind keine Events. Probiere andere Filter.',
       todayLabel: 'Heute',
-      noEventsForDay: 'Keine Events an diesem Tag',
+      loadMore: 'Weitere 30 Events laden',
     },
     closing: {
       title: 'Auch du gestaltest die Szene',
@@ -56,35 +51,34 @@ export default {
       eyebrow: 'Unsere Vision · Our Vision',
       title: 'Bewusste Räume',
       titleScript: 'gemeinsam finden',
-      subtitleEn: '— Finding conscious spaces, together —',
+      subtitleEn:
+        '„Es geschieht etwas, wenn Menschen sich bewusst begegnen — und genau das wollen wir besser möglich machen."',
       body:
-        'Soul & Bliss ist eine offene Plattform für die Conscious Szene in Rhein-Main-Neckar. Wir sammeln, kuratieren und teilen, was in unserer Region an bewussten Veranstaltungen geschieht.',
+        'Soul & Bliss ist eine Plattform für die Conscious Szene in Rhein-Main-Neckar. Wir sammeln, kuratieren und teilen, was in unserer Region an bewussten Veranstaltungen geschieht.',
     },
     about: {
       eyebrow: 'Warum es uns gibt',
-      title: 'Geboren aus dem',
-      titleScript: 'Wunsch nach Klarheit',
-      en: '— Born from the wish for clarity —',
+      title: 'Unsere Motivation für',
+      titleScript: 'diese Seite',
+      en: '— Menschen verbinden —',
       paragraphs: [
-        'Die Szene ist da. Sie ist lebendig, vielfältig und voller Menschen, die einander tragen. Aber sie ist auch verstreut — über Instagram-Posts, WhatsApp-Gruppen, Flyer am Schwarzen Brett.',
-        'Wir wollten einen Ort, an dem man auf einen Blick sieht, was diese Woche passiert. Ohne Algorithmus, ohne Werbung. Einfach: Tag für Tag, Event für Event.',
+        'Die Conscious Szene in Rhein-Main-Neckar ist lebendig, vielfältig und voller Menschen, die einander tragen. Aber sie ist auch verstreut — über Instagram-Posts, WhatsApp- und Telegram-Gruppen, Flyer in Yogastudios.',
+        'Wir wollten einen Ort, an dem man einfach und auf einen Blick sieht, was demnächst passiert. Ohne Algorithmus, ohne Werbung. Einfach: Tag für Tag, Event für Event.',
         'Soul & Bliss ist dieser Ort. Gemacht von Menschen, die selbst Teil der Szene sind, für alle, die dazugehören oder dazustoßen wollen.',
       ],
-      quote:
-        '„Wenn das, was uns wirklich nährt, sichtbar wird, ändert sich, wie wir unsere Wochen leben."',
     },
     pillars: {
       eyebrow: 'Was uns leitet',
-      title: 'Drei',
-      titleScript: 'Haltungen',
-      intro: 'Jede Entscheidung, die wir für diese Plattform treffen, ruht auf diesen drei Säulen.',
+      title: 'Unsere',
+      titleScript: 'Leitlinien',
+      intro: 'Der Inhalt dieser Website ruht auf drei Säulen.',
       items: [
         {
           img: '/img/brand/02_mandala_motif.png',
           title: 'Achtsamkeit',
           en: 'Mindfulness',
           text:
-            'Wir kuratieren mit Bedacht. Was hier zu sehen ist, soll Menschen guttun — getragen, ehrlich, mit klaren Containern.',
+            'Wir kuratieren mit Bedacht. Veranstaltungen, die hier geteilt werden, können anregen und inspirieren — sie sollen gut tun und in einem klaren Rahmen sicher gehalten werden.',
           style: 'object-fit: contain;',
         },
         {
@@ -105,21 +99,17 @@ export default {
         },
       ],
     },
-    quote: {
-      text:
-        '„And those who were seen dancing\nwere thought to be insane\nby those who could not hear the music."',
-      author: '— Friedrich Nietzsche',
-    },
   },
   categories: {
     hero: {
-      eyebrow: 'Kategorien · Categories',
+      eyebrow: 'Kategorien',
       title: 'Was du bei uns',
       titleScript: 'findest',
-      subtitleEn: '— What you\'ll find here —',
+      subtitleEn: '— Categories —',
       body:
-        'Fünf Felder, in denen sich die Conscious Szene Rhein-Main-Neckar bewegt. Jede Kategorie hat ihre eigene Klangfarbe — und ihren eigenen Platz in unserer Wochenansicht.',
+        'Fünf Felder, in denen sich die Conscious Szene Rhein-Main-Neckar bewegt.',
     },
+    includesLabel: 'beinhaltet',
     closing: {
       title: 'Bereit für die Woche?',
       body: 'Schau dir die Events der aktuellen Woche an — gefiltert nach dem, was dich ruft.',

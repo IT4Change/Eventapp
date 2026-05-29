@@ -4,6 +4,79 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-05-29 — Content-Integration: Events, Vision, Kategorien aus Templates
+
+### Ausgangslage
+Drei Seiten-Templates lagen vor (`04_seiten-template-01/02/03.txt` im externen Projektordner) mit konkreten Headlines, Subheadlines, Fließtexten und Bereichsstruktur für Startseite, Vision und Kategorien. Die Seiten hatten bisher Demo-Texte und einen großen Bild-Hero auf jeder Seite. Die Events-Startseite war eine reine 7-Tages-Wochenansicht (Mo–So) ohne Datumsfilter und ohne Pagination.
+
+### Ziel
+Templates inhaltlich vollständig einarbeiten, dabei strukturelle Änderungen:
+- Heros werden zu **schlanken Intro-Bands** (ohne Vollbild, mit Gradient-Trenner)
+- Wochenansicht wird zur **flachen 30er-Liste** chronologisch, leere Tage ausgeblendet, "weitere 30 laden"-Pagination
+- **Datumsbereich-Filter** (Von/Bis) ergänzt — neben Kategorie- und Orts-Filter
+- Kategorien-Cards bekommen **"beinhaltet"-Zeile** mit Beispielen
+
+### Was umgesetzt wurde
+
+**Datenschicht**
+- [data/types.ts](data/types.ts) — `Category` Interface um `includes: string[]` ergänzt
+- [data/categories.ts](data/categories.ts) — Reihenfolge entsprechend Template umgestellt: Tanz → Singen & Musik → Heilsame Angebote → Inspiration & Lernen → Mehrtägige Events. Jede Kategorie hat jetzt ein `includes`-Array mit den Beispielen aus dem Template
+
+**Content** ([content/de.ts](content/de.ts))
+- `home.hero` — Headline aus Template: "Eine kuratierte Wochenübersicht …"
+- `home.intro` (alter Nietzsche-Vorgeschmack) — **entfernt**
+- `home.week` — Titel "Aktuelle Events im Überblick", Subheadline "Filter nach Kategorien, Datum und Ort", neuer Key `loadMore`
+- `vision.hero` — "Bewusste Räume gemeinsam finden", Untertitel-Zitat aus Template
+- `vision.about` — "Unsere Motivation für diese Seite" / "Menschen verbinden" + 3 Template-Absätze
+- `vision.pillars` — "Unsere Leitlinien" mit drei Säulen (Achtsamkeit / Verbindung / Offenheit) — Texte aus Template, "Verbindung" mit bestehendem Text (Template-Eintrag war Copy-Paste-Fehler)
+- `vision.quote` (Nietzsche) — **entfernt** (nicht im Template)
+- `categories.hero` — "Was du bei uns findest" / Template-Body
+- Neuer Key `categories.includesLabel: 'beinhaltet'`
+
+**Composable** ([composables/useEvents.ts](composables/useEvents.ts))
+- Reactive State ergänzt: `dateFrom`, `dateTo`, `visibleCount` (default 30)
+- `filtered`-Computed filtert jetzt:
+  - Events vor dem heutigen Tag werden ausgeblendet (chronologische Vorwärts-Ansicht)
+  - Kategorien-Filter, Orts-Filter, Datumsbereichs-Filter
+  - Sortierung chronologisch aufsteigend
+- Neue Computed `visibleByDay` — gruppiert die ersten `visibleCount` Events nach Tag (nur Tage mit Events)
+- Neue Funktion `loadMore()` — erhöht `visibleCount` um 30
+- Filter-Änderungen setzen `visibleCount` auf 30 zurück
+- Alte Wochennavigations-Funktionen bleiben im Composable, werden aber nicht mehr genutzt
+
+**Komponenten**
+- [HeroSection.vue](components/HeroSection.vue) — neue Variante `slim` (kein Bild, kleinere Titel, Gradient-Bottom-Strich als Trenner, minimal vertikales Padding)
+- [EventFilter.vue](components/EventFilter.vue) — neue Zeile "Zeitraum" mit zwei `<input type="date">` für Von/Bis, in Label-Spalten-Layout neu strukturiert (Kategorien / Zeitraum / Ort)
+- [DayBlock.vue](components/DayBlock.vue) — "Keine Events"-Empty pro Tag entfernt (wird nicht mehr aufgerufen, da leere Tage gefiltert sind)
+- **Neu** [EventList.vue](components/EventList.vue) — ersetzt WeekView: Filter + DayBlocks aus `visibleByDay` + "Weitere 30 Events laden"-Button mit Counter
+- [CategoryCard.vue](components/CategoryCard.vue) — neue Zeile "BEINHALTET: …" zwischen Titel und Beschreibung, ausgegeben als ` · `-separierte Liste
+
+**Pages**
+- [pages/index.vue](pages/index.vue) — schlanker Hero, `<EventList />` statt `<WeekView />`, IntroBand entfernt
+- [pages/vision.vue](pages/vision.vue) — schlanker Hero mit Zitat als Untertitel, `<QuoteBand>` (Nietzsche) entfernt
+- [pages/kategorien.vue](pages/kategorien.vue) — schlanker Hero, Cards zeigen automatisch neue "beinhaltet"-Zeile
+
+**Gelöscht (durch neue Komponenten ersetzt)**
+- `WeekView.vue` → ersetzt durch `EventList.vue`
+- `IntroBand.vue` → nicht mehr genutzt, Templates haben keine Intro-Bands separat vom Hero
+
+### Verifikation
+- Alle 8 Routes weiterhin HTTP 200
+- Home: Slim-Hero sichtbar, "Aktuelle Events im Überblick" rendert, Filter zeigt Kategorien + Zeitraum + Ort, erste Day-Block zeigt "Heute"-Marker
+- Vision: "Unsere Motivation", "Leitlinien", drei Säulen (Achtsamkeit/Verbindung/Offenheit) rendern; Nietzsche-Quote ist weg
+- Kategorien: Reihenfolge Tanz zuerst, "Ecstatic Dance", "Singkreis", "Zeremonien", "Workshops", "Festivals" als Includes-Zeile sichtbar
+- Keine TypeScript-Warnungen, HMR durch laufenden Dev-Server problemlos
+
+### Offene Punkte / nächste Schritte
+- Weitere Demo-Events (mehr als 15) anlegen, damit "Weitere 30 Events laden"-Button getestet werden kann
+- Event-Detailseiten (`/events/[id]`) anlegen — EventListItem verlinkt aktuell ins Leere
+- Bilder-Icons je Kategorie ggf. nochmal abstimmen (Template erwähnt z.B. "Massage Icon", "Festival Bild")
+- DE/EN-Sprachumschaltung
+- Finale rechtliche Texte für Disclaimer und Impressum
+- Verbleibende offene Punkte aus den vorherigen Einträgen
+
+---
+
 ## 2026-05-28 — Header-Redesign: Logo-Lockup, Menü-Refinement, Kontakt in Footer
 
 ### Ausgangslage

@@ -6,9 +6,13 @@
       </span>
     </div>
     <div class="card-body">
-      <h3 class="font-serif text-[24px] md:text-[26px] text-ink mb-3 font-normal leading-[1.25]">
+      <h3 class="font-serif text-[24px] md:text-[26px] text-ink mb-2 font-normal leading-[1.25]">
         {{ category.label }}
       </h3>
+      <p v-if="category.includes?.length" class="card-includes">
+        <span class="includes-label">{{ t.categories.includesLabel }}:</span>
+        {{ category.includes.join(' · ') }}
+      </p>
       <p class="text-[15px] text-ink-soft leading-[1.7] font-light">
         {{ category.description }}
       </p>
@@ -20,6 +24,7 @@
 import type { Category } from '~/data/types'
 
 defineProps<{ category: Category }>()
+const t = useContent()
 </script>
 
 <style scoped>
@@ -63,4 +68,18 @@ defineProps<{ category: Category }>()
 .pill-ceremony { background: linear-gradient(120deg, var(--orange), var(--teal)); }
 .pill-cool     { background: var(--grad-cool); }
 .pill-nature   { background: linear-gradient(120deg, var(--green), var(--teal)); }
+
+.card-includes {
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.includes-label {
+  color: var(--coral);
+  margin-right: 6px;
+}
 </style>

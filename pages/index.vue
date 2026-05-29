@@ -6,20 +6,10 @@
       :title-script="t.home.hero.titleScript"
       :subtitle-en="t.home.hero.subtitleEn"
       :body="t.home.hero.body"
-      image="/img/brand/01_hero_sunrise_dance.png"
-      variant="large"
-      :primary-cta="{ label: t.home.hero.primaryCta, to: '#week' }"
-      :secondary-cta="{ label: t.home.hero.secondaryCta, to: '/vision' }"
+      variant="slim"
     />
 
-    <IntroBand
-      :quote="t.home.intro.quote"
-      :subtitle-en="t.home.intro.en"
-    />
-
-    <div id="week">
-      <WeekView />
-    </div>
+    <EventList />
 
     <section class="bg-mist py-[80px] text-center">
       <div class="container-w max-w-[680px]">
@@ -39,7 +29,7 @@
 const t = useContent()
 
 useHead({
-  title: `${t.brand.name} · ${t.home.hero.eyebrow}`,
+  title: `${t.brand.name} · ${t.nav.events}`,
   meta: [{ name: 'description', content: t.home.hero.body }],
 })
 </script>

@@ -6,7 +6,7 @@
       :title-script="t.categories.hero.titleScript"
       :subtitle-en="t.categories.hero.subtitleEn"
       :body="t.categories.hero.body"
-      image="/img/brand/02_mandala_motif.png"
+      variant="slim"
     />
 
     <section class="bg-off py-[100px]">

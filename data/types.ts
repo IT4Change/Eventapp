@@ -10,6 +10,7 @@ export interface Category {
   image: string
   accent: string
   description: string
+  includes: string[]
 }
 
 export type Region = 'rhein' | 'main' | 'neckar'

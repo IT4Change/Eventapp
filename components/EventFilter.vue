@@ -1,39 +1,52 @@
 <template>
   <div class="event-filter mb-12">
-    <div class="flex flex-wrap items-center gap-3 mb-4">
-      <span class="text-[12px] tracking-[2px] uppercase text-ink-soft font-medium mr-1">
-        Kategorien:
-      </span>
-      <button
-        v-for="cat in categories"
-        :key="cat.key"
-        class="filter-pill"
-        :class="[
-          `pill-${cat.gradient}`,
-          { active: selectedCategories.includes(cat.key) },
-        ]"
-        @click="toggleCategory(cat.key)"
-      >
-        {{ cat.shortLabel }}
-      </button>
+    <div class="filter-row mb-4">
+      <span class="filter-label">Kategorien</span>
+      <div class="filter-controls">
+        <button
+          v-for="cat in categories"
+          :key="cat.key"
+          class="filter-pill"
+          :class="[
+            `pill-${cat.gradient}`,
+            { active: selectedCategories.includes(cat.key) },
+          ]"
+          @click="toggleCategory(cat.key)"
+        >
+          {{ cat.shortLabel }}
+        </button>
+      </div>
     </div>
-    <div class="flex flex-wrap items-center gap-3">
-      <span class="text-[12px] tracking-[2px] uppercase text-ink-soft font-medium mr-1">
-        Ort:
-      </span>
-      <select v-model="selectedLocationId" class="location-select">
-        <option value="">Alle Orte</option>
-        <option v-for="loc in locations" :key="loc.id" :value="loc.id">
-          {{ loc.city }} — {{ loc.name }}
-        </option>
-      </select>
-      <button
-        v-if="selectedCategories.length || selectedLocationId"
-        class="clear-btn"
-        @click="clearFilters"
-      >
-        Filter zurücksetzen
-      </button>
+    <div class="filter-row mb-4">
+      <span class="filter-label">Zeitraum</span>
+      <div class="filter-controls">
+        <label class="date-field">
+          <span>Von</span>
+          <input v-model="dateFrom" type="date" class="date-input" />
+        </label>
+        <label class="date-field">
+          <span>Bis</span>
+          <input v-model="dateTo" type="date" class="date-input" />
+        </label>
+      </div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Ort</span>
+      <div class="filter-controls">
+        <select v-model="selectedLocationId" class="location-select">
+          <option value="">Alle Orte</option>
+          <option v-for="loc in locations" :key="loc.id" :value="loc.id">
+            {{ loc.city }} — {{ loc.name }}
+          </option>
+        </select>
+        <button
+          v-if="hasActiveFilters"
+          class="clear-btn"
+          @click="clearFilters"
+        >
+          Filter zurücksetzen
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -44,12 +57,49 @@ const {
   locations,
   selectedCategories,
   selectedLocationId,
+  dateFrom,
+  dateTo,
   toggleCategory,
   clearFilters,
 } = useEvents()
+
+const hasActiveFilters = computed(
+  () =>
+    selectedCategories.value.length > 0 ||
+    selectedLocationId.value !== '' ||
+    dateFrom.value !== '' ||
+    dateTo.value !== '',
+)
 </script>
 
 <style scoped>
+.event-filter {
+  background: var(--off);
+  padding: 24px 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(46, 90, 87, 0.08);
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.filter-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
 .filter-pill {
   padding: 7px 16px;
   border-radius: 999px;
@@ -78,6 +128,30 @@ const {
 .pill-cool.active     { background: var(--grad-cool); color: #fff; border-color: transparent; }
 .pill-nature.active   { background: linear-gradient(120deg, var(--green), var(--teal)); color: #fff; border-color: transparent; }
 
+.date-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.date-input {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1.5px solid var(--ink-soft);
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+}
+.date-input:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
 .location-select {
   padding: 7px 16px;
   border-radius: 999px;
@@ -87,7 +161,7 @@ const {
   color: var(--ink);
   cursor: pointer;
   font-family: inherit;
-  min-width: 220px;
+  min-width: 240px;
 }
 .clear-btn {
   font-size: 12px;
@@ -99,6 +173,14 @@ const {
   cursor: pointer;
   text-decoration: underline;
   font-family: inherit;
+  padding: 0 8px;
 }
 .clear-btn:hover { color: var(--coral); }
+
+@media (max-width: 640px) {
+  .filter-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
 </style>

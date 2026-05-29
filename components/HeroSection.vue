@@ -53,7 +53,7 @@ const props = withDefaults(
     subtitleEn?: string
     body?: string
     image?: string
-    variant?: 'large' | 'medium'
+    variant?: 'large' | 'medium' | 'slim'
     primaryCta?: CtaLink
     secondaryCta?: CtaLink
   }>(),
@@ -82,6 +82,24 @@ const bgStyle = computed(() => {
 .hero-medium {
   min-height: 480px;
 }
+.hero-slim {
+  min-height: 0;
+  position: relative;
+}
+.hero-slim::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--grad-rainbow);
+  opacity: 0.55;
+}
+.hero-slim .py-20 {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
 .hero-title {
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 60px;
@@ -92,10 +110,27 @@ const bgStyle = computed(() => {
   font-size: 82px;
   font-weight: 400;
 }
+.hero-slim .hero-title {
+  font-size: 38px;
+}
+.hero-slim .hero-title .script {
+  font-size: 50px;
+}
+.hero-slim .hero-en {
+  font-size: 17px;
+  line-height: 1.5;
+  max-width: 720px;
+}
 @media (max-width: 900px) {
   .hero-large { min-height: 560px; }
   .hero-medium { min-height: 380px; }
   .hero-title { font-size: 42px; }
   .hero-title .script { font-size: 58px; }
+  .hero-slim .hero-title { font-size: 30px; }
+  .hero-slim .hero-title .script { font-size: 40px; }
+  .hero-slim .py-20 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
 }
 </style>
