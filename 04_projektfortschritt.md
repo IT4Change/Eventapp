@@ -4,6 +4,57 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-05-29 — Webhook-Deployment auf master umgestellt
+
+### Ausgangslage
+Der Ordner `.github/` wurde aus dem Schwester-Projekt `kooperative.de` ins Eventapp-Repo kopiert. Die enthaltene Webhook-Deployment-Konfiguration war auf das andere Projekt zugeschnitten:
+- Frontend lag dort in einem `app/`-Unterordner mit eigenem `start.sh`
+- Trigger war ein GitHub-**Release** (`action == "published"`), Tag wurde an `deploy.sh` übergeben
+- pm2-App-Name `kooperative-frontend`
+
+### Ziel
+Webhook auf dieses Repo anpassen, sodass jeder **Push auf `master`** ein vollständiges Deployment auf einem Alpine-Host auslöst (kein Tag-/Release-Schritt nötig).
+
+### Was umgesetzt wurde
+
+**[.github/webhooks/deploy.sh](.github/webhooks/deploy.sh)**
+- `app/`-Unterordner-Logik entfernt — Build läuft direkt im `PROJECT_ROOT`
+- Tag-Argument entfernt, immer `git fetch + reset --hard origin/master` (idempotent, überlebt lokale Änderungen am Checkout)
+- `npm ci --omit=dev` → `npm ci`, weil Nuxt-Build die `devDependencies` (Tailwind, Nuxt-CLI) braucht
+- Service-Restart: `pm2 reload --update-env` statt `stop + delete + start` → zero-downtime
+- `set -e` für sauberen Abbruch bei Buildfehlern
+- `pm2 save` nach Reload, damit der Stand nach Reboot wiederhergestellt wird
+
+**[.github/webhooks/ecosystem.config.js](.github/webhooks/ecosystem.config.js)**
+- App-Name auf `soulevents-frontend` umbenannt
+- Kein externes `start.sh` mehr — `script: ".output/server/index.mjs"` mit `interpreter: "node"` (Nuxt-3-Server-Output ist self-contained)
+- `cwd: __dirname + "/../.."` sorgt dafür, dass pm2 das Script relativ zum Repo-Root findet, unabhängig davon, von wo aus pm2 aufgerufen wird
+- `env` setzt `NODE_ENV=production`, `HOST=127.0.0.1`, `PORT=3000`, `TZ=UTC`
+
+**[.github/webhooks/hooks.json.template](.github/webhooks/hooks.json.template)**
+- Signatur von SHA1 (`X-Hub-Signature` / `payload-hash-sha1`) auf **SHA256** (`X-Hub-Signature-256` / `payload-hash-sha256`) hochgezogen
+- Trigger-Rule prüft jetzt `ref == "refs/heads/master"` statt `action == "published"`
+- `pass-arguments-to-command` entfernt, weil `deploy.sh` kein Argument mehr braucht
+
+**[.github/webhooks/README.md](.github/webhooks/README.md)**
+- Komplette Beschreibung auf den Push-basierten Flow umgeschrieben
+- Nginx-Snippet ergänzt: Reverse-Proxy für `/` → `127.0.0.1:3000` (Nuxt) + `/hooks/` → `127.0.0.1:9000` (webhook)
+- GitHub-Setup-Tabelle: `Releases` → `Just the push event`
+- Hinweis ergänzt, dass `deploy.sh` auch manuell auf dem Server aufgerufen werden kann
+
+### Verifikation
+- Statische Konsistenz: pm2-Script-Pfad `.output/server/index.mjs` matcht den Nuxt-3-Build-Output
+- Webhook-Trigger-Rule getestet gegen GitHub-Push-Payload-Schema (`ref`-Feld existiert, `action` gibt es bei Push nicht — alte Rule hätte ohnehin nie gegriffen)
+- Tatsächlicher Server-Test steht aus: erfordert Alpine-Host mit `apk add webhook git nodejs npm` + `npm i -g pm2`, dann `sh .github/webhooks/deploy.sh` als erstes manuelles Deployment
+
+### Offene Punkte / nächste Schritte
+- Auf dem Alpine-Host das initiale Setup nach Anleitung in `.github/webhooks/README.md` durchführen
+- GitHub-Repo: Webhook für **Push**-Event mit Shared-Secret eintragen
+- Optional: Healthcheck-Endpunkt im Nuxt-Server ergänzen, gegen den der Webhook-Daemon nach `pm2 reload` einen Test absetzen könnte (aktuell scheitert ein Fehler nur am pm2-Exit-Code)
+- Optional: Build-Schritt in eine GitHub-Action ziehen und nur das fertige `.output/`-Artefakt deployen — spart Build-Last auf dem Server
+
+---
+
 ## 2026-05-29 — Content-Integration: Events, Vision, Kategorien aus Templates
 
 ### Ausgangslage
