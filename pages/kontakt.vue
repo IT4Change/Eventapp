@@ -9,7 +9,7 @@
       image="/img/brand/07_watercolor_splash.png"
     />
 
-    <section class="bg-off py-[100px]">
+    <section class="bg-off py-16 sm:py-24 lg:py-[100px]">
       <div class="container-w max-w-[820px]">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="block in t.contact.blocks" :key="block.title" class="contact-block">

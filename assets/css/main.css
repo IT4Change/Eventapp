@@ -34,7 +34,7 @@
   }
 
   .container-w {
-    @apply max-w-container mx-auto px-8;
+    @apply max-w-container mx-auto px-5 sm:px-6 lg:px-8;
   }
 
   .grad-text {
@@ -71,14 +71,14 @@
   }
 
   .section-eyebrow {
-    @apply text-[13px] tracking-[5px] uppercase mb-4 font-medium text-center;
+    @apply text-[13px] tracking-[3px] lg:tracking-[5px] uppercase mb-4 font-medium text-center;
   }
 
   .section-title {
-    @apply font-sans text-[46px] text-center text-ink mb-4 leading-[1.2] font-extralight;
+    @apply font-sans text-[30px] sm:text-[36px] lg:text-[46px] text-center text-ink mb-4 leading-[1.2] font-extralight;
   }
 
   .section-intro {
-    @apply text-center max-w-[640px] mx-auto mb-16 text-ink-soft text-[17px] font-light;
+    @apply text-center max-w-[640px] mx-auto mb-10 lg:mb-16 text-ink-soft text-[16px] lg:text-[17px] font-light;
   }
 }

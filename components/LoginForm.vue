@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white py-[80px] md:py-[100px]">
+  <section class="bg-white py-14 sm:py-20 lg:py-[100px]">
     <div class="container-w max-w-[560px]">
       <div class="tabs">
         <button

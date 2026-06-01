@@ -42,11 +42,12 @@ const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel :
 </script>
 
 <style scoped>
+/* Mobile-first: einspaltig; ab md (768px) zweispaltig wie bisher. */
 .day-block {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 40px;
-  padding: 36px 0;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 28px 0;
   border-top: 1px solid rgba(46, 90, 87, 0.1);
 }
 .day-block:first-child {
@@ -54,8 +55,7 @@ const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel :
   padding-top: 12px;
 }
 .day-header {
-  position: sticky;
-  top: 90px;
+  position: static;
   align-self: start;
 }
 .day-number-wrap {
@@ -66,7 +66,7 @@ const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel :
 }
 .day-number {
   font-family: 'Helvetica Neue', sans-serif;
-  font-size: 64px;
+  font-size: 44px;
   line-height: 1;
   font-weight: 200;
 }
@@ -89,17 +89,26 @@ const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel :
   margin-left: 8px;
   align-self: center;
 }
-@media (max-width: 768px) {
+/* md ≥ 768px (Tablet/Desktop — entspricht bisherigem Layout) */
+@media (min-width: 768px) {
   .day-block {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 28px 0;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 36px 0;
   }
   .day-header {
-    position: static;
+    position: sticky;
+    top: 90px;
   }
   .day-number {
-    font-size: 48px;
+    font-size: 52px;
+  }
+}
+
+/* lg ≥ 1024px (Desktop — unverändert) */
+@media (min-width: 1024px) {
+  .day-number {
+    font-size: 64px;
   }
 }
 </style>

@@ -42,10 +42,15 @@ const t = useContent()
   box-shadow: 0 14px 44px rgba(46, 90, 87, 0.13);
 }
 .card-image {
-  height: 240px;
+  height: 200px;
   background-size: cover;
   background-position: center;
   position: relative;
+}
+@media (min-width: 1024px) {
+  .card-image {
+    height: 240px;
+  }
 }
 .card-body {
   padding: 28px 30px 32px;

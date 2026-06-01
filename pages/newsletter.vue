@@ -10,7 +10,7 @@
 
     <NewsletterSection />
 
-    <section class="bg-off py-[80px]">
+    <section class="bg-off py-14 sm:py-20 lg:py-[80px]">
       <div class="container-w max-w-[720px]">
         <h2 class="font-serif text-[28px] text-ink mb-6 font-normal text-center">
           {{ t.newsletter.expectations.title }}

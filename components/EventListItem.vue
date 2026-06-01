@@ -45,10 +45,11 @@ const location = computed(() => getLocationFor(props.event))
 </script>
 
 <style scoped>
+/* Mobile-first: kompaktes Raster; ab md (768px) breiter wie bisher. */
 .event-row {
   display: grid;
-  grid-template-columns: 110px 1fr 40px;
-  gap: 24px;
+  grid-template-columns: 84px 1fr 28px;
+  gap: 14px;
   padding: 24px 0;
   border-bottom: 1px solid rgba(46, 90, 87, 0.08);
   align-items: start;
@@ -98,10 +99,11 @@ const location = computed(() => getLocationFor(props.event))
   margin-right: 12px;
   color: var(--teal);
 }
-@media (max-width: 640px) {
+/* md ≥ 768px (Tablet/Desktop — entspricht bisherigem Layout) */
+@media (min-width: 768px) {
   .event-row {
-    grid-template-columns: 84px 1fr 28px;
-    gap: 14px;
+    grid-template-columns: 110px 1fr 40px;
+    gap: 24px;
   }
 }
 </style>

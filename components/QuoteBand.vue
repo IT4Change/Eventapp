@@ -1,5 +1,5 @@
 <template>
-  <section class="quote-band text-white text-center py-[110px] px-8 relative">
+  <section class="quote-band text-white text-center py-16 sm:py-24 lg:py-[110px] relative">
     <div class="container-w">
       <blockquote
         class="font-serif italic text-[28px] md:text-[32px] leading-[1.5] max-w-[820px] mx-auto mb-[18px] text-white font-normal whitespace-pre-line"

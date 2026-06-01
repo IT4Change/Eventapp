@@ -65,13 +65,22 @@ const t = useContent()
 }
 
 .brand-lockup.sm .brand-wordmark { font-size: 44px; }
-.brand-lockup.md .brand-wordmark { font-size: 78px; }
+/* md (Nav-Logo): mobil kleiner, ab lg unverändert bei 78px */
+.brand-lockup.md .brand-wordmark { font-size: 52px; }
 .brand-lockup.lg .brand-wordmark { font-size: 92px; }
 .brand-lockup.xl .brand-wordmark { font-size: 116px; }
 
 .brand-lockup.sm .brand-tagline { font-size: 9px; }
-.brand-lockup.md .brand-tagline { font-size: 10.5px; }
+.brand-lockup.md .brand-tagline { font-size: 9px; letter-spacing: 1.8px; }
 .brand-lockup.lg .brand-tagline { font-size: 12px; }
 .brand-lockup.xl .brand-tagline { font-size: 14px; }
+
+@media (min-width: 640px) {
+  .brand-lockup.md .brand-wordmark { font-size: 64px; }
+  .brand-lockup.md .brand-tagline { font-size: 10.5px; letter-spacing: 2.5px; }
+}
+@media (min-width: 1024px) {
+  .brand-lockup.md .brand-wordmark { font-size: 78px; }
+}
 
 </style>

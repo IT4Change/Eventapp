@@ -5,7 +5,7 @@
     :style="bgStyle"
   >
     <div class="container-w">
-      <div class="relative z-10 py-20 max-w-[720px]">
+      <div class="relative z-10 hero-inner max-w-[720px]">
         <div
           v-if="eyebrow"
           class="hero-eyebrow grad-text text-[13px] tracking-[5px] uppercase mb-[22px] font-medium inline-block"
@@ -28,9 +28,9 @@
         >
           {{ body }}
         </p>
-        <div v-if="primaryCta || secondaryCta" class="flex gap-4 flex-wrap">
-          <NuxtLink v-if="primaryCta" :to="primaryCta.to" class="btn">{{ primaryCta.label }}</NuxtLink>
-          <NuxtLink v-if="secondaryCta" :to="secondaryCta.to" class="btn btn-outline">{{ secondaryCta.label }}</NuxtLink>
+        <div v-if="primaryCta || secondaryCta" class="flex gap-3 sm:gap-4 flex-col sm:flex-row sm:flex-wrap">
+          <NuxtLink v-if="primaryCta" :to="primaryCta.to" class="btn text-center">{{ primaryCta.label }}</NuxtLink>
+          <NuxtLink v-if="secondaryCta" :to="secondaryCta.to" class="btn btn-outline text-center">{{ secondaryCta.label }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -73,14 +73,20 @@ const bgStyle = computed(() => {
 </script>
 
 <style scoped>
+/* Mobile-first: Basiswerte = iPhone; via min-width hochskaliert.
+   Ab lg (1024px) entsprechen die Werte exakt dem bisherigen Desktop-Stand. */
 .hero {
   background-color: var(--off);
 }
+.hero-inner {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
 .hero-large {
-  min-height: 720px;
+  min-height: 480px;
 }
 .hero-medium {
-  min-height: 480px;
+  min-height: 360px;
 }
 .hero-slim {
   min-height: 0;
@@ -96,41 +102,58 @@ const bgStyle = computed(() => {
   background: var(--grad-rainbow);
   opacity: 0.55;
 }
-.hero-slim .py-20 {
-  padding-top: 56px;
-  padding-bottom: 56px;
+.hero-slim .hero-inner {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 .hero-title {
   font-family: 'Helvetica Neue', sans-serif;
-  font-size: 60px;
+  font-size: 34px;
   line-height: 1.1;
   margin-bottom: 6px;
 }
 .hero-title .script {
-  font-size: 82px;
+  font-size: 46px;
   font-weight: 400;
 }
 .hero-slim .hero-title {
-  font-size: 38px;
+  font-size: 26px;
 }
 .hero-slim .hero-title .script {
-  font-size: 50px;
+  font-size: 34px;
 }
 .hero-slim .hero-en {
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.5;
   max-width: 720px;
 }
-@media (max-width: 900px) {
-  .hero-large { min-height: 560px; }
-  .hero-medium { min-height: 380px; }
-  .hero-title { font-size: 42px; }
-  .hero-title .script { font-size: 58px; }
-  .hero-slim .hero-title { font-size: 30px; }
-  .hero-slim .hero-title .script { font-size: 40px; }
-  .hero-slim .py-20 {
-    padding-top: 40px;
-    padding-bottom: 40px;
+
+/* md ≥ 768px (Tablet) */
+@media (min-width: 768px) {
+  .hero-inner {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .hero-large { min-height: 600px; }
+  .hero-medium { min-height: 420px; }
+  .hero-title { font-size: 46px; }
+  .hero-title .script { font-size: 64px; }
+  .hero-slim .hero-title { font-size: 32px; }
+  .hero-slim .hero-title .script { font-size: 42px; }
+  .hero-slim .hero-en { font-size: 17px; }
+}
+
+/* lg ≥ 1024px (Desktop — unverändert zum bisherigen Stand) */
+@media (min-width: 1024px) {
+  .hero-large { min-height: 720px; }
+  .hero-medium { min-height: 480px; }
+  .hero-title { font-size: 60px; }
+  .hero-title .script { font-size: 82px; }
+  .hero-slim .hero-title { font-size: 38px; }
+  .hero-slim .hero-title .script { font-size: 50px; }
+  .hero-slim .hero-inner {
+    padding-top: 56px;
+    padding-bottom: 56px;
   }
 }
 </style>

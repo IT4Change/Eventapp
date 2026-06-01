@@ -1,6 +1,6 @@
 <template>
   <nav class="sticky top-0 z-50 nav-bg backdrop-blur-md">
-    <div class="flex items-center justify-between px-8 py-[18px] max-w-container mx-auto gap-8">
+    <div class="flex items-center justify-between px-5 sm:px-6 lg:px-8 py-[18px] max-w-container mx-auto gap-8">
       <NuxtLink to="/" class="flex items-center gap-3 logo-link" aria-label="Soul & Bliss">
         <BrandWordmark size="md" with-tagline />
       </NuxtLink>
@@ -40,7 +40,7 @@
     </div>
 
     <div v-if="mobileOpen" class="lg:hidden mobile-menu">
-      <ul class="flex flex-col gap-1 px-8 py-6 list-none">
+      <ul class="flex flex-col gap-1 px-5 sm:px-6 py-6 list-none">
         <li v-for="link in links" :key="link.to">
           <NuxtLink
             :to="link.to"
@@ -155,15 +155,19 @@ watch(() => route.path, () => { mobileOpen.value = false })
   background: none;
   border: none;
   cursor: pointer;
-  width: 32px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
   position: relative;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .burger span {
   display: block;
   height: 2px;
-  width: 100%;
+  width: 26px;
   background: var(--ink);
   margin: 6px 0;
   transition: transform 0.25s, opacity 0.25s;

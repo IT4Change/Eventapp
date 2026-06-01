@@ -1,12 +1,11 @@
 <template>
-  <section class="newsletter text-center py-[100px]">
+  <section class="newsletter text-center py-16 sm:py-24 lg:py-[100px]">
     <div class="container-w">
       <h2
-        class="text-white font-extralight"
-        style="font-family: 'Helvetica Neue', sans-serif; font-size: 42px; margin-bottom: 8px;"
+        class="newsletter-heading text-white font-extralight text-[28px] sm:text-[36px] lg:text-[42px] mb-2"
       >
         {{ t.newsletter.form.heading.split(' ').slice(0, -1).join(' ') }}
-        <span class="script" style="font-size: 52px; font-weight: 400;">
+        <span class="script text-[36px] sm:text-[44px] lg:text-[52px] font-normal">
           {{ t.newsletter.form.heading.split(' ').slice(-1)[0] }}
         </span>
       </h2>
@@ -17,16 +16,16 @@
         {{ t.newsletter.form.body }}
       </p>
       <form
-        class="flex gap-3 max-w-[480px] mx-auto flex-wrap justify-center"
+        class="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto sm:flex-wrap justify-center"
         @submit.prevent="onSubmit"
       >
         <input
           v-model="email"
           type="email"
           :placeholder="t.newsletter.form.placeholder"
-          class="newsletter-input flex-1 min-w-[240px] px-[22px] py-[15px] text-ink text-sm rounded-full"
+          class="newsletter-input w-full sm:flex-1 sm:min-w-[240px] px-[22px] py-[15px] text-ink text-sm rounded-full"
         />
-        <button type="submit" class="btn newsletter-btn">
+        <button type="submit" class="btn newsletter-btn w-full sm:w-auto">
           {{ t.newsletter.form.submit }}
         </button>
       </form>
@@ -51,6 +50,9 @@ function onSubmit() {
     url('/img/brand/03_pattern_tile.png');
   background-size: 320px;
   color: #fff;
+}
+.newsletter-heading {
+  font-family: 'Helvetica Neue', sans-serif;
 }
 .newsletter-input {
   border: none;

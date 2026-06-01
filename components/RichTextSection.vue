@@ -1,9 +1,9 @@
 <template>
-  <section class="bg-off py-[100px]">
+  <section class="bg-off py-16 sm:py-24 lg:py-[100px]">
     <div class="container-w">
       <div
         v-if="image"
-        class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center"
+        class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-14 md:gap-20 items-center"
       >
         <div
           class="rich-image-wrap relative"
@@ -75,13 +75,14 @@ withDefaults(
 .rich-image {
   background-size: cover;
   background-position: center;
-  height: 560px;
+  height: 240px;
   border-radius: 24px;
   position: relative;
   z-index: 1;
 }
 .rich-image-wrap::after {
   content: '';
+  display: none;
   position: absolute;
   top: 22px;
   left: 22px;
@@ -92,8 +93,16 @@ withDefaults(
   z-index: 0;
   opacity: 0.5;
 }
-@media (max-width: 768px) {
-  .rich-image { height: 360px; }
-  .rich-image-wrap::after { display: none; }
+/* sm ≥ 640px */
+@media (min-width: 640px) {
+  .rich-image { height: 320px; }
+}
+/* md ≥ 768px (Versatz-Rahmen erst ab hier, da Bild dann seitlich steht) */
+@media (min-width: 768px) {
+  .rich-image-wrap::after { display: block; }
+}
+/* lg ≥ 1024px (Desktop — unverändert) */
+@media (min-width: 1024px) {
+  .rich-image { height: 560px; }
 }
 </style>

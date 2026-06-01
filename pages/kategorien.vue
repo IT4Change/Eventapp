@@ -9,17 +9,17 @@
       variant="slim"
     />
 
-    <section class="bg-off py-[100px]">
+    <section class="bg-off py-16 sm:py-24 lg:py-[100px]">
       <div class="container-w">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
           <CategoryCard v-for="cat in categories" :key="cat.key" :category="cat" />
         </div>
       </div>
     </section>
 
-    <section class="bg-mist py-[80px] text-center">
+    <section class="bg-mist py-14 sm:py-20 lg:py-[80px] text-center">
       <div class="container-w max-w-[680px]">
-        <h2 class="font-sans text-[36px] md:text-[40px] text-ink mb-4 font-extralight">
+        <h2 class="font-sans text-[28px] sm:text-[36px] md:text-[40px] text-ink mb-4 font-extralight">
           {{ t.categories.closing.title }}
         </h2>
         <p class="text-ink-soft text-lg leading-[1.7] mb-8 font-light">

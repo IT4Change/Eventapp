@@ -9,12 +9,12 @@
     </div>
     <h2
       v-if="title || titleScript"
-      class="font-sans text-[40px] md:text-[42px] text-ink mb-1.5 leading-[1.2] font-extralight"
+      class="font-sans text-[28px] sm:text-[34px] md:text-[42px] text-ink mb-1.5 leading-[1.2] font-extralight"
       :class="{ 'text-center': centered }"
     >
       <template v-if="title">{{ title }}</template>
       <br v-if="title && titleScript" />
-      <span v-if="titleScript" class="script grad-text" style="font-size: 54px;">
+      <span v-if="titleScript" class="script grad-text text-[34px] sm:text-[44px] md:text-[54px]">
         {{ titleScript }}
       </span>
     </h2>

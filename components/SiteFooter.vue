@@ -1,8 +1,8 @@
 <template>
   <footer class="bg-ink text-white/85 pt-[70px] pb-8">
     <div class="container-w">
-      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-12">
-        <div>
+      <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-x-6 gap-y-9 md:gap-12 mb-12">
+        <div class="col-span-2 md:col-span-1">
           <div class="footer-name">{{ t.brand.name }}</div>
           <p class="text-white/65 text-sm leading-[1.7] max-w-[320px] font-light">
             {{ t.footer.tagline }}

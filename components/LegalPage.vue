@@ -1,7 +1,7 @@
 <template>
-  <article class="legal-page bg-off py-[80px] md:py-[100px]">
+  <article class="legal-page bg-off py-14 sm:py-20 lg:py-[100px]">
     <div class="container-w max-w-[820px]">
-      <h1 class="font-sans text-[42px] md:text-[48px] text-ink mb-4 font-extralight">
+      <h1 class="font-sans text-[30px] sm:text-[38px] md:text-[48px] text-ink mb-4 font-extralight">
         {{ title }}
       </h1>
       <p v-if="intro" class="text-ink-soft text-lg leading-[1.7] mb-10 font-light">

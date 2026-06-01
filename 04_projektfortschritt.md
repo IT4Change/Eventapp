@@ -4,6 +4,60 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-01 — Mobile-Optimierung (iPhone/iOS)
+
+### Ausgangslage
+Die Webseite war auf Desktop gut, auf Mobilgeräten (iPhone, 375–430px) jedoch unruhig: zu große Headlines ohne Mobile-Skalierung (Hero 60/82px, diverse 40–52px hartcodiert), festes Container-Padding (32px überall), uneinheitliche Breakpoints (teils `900px`, teils `768px`/`640px`) mit einem „Loch" im Tablet-Hochformat-Bereich, sowie ein zu kleines Burger-Touch-Target (32×28px).
+
+### Ziel
+Klarere Struktur und bessere Lesbarkeit auf Mobilgeräten durch gestufte responsive Skalierung — **ohne das Desktop-Erscheinungsbild zu verändern**. Plandokument: [05_mobile-optimierung.md](05_mobile-optimierung.md).
+
+**User-Entscheidungen:** (1) Breakpoint-Stufen statt clamp, (2) Breakpoints projektweit auf Tailwind-Standard (640/768/1024) vereinheitlichen, (3) Desktop (≥1024px) bleibt 1:1.
+
+### Was umgesetzt wurde
+
+**Architektur-Konvention (neu, dokumentiert in 05):** Komponenten sind jetzt **mobile-first** — Basiswerte = iPhone, via `min-width`/`sm:`/`md:`/`lg:` hochskaliert. Alle `@media (max-width: 900px)` wurden entfernt; der bisherige Desktop-Wert ist zum `lg:`-Wert geworden, sodass ≥1024px unverändert bleibt.
+
+**Global** — [assets/css/main.css](assets/css/main.css)
+- `.container-w`: `px-8` → `px-5 sm:px-6 lg:px-8`
+- `.section-title` `46px` → `30 / sm:36 / lg:46`; `.section-intro` & `.section-eyebrow` gestuft
+
+**Navigation/Branding**
+- [SiteNav.vue](components/SiteNav.vue): Burger auf 44×44px Touch-Target, Nav-Padding gestuft
+- [BrandWordmark.vue](components/BrandWordmark.vue): Nav-Logo (`md`) `52 → 64 → 78px` gegen Overflow auf schmalen Screens
+- [SiteFooter.vue](components/SiteFooter.vue): Link-Spalten mobil 2-spaltig, Brand-Block volle Breite
+
+**Hero** — [HeroSection.vue](components/HeroSection.vue)
+- `900px`-Query durch mobile-first `min-width`-Stufen ersetzt (Titel 34/46/60, Script 46/64/82, Min-Höhen, Padding)
+- CTA-Buttons mobil gestapelt + volle Breite (`w-full sm:w-auto`)
+
+**Event-Liste**
+- [DayBlock.vue](components/DayBlock.vue): einspaltig bis `md`, `.day-number` 44/52/64
+- [EventListItem.vue](components/EventListItem.vue): kompaktes Raster als Basis, breit erst ab `md`
+- [EventFilter.vue](components/EventFilter.vue): Labels mobil gestapelt, Pills/Inputs ≥ Tap-Höhe, Ort-Select volle Breite
+
+**Content-Sektionen**
+- [RichTextSection.vue](components/RichTextSection.vue): Bildhöhe 240/320/560, Versatz-Rahmen erst ab `md`
+- [RichTextBody.vue](components/RichTextBody.vue), [TriCardSection.vue](components/TriCardSection.vue): Titel/Script/Icon/Gap gestuft (inline-styles → responsive Klassen)
+- [NewsletterSection.vue](components/NewsletterSection.vue): Heading gestuft, Formular mobil gestapelt + volle Breite
+- [CategoryCard.vue](components/CategoryCard.vue): Bildhöhe 200/240; [QuoteBand.vue](components/QuoteBand.vue): doppeltes Padding entfernt
+
+**Seiten & Legal**
+- Section-Paddings & Closing-Headlines gestuft in [index](pages/index.vue), [vision](pages/vision.vue), [kategorien](pages/kategorien.vue), [kontakt](pages/kontakt.vue), [newsletter](pages/newsletter.vue)
+- [kategorien.vue](pages/kategorien.vue): Cards 2-spaltig ab `sm`
+- [LegalPage.vue](components/LegalPage.vue), [LoginForm.vue](components/LoginForm.vue): Mobile-Paddings/Headline angeglichen
+
+### Verifikation
+- Dev-Server (Port 3000) liefert alle 8 Routen mit HTTP 200
+- Gerenderte HTML enthält die neuen Klassen (`hero-inner`, `px-5 sm:px-6 lg:px-8`, `flex-col sm:flex-row`); keine echten Fehler im Output (nur `_errors` im Nuxt-Payload-Schema)
+- **Ausstehend (User):** visuelle Browser-Prüfung bei 375/390/430px und Desktop-Regression ≥1280px
+
+### Offene Punkte / nächste Schritte
+- Geschmacksfragen mit gewählten Defaults (leicht umkehrbar): CTA-Buttons mobil volle Breite (aktiv), `kategorien` 2-spaltig ab `sm` (aktiv)
+- EN-Sprachversion / i18n weiterhin offen (unverändert aus früheren Sessions)
+
+---
+
 ## 2026-05-29 — Webhook-Deployment auf master umgestellt
 
 ### Ausgangslage

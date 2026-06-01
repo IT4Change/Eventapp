@@ -80,10 +80,11 @@ const hasActiveFilters = computed(
   border: 1px solid rgba(46, 90, 87, 0.08);
 }
 
+/* Mobile-first: Label über den Controls gestapelt; ab md zweispaltig. */
 .filter-row {
   display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   align-items: center;
 }
 .filter-label {
@@ -101,7 +102,7 @@ const hasActiveFilters = computed(
 }
 
 .filter-pill {
-  padding: 7px 16px;
+  padding: 9px 16px;
   border-radius: 999px;
   font-size: 12px;
   letter-spacing: 1.5px;
@@ -138,7 +139,7 @@ const hasActiveFilters = computed(
   letter-spacing: 1.5px;
 }
 .date-input {
-  padding: 7px 12px;
+  padding: 9px 12px;
   border-radius: 999px;
   font-size: 13px;
   border: 1.5px solid var(--ink-soft);
@@ -153,7 +154,7 @@ const hasActiveFilters = computed(
 }
 
 .location-select {
-  padding: 7px 16px;
+  padding: 9px 16px;
   border-radius: 999px;
   font-size: 13px;
   border: 1.5px solid var(--ink-soft);
@@ -161,7 +162,7 @@ const hasActiveFilters = computed(
   color: var(--ink);
   cursor: pointer;
   font-family: inherit;
-  min-width: 240px;
+  width: 100%;
 }
 .clear-btn {
   font-size: 12px;
@@ -177,10 +178,15 @@ const hasActiveFilters = computed(
 }
 .clear-btn:hover { color: var(--coral); }
 
-@media (max-width: 640px) {
+/* md ≥ 768px (Tablet/Desktop — entspricht bisherigem Layout) */
+@media (min-width: 768px) {
   .filter-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
+    grid-template-columns: 110px 1fr;
+    gap: 18px;
+  }
+  .location-select {
+    width: auto;
+    min-width: 240px;
   }
 }
 </style>
