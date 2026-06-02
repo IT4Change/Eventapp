@@ -7,6 +7,7 @@
         :title="t.postEvent.login.title"
         :title-script="t.postEvent.login.titleScript"
         :paragraphs="t.postEvent.login.paragraphs"
+        accent-body
         centered
       />
 

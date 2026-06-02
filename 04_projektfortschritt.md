@@ -4,6 +4,120 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Teilen-Seite: Akzent-Absätze, neue E-Mail & Outline-Button
+
+### Ausgangslage
+Die Teilen-Seite (zwei Bereiche „Variante 1 · E-Mail" und „Variante 2 · Login") war inhaltlich fertig, sollte aber optisch nachgeschärft werden.
+
+### Was umgesetzt wurde
+
+**Rote Akzent-Formatierung für die Fließtexte** — [RichTextBody.vue](components/RichTextBody.vue), [RichTextSection.vue](components/RichTextSection.vue), [teilen.vue](pages/teilen.vue), [LoginForm.vue](components/LoginForm.vue)
+- `RichTextBody` um Option `accentBody` erweitert: rendert die Absätze in coral/kursiv/Serif (wie der Hero-Akzent); `RichTextSection` reicht sie durch
+- Aktiviert für die Absätze in Variante 1 (E-Mail) und Variante 2 (Login-Intro)
+
+**Neue E-Mail-Adresse** — [content/de.ts](content/de.ts)
+- CTA unter Variante 1: `events@soulandbliss.de` → `veranstaltung-teilen@soul-and-bliss.de` (Label + `mailto:`)
+
+**E-Mail-Button als großer Outline-Button** — [main.css](assets/css/main.css), [RichTextBody.vue](components/RichTextBody.vue), [RichTextSection.vue](components/RichTextSection.vue), [teilen.vue](pages/teilen.vue)
+- Neue globale Button-Variante `.btn-mail`: transparenter Hintergrund mit 1,5px-Umrandung in `--ink-soft` (Farbe der Logo-Tagline), Schrift klein geschrieben (`normal-case`), normale Stärke, dunkle Farbe `--ink-soft`, Hover füllt mit `--ink-soft`
+- Größe gestuft 16px → 18px → 20px (mobil bewusst kleiner, damit die lange Adresse bei 375px nicht überläuft)
+- Durchreichung über neue Option `ctaClass` in `RichTextBody`/`RichTextSection` (andere Buttons unverändert)
+
+### Verifikation
+- `/teilen` HTTP 200; 4 coral-Absätze im HTML; neue `mailto`-Adresse aktiv (alte weg); `.btn-mail` im kompilierten CSS mit `background: transparent`, `border: 1.5px solid var(--ink-soft)`, `text-transform: none`, `font-weight: 400`
+
+### Offene Punkte / nächste Schritte
+- E-Mail-Button bei 375px visuell gegenprüfen (einzeilig); SEO-Felder der Teilen-Seite weiterhin offen
+
+---
+
+## 2026-06-02 — Kategorie-Tags (Texte + einfarbige Farben) & neue Workflow-Regel
+
+### Ausgangslage
+Die Kategorie-Tags (oben links im Bild, sowie in Event-Liste und Filter) zeigten Kurzlabels („Musik", „Heilsam", „Inspiration", „Retreat") und waren mit Farbverläufen hinterlegt.
+
+### Ziel
+Tags sollen den Überschriften entsprechen und einfarbig sein (eine Palettenfarbe je Kategorie, keine Verläufe).
+
+### Was umgesetzt wurde
+
+**Tag-Texte = Überschriften** — [data/categories.ts](data/categories.ts)
+- `shortLabel` an `label` angeglichen: Tanz (unverändert), Musik → „Singen & Musik", Heilsam → „Heilsame Angebote", Inspiration → „Inspiration & Lernen", Retreat → „Mehrtägige Events"
+
+**Einfarbige Tags statt Verläufe** — [CategoryCard.vue](components/CategoryCard.vue), [EventListItem.vue](components/EventListItem.vue), [EventFilter.vue](components/EventFilter.vue)
+- Pill-Farbe wird jetzt aus `category.accent` abgeleitet (`pill-${accent}`) statt aus `gradient`
+- Neue Solid-Pill-Klassen (`.pill-coral/-orange/-gold/-teal/-blue/-green`) mit je einer Palettenfarbe; Filter-Pills: Outline in Farbe + Aktiv-Zustand als Vollfarbe (kein Verlauf mehr)
+- Events-Seite zieht Tags/Farben automatisch aus den Kategoriedaten → dort ebenfalls aktualisiert
+
+**Farb-Zuordnung (nach Tausch durch User)**
+- Tanz = Orange · Singen & Musik = Teal · Heilsame Angebote = Blau · Inspiration & Lernen = Grün · Mehrtägige Events = Coral
+
+**Neue Workflow-Regel in [CLAUDE.md](CLAUDE.md)**
+- „Bei Unklarheiten immer zuerst nachfragen, bevor Änderungen vorgenommen werden" als ersten Punkt der Workflow-Erwartungen ergänzt
+
+### Verifikation
+- Kategorien & Events: HTTP 200; neue Tag-Texte vorhanden; nur noch einfarbige `pill-*`-Klassen, keine Verlaufs-Pills mehr; `accent`-Tausch korrekt in den Daten
+
+### Offene Punkte / nächste Schritte
+- `gradient`-Feld in `data/categories.ts` wird für Tags nicht mehr genutzt (nur noch `accent`); bei Bedarf später aufräumen
+- Lange Tags („Inspiration & Lernen") überdecken etwas mehr Bildfläche — Tag-Schrift ggf. leicht verkleinern, falls gewünscht
+
+---
+
+## 2026-06-02 — Route /teilen, Menü-/Footer-Anpassungen, Seitenüberarbeitung & einheitliche Hero-Formatierung
+
+### Ausgangslage
+Nach Mobile-Optimierung und Wording-Umstellung folgten mehrere inhaltliche/strukturelle Wünsche: Umbenennung der „Events posten"-Seite, konsistente Menüstruktur, Überarbeitung der Teilen-Seite nach Seiten-Template sowie eine einheitlichere, übersichtlichere Hero-Darstellung über alle Seiten.
+
+### Ziel
+Klarere Navigation, eine sinnvoll gegliederte Teilen-Seite und ein einheitliches Hero-Format (rote Akzent-Formatierung für den Beschreibungstext statt separater englischer Subtitle-Zeilen).
+
+### Was umgesetzt wurde
+
+**Route umbenannt: `/events-posten` → `/teilen`**
+- Seitendatei via `git mv` → [pages/teilen.vue](pages/teilen.vue); alle internen Links angepasst ([SiteNav.vue](components/SiteNav.vue), Footer-Link & CTA in [content/de.ts](content/de.ts), [index.vue](pages/index.vue), [vision.vue](pages/vision.vue)). Alte Route liefert 404.
+
+**Einheitliche Menüstruktur** — [content/de.ts](content/de.ts)
+- Top-Nav: `nav.postEvent` „Events teilen" → „teilen" (wird per CSS als „TEILEN" dargestellt)
+- Footer „Entdecken": „Wochenansicht" → „Events"; Footer „Mitmachen": „Events posten" → „Teilen"
+
+**Footer-Branding** — [content/de.ts](content/de.ts), [SiteFooter.vue](components/SiteFooter.vue)
+- Footer-Tagline ersetzt durch zweizeilig „Bewusste Veranstaltungen / aus der Region Rhein · Main · Neckar" (mit `whitespace-pre-line`)
+- „Soul & Bliss"-Schriftzug (`.footer-name`) vergrößert: 40px → 48px (mobil) / 54px (ab lg)
+
+**Teilen-Seite überarbeitet** (nach Seiten-Template) — [pages/teilen.vue](pages/teilen.vue), [content/de.ts](content/de.ts)
+- Hero-Bereich auf Wunsch komplett entfernt; Seite startet direkt mit den zwei Bereichen
+- **Bereich 1 „Variante 1 · Unkompliziert"**: Event per E-Mail teilen, mit `mailto:`-CTA (`events@soulandbliss.de`)
+- **Bereich 2 „Variante 2 · Mit eigenem Konto"**: Login/Registrieren-Formular mit Intro-Kopf + Mockup-Hinweis
+- Alten `explainer`-Content entfernt; Kernbotschaft lebt als Meta-Description weiter
+
+**Newsletter-Hero** — [content/de.ts](content/de.ts), [newsletter.vue](pages/newsletter.vue)
+- Eyebrow „Once a week" → „Einmal die Woche"; rote Zeile „Your week, curated" entfernt
+- Body neu: „Jeden Sonntagabend ein Newsletter, der die Veranstaltungen der kommenden Woche zeigt."
+
+**Einheitliche Hero-Formatierung über alle Seiten** — [HeroSection.vue](components/HeroSection.vue) + alle Hero-Seiten
+- Neue Option `accentBody`: rendert den Hero-Body in coral/kursiv/Serif (die bisherige „rote" Subtitle-Formatierung)
+- Auf Events, Vision, Kategorien, Kontakt, Newsletter: separate rote Subtitle-Zeile entfernt, stattdessen Body in coral
+- Kategorien zusätzlich: „Categories"-Zeile raus, Satz neu „Fünf Felder, in denen sich Veranstaltungen der bewussten Szene Rhein-Main-Neckar bewegen."
+- Vision-Zitat („Es geschieht etwas …") als `vision.quote` erhalten und im selben coral-Format oberhalb der Abschluss-Buttons eingebaut
+- Ungenutzte `subtitleEn`-Strings aus `content/de.ts` entfernt (keine Leichen)
+
+**Generische Komponenten erweitert (statt dupliziert)**
+- [HeroSection.vue](components/HeroSection.vue): `title` optional (kein leeres `<h1>` mehr), neue Option `accentBody`
+- [RichTextBody.vue](components/RichTextBody.vue): CTA rendert externe Links (`mailto:`/`tel:`/`http`) als `<a>`, interne via `NuxtLink`
+- [LoginForm.vue](components/LoginForm.vue): optionaler Intro-Kopf (aus `postEvent.login`) + Mockup-Hinweis
+
+### Verifikation
+- Alle Routen HTTP 200 (`/`, `/vision`, `/kategorien`, `/kontakt`, `/newsletter`, `/teilen`); `/events-posten` → 404
+- Stichproben im gerenderten HTML: neue Texte/Labels vorhanden, rote Subtitle-Zeilen entfernt, Body coral-formatiert, `mailto`-CTA korrekt, keine verwaisten `subtitle-en`/`explainer`-Referenzen
+
+### Offene Punkte / nächste Schritte
+- SEO-Felder der Teilen-Seite (Meta Title/Keywords aus dem Template) noch nicht vollständig befüllt
+- „Conscious Szene"-Formulierungen auf der Vision-Seite (Body + about/pillars) weiterhin bewusst unverändert — bei Bedarf separat umstellen
+- E-Mail-Adresse `events@soulandbliss.de` ist gesetzt — finale Adresse beim User bestätigen
+
+---
+
 ## 2026-06-01 — Wording „Conscious" → „Bewusste Veranstaltungen"
 
 ### Ausgangslage

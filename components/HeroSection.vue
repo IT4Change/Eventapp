@@ -24,7 +24,9 @@
         </p>
         <p
           v-if="body"
-          class="text-lg leading-[1.8] text-ink-soft my-[26px] mb-9 max-w-[560px] font-light"
+          :class="accentBody
+            ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.6] my-[22px] mb-9 max-w-[600px]'
+            : 'text-lg leading-[1.8] text-ink-soft my-[26px] mb-9 max-w-[560px] font-light'"
         >
           {{ body }}
         </p>
@@ -52,6 +54,7 @@ const props = withDefaults(
     titleScript?: string
     subtitleEn?: string
     body?: string
+    accentBody?: boolean
     image?: string
     variant?: 'large' | 'medium' | 'slim'
     primaryCta?: CtaLink

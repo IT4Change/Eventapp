@@ -7,7 +7,7 @@
       <div class="flex items-center gap-3 flex-wrap mb-1">
         <span
           class="category-pill"
-          :class="`pill-${category.gradient}`"
+          :class="`pill-${category.accent}`"
         >
           {{ category.shortLabel }}
         </span>
@@ -88,11 +88,13 @@ const location = computed(() => getLocationFor(props.event))
   padding: 3px 12px;
   border-radius: 999px;
 }
-.pill-warm     { background: var(--grad-warm); }
-.pill-rainbow  { background: var(--grad-rainbow); }
-.pill-ceremony { background: linear-gradient(120deg, var(--orange), var(--teal)); }
-.pill-cool     { background: var(--grad-cool); }
-.pill-nature   { background: linear-gradient(120deg, var(--green), var(--teal)); }
+/* einfarbige Tags — eine Palettenfarbe je Kategorie (kein Verlauf) */
+.pill-coral  { background: var(--coral); }
+.pill-orange { background: var(--orange); }
+.pill-gold   { background: var(--gold); }
+.pill-teal   { background: var(--teal); }
+.pill-blue   { background: var(--blue); }
+.pill-green  { background: var(--green); }
 
 .price-tag::before {
   content: '·';

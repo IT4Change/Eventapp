@@ -8,7 +8,7 @@
           :key="cat.key"
           class="filter-pill"
           :class="[
-            `pill-${cat.gradient}`,
+            `pill-${cat.accent}`,
             { active: selectedCategories.includes(cat.key) },
           ]"
           @click="toggleCategory(cat.key)"
@@ -117,17 +117,20 @@ const hasActiveFilters = computed(
 }
 .filter-pill:hover { transform: translateY(-1px); }
 
-.pill-warm     { border-color: var(--coral); color: var(--coral); }
-.pill-rainbow  { border-color: var(--orange); color: var(--orange); }
-.pill-ceremony { border-color: var(--teal); color: var(--teal); }
-.pill-cool     { border-color: var(--blue); color: var(--blue); }
-.pill-nature   { border-color: var(--green); color: var(--green); }
+/* einfarbig: Outline in Palettenfarbe, Aktiv-Zustand als Vollfarbe (kein Verlauf) */
+.pill-coral  { border-color: var(--coral); color: var(--coral); }
+.pill-orange { border-color: var(--orange); color: var(--orange); }
+.pill-gold   { border-color: var(--gold); color: var(--gold); }
+.pill-teal   { border-color: var(--teal); color: var(--teal); }
+.pill-blue   { border-color: var(--blue); color: var(--blue); }
+.pill-green  { border-color: var(--green); color: var(--green); }
 
-.pill-warm.active     { background: var(--grad-warm); color: #fff; border-color: transparent; }
-.pill-rainbow.active  { background: var(--grad-rainbow); color: #fff; border-color: transparent; }
-.pill-ceremony.active { background: linear-gradient(120deg, var(--orange), var(--teal)); color: #fff; border-color: transparent; }
-.pill-cool.active     { background: var(--grad-cool); color: #fff; border-color: transparent; }
-.pill-nature.active   { background: linear-gradient(120deg, var(--green), var(--teal)); color: #fff; border-color: transparent; }
+.pill-coral.active  { background: var(--coral); color: #fff; border-color: transparent; }
+.pill-orange.active { background: var(--orange); color: #fff; border-color: transparent; }
+.pill-gold.active   { background: var(--gold); color: #fff; border-color: transparent; }
+.pill-teal.active   { background: var(--teal); color: #fff; border-color: transparent; }
+.pill-blue.active   { background: var(--blue); color: #fff; border-color: transparent; }
+.pill-green.active  { background: var(--green); color: #fff; border-color: transparent; }
 
 .date-field {
   display: inline-flex;

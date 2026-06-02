@@ -4,8 +4,8 @@
       :eyebrow="t.contact.hero.eyebrow"
       :title="t.contact.hero.title"
       :title-script="t.contact.hero.titleScript"
-      :subtitle-en="t.contact.hero.subtitleEn"
       :body="t.contact.hero.body"
+      accent-body
       image="/img/brand/07_watercolor_splash.png"
     />
 

@@ -4,8 +4,8 @@
       :eyebrow="t.newsletter.hero.eyebrow"
       :title="t.newsletter.hero.title"
       :title-script="t.newsletter.hero.titleScript"
-      :subtitle-en="t.newsletter.hero.subtitleEn"
       :body="t.newsletter.hero.body"
+      accent-body
     />
 
     <NewsletterSection />

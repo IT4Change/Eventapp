@@ -4,8 +4,8 @@
       :eyebrow="t.home.hero.eyebrow"
       :title="t.home.hero.title"
       :title-script="t.home.hero.titleScript"
-      :subtitle-en="t.home.hero.subtitleEn"
       :body="t.home.hero.body"
+      accent-body
       variant="slim"
     />
 

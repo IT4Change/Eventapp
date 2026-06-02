@@ -4,8 +4,8 @@
       :eyebrow="t.vision.hero.eyebrow"
       :title="t.vision.hero.title"
       :title-script="t.vision.hero.titleScript"
-      :subtitle-en="t.vision.hero.subtitleEn"
       :body="t.vision.hero.body"
+      accent-body
       variant="slim"
     />
 
@@ -28,7 +28,10 @@
     />
 
     <section class="bg-off py-14 sm:py-20 lg:py-[80px] text-center">
-      <div class="container-w">
+      <div class="container-w max-w-[760px]">
+        <p class="italic font-serif text-coral text-[19px] sm:text-[22px] leading-[1.5] mb-10">
+          {{ t.vision.quote }}
+        </p>
         <div class="flex gap-4 flex-wrap justify-center">
           <NuxtLink to="/teilen" class="btn">{{ t.cta.postEvent }}</NuxtLink>
           <NuxtLink to="/newsletter" class="btn btn-outline">{{ t.cta.subscribe }}</NuxtLink>

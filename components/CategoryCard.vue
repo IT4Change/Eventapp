@@ -1,7 +1,7 @@
 <template>
   <article class="category-card" :class="`card-${category.gradient}`">
     <div class="card-image" :style="{ backgroundImage: `url('${category.image}')` }">
-      <span class="card-pill" :class="`pill-${category.gradient}`">
+      <span class="card-pill" :class="`pill-${category.accent}`">
         {{ category.shortLabel }}
       </span>
     </div>
@@ -68,11 +68,13 @@ const t = useContent()
   padding: 5px 14px;
   border-radius: 999px;
 }
-.pill-warm     { background: var(--grad-warm); }
-.pill-rainbow  { background: var(--grad-rainbow); }
-.pill-ceremony { background: linear-gradient(120deg, var(--orange), var(--teal)); }
-.pill-cool     { background: var(--grad-cool); }
-.pill-nature   { background: linear-gradient(120deg, var(--green), var(--teal)); }
+/* einfarbige Tags — eine Palettenfarbe je Kategorie (kein Verlauf) */
+.pill-coral  { background: var(--coral); }
+.pill-orange { background: var(--orange); }
+.pill-gold   { background: var(--gold); }
+.pill-teal   { background: var(--teal); }
+.pill-blue   { background: var(--blue); }
+.pill-green  { background: var(--green); }
 
 .card-includes {
   font-size: 12px;

@@ -164,6 +164,7 @@ Eventapp/
 
 ## Workflow-Erwartungen
 
+- **Bei Unklarheiten immer zuerst nachfragen** (WICHTIG): Wenn eine Anweisung mehrdeutig ist, mehrere sinnvolle Interpretationen zulässt oder wichtige Details fehlen, **erst Rückfrage stellen — dann erst Änderungen vornehmen**. Keine Annahmen über die Intention treffen und einfach drauflos ändern. Lieber einmal kurz klären als eine falsche Umsetzung, die wieder rückgängig gemacht werden muss.
 - **Plan vor Implementierung** bei nicht-trivialen Vorhaben (3+ Dateien oder neue Architektur)
 - **TypeScript-Strict**: Interfaces aus `data/types.ts` verwenden, keine `any` ohne Begründung
 - **Keine Backwards-Compat-Reste**: gelöschte Komponenten/Routen vollständig entfernen, nicht als Leichen behalten

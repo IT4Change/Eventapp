@@ -15,10 +15,10 @@ export const categories: Category[] = [
   {
     key: 'music',
     label: 'Singen & Musik',
-    shortLabel: 'Musik',
+    shortLabel: 'Singen & Musik',
     gradient: 'cool',
     image: '/img/brand/08_drums_instruments.png',
-    accent: 'blue',
+    accent: 'teal',
     description:
       'Mantra-Singen, Sound Journeys, Kirtan und gemeinsames Musizieren. Die Stimme als Instrument, der Klang als Brücke — zurück zu dir und in die Gemeinschaft.',
     includes: ['Singkreis', 'Konzert'],
@@ -26,10 +26,10 @@ export const categories: Category[] = [
   {
     key: 'healing',
     label: 'Heilsame Angebote',
-    shortLabel: 'Heilsam',
+    shortLabel: 'Heilsame Angebote',
     gradient: 'ceremony',
     image: '/img/brand/06_ceremony_motif.png',
-    accent: 'teal',
+    accent: 'blue',
     description:
       'Zeremonien, Atemarbeit, Körperarbeit und energetische Sessions. Begleitete Räume für Integration, Loslassen und Heilung — sanft gehalten, mit Respekt für deinen Prozess.',
     includes: ['Zeremonien', 'Körperarbeit', 'Massagen', 'Breathwork'],
@@ -37,10 +37,10 @@ export const categories: Category[] = [
   {
     key: 'inspiration',
     label: 'Inspiration & Lernen',
-    shortLabel: 'Inspiration',
+    shortLabel: 'Inspiration & Lernen',
     gradient: 'warm',
     image: '/img/brand/02_mandala_motif.png',
-    accent: 'coral',
+    accent: 'green',
     description:
       'Vorträge, Workshops und Kreise, in denen neues Wissen, alte Weisheit und gelebte Erfahrung zusammenkommen. Für Menschen, die ihren Horizont erweitern und sich bewusst weiterentwickeln möchten.',
     includes: ['Workshops', 'Vorträge', 'Coachings'],
@@ -48,10 +48,10 @@ export const categories: Category[] = [
   {
     key: 'retreat',
     label: 'Mehrtägige Events',
-    shortLabel: 'Retreat',
+    shortLabel: 'Mehrtägige Events',
     gradient: 'nature',
     image: '/img/brand/05_nature_scene.png',
-    accent: 'green',
+    accent: 'coral',
     description:
       'Retreats, Festivals und längere Auszeiten in Natur und Gemeinschaft. Zeit, in der Tiefe entstehen kann — fern vom Alltag, eingebettet in einen klaren Container.',
     includes: ['Festivals', 'Retreats'],

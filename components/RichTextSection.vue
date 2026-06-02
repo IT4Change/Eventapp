@@ -23,6 +23,8 @@
             :paragraphs="paragraphs"
             :quote="quote"
             :cta="cta"
+            :accent-body="accentBody"
+            :cta-class="ctaClass"
           />
         </div>
       </div>
@@ -36,6 +38,8 @@
           :quote="quote"
           :cta="cta"
           :centered="centered"
+          :accent-body="accentBody"
+          :cta-class="ctaClass"
         />
       </div>
     </div>
@@ -60,6 +64,8 @@ withDefaults(
     imageSide?: 'left' | 'right'
     centered?: boolean
     cta?: CtaLink
+    accentBody?: boolean
+    ctaClass?: string
   }>(),
   {
     imageSide: 'left',

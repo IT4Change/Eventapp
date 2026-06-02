@@ -7,6 +7,8 @@
       :title-script="t.postEvent.email.titleScript"
       :paragraphs="t.postEvent.email.paragraphs"
       :cta="t.postEvent.email.cta"
+      cta-class="btn-mail"
+      accent-body
       centered
     />
 

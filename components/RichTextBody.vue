@@ -28,7 +28,9 @@
     <p
       v-for="(p, i) in paragraphs"
       :key="i"
-      class="text-base text-ink-soft mb-5 leading-[1.8] font-light"
+      :class="accentBody
+        ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.6] mb-4'
+        : 'text-base text-ink-soft mb-5 leading-[1.8] font-light'"
     >
       {{ p }}
     </p>
@@ -39,8 +41,8 @@
     >
       {{ quote }}
     </blockquote>
-    <a v-if="cta && isExternal(cta.to)" :href="cta.to" class="btn">{{ cta.label }}</a>
-    <NuxtLink v-else-if="cta" :to="cta.to" class="btn">{{ cta.label }}</NuxtLink>
+    <a v-if="cta && isExternal(cta.to)" :href="cta.to" class="btn" :class="ctaClass">{{ cta.label }}</a>
+    <NuxtLink v-else-if="cta" :to="cta.to" class="btn" :class="ctaClass">{{ cta.label }}</NuxtLink>
   </div>
 </template>
 
@@ -60,6 +62,8 @@ withDefaults(
     quote?: string
     cta?: CtaLink
     centered?: boolean
+    accentBody?: boolean
+    ctaClass?: string
   }>(),
   { centered: false },
 )

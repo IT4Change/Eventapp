@@ -26,7 +26,6 @@ export default {
       eyebrow: 'Aktuelle Events · Rhein · Main · Neckar',
       title: 'Eine kuratierte',
       titleScript: 'Wochenübersicht',
-      subtitleEn: '— Bewusste Veranstaltungen aus der Region —',
       body:
         'Eine kuratierte Wochenübersicht von bewussten Veranstaltungen in der Region Rhein-Main-Neckar. Tanz, Heilsame Angebote, Musik und mehr — an einem Ort, immer aktuell.',
       primaryCta: 'Zu den Events',
@@ -51,11 +50,11 @@ export default {
       eyebrow: 'Unsere Vision · Our Vision',
       title: 'Bewusste Räume',
       titleScript: 'gemeinsam finden',
-      subtitleEn:
-        '„Es geschieht etwas, wenn Menschen sich bewusst begegnen — und genau das wollen wir besser möglich machen."',
       body:
         'Soul & Bliss ist eine Plattform für die Conscious Szene in Rhein-Main-Neckar. Wir sammeln, kuratieren und teilen, was in unserer Region an bewussten Veranstaltungen geschieht.',
     },
+    quote:
+      '„Es geschieht etwas, wenn Menschen sich bewusst begegnen — und genau das wollen wir besser möglich machen."',
     about: {
       eyebrow: 'Warum es uns gibt',
       title: 'Unsere Motivation für',
@@ -105,9 +104,8 @@ export default {
       eyebrow: 'Kategorien',
       title: 'Was du bei uns',
       titleScript: 'findest',
-      subtitleEn: '— Categories —',
       body:
-        'Fünf Felder, in denen sich die Conscious Szene Rhein-Main-Neckar bewegt.',
+        'Fünf Felder, in denen sich Veranstaltungen der bewussten Szene Rhein-Main-Neckar bewegen.',
     },
     includesLabel: 'beinhaltet',
     closing: {
@@ -130,7 +128,7 @@ export default {
         'Der schnellste Weg: Schick uns die Eckdaten deiner Veranstaltung — Titel, Datum, Ort, eine kurze Beschreibung und gern ein Bild. Wir stellen dein Event für dich in die Wochenübersicht.',
         'Ideal, wenn du nur gelegentlich ein Event teilst und dir kein eigenes Konto anlegen möchtest.',
       ],
-      cta: { label: 'events@soulandbliss.de', to: 'mailto:events@soulandbliss.de' },
+      cta: { label: 'veranstaltung-teilen@soul-and-bliss.de', to: 'mailto:veranstaltung-teilen@soul-and-bliss.de' },
     },
     login: {
       eyebrow: 'Variante 2 · Mit eigenem Konto',
@@ -171,7 +169,6 @@ export default {
       eyebrow: 'Kontakt · Get in touch',
       title: 'Wir freuen uns',
       titleScript: 'von dir zu hören',
-      subtitleEn: '— We\'d love to hear from you —',
       body:
         'Fragen, Ideen, Feedback, Kollaborationen — alles ist willkommen. Wir antworten meistens innerhalb weniger Tage.',
     },
@@ -195,12 +192,11 @@ export default {
   },
   newsletter: {
     hero: {
-      eyebrow: 'Newsletter · Once a week',
+      eyebrow: 'Newsletter · Einmal die Woche',
       title: 'Die Woche',
       titleScript: 'kompakt',
-      subtitleEn: '— Your week, curated —',
       body:
-        'Jeden Sonntagabend ein kurzer Brief: die Highlights der kommenden Woche, ein Gedanke zum Mitnehmen, ein Hinweis auf neu hinzugekommene Events.',
+        'Jeden Sonntagabend ein Newsletter, der die Veranstaltungen der kommenden Woche zeigt.',
     },
     form: {
       heading: 'Bleib in Verbindung',

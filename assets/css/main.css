@@ -70,6 +70,21 @@
     box-shadow: 0 8px 20px rgba(84, 192, 180, 0.3);
   }
 
+  /* E-Mail-Variante: transparent mit Umrandung, klein geschrieben, größer,
+     normale Schriftstärke, Farbe wie die Tagline (--ink-soft); mobil ohne Overflow gestuft */
+  .btn-mail {
+    @apply px-6 sm:px-10 py-4 sm:py-5 text-base sm:text-lg lg:text-xl tracking-normal normal-case font-normal;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--ink-soft);
+  }
+  .btn-mail:hover {
+    background: var(--ink-soft);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(74, 118, 114, 0.25);
+  }
+
   .section-eyebrow {
     @apply text-[13px] tracking-[3px] lg:tracking-[5px] uppercase mb-4 font-medium text-center;
   }
