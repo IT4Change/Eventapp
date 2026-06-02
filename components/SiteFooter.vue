@@ -4,7 +4,7 @@
       <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-x-6 gap-y-9 md:gap-12 mb-12">
         <div class="col-span-2 md:col-span-1">
           <div class="footer-name">{{ t.brand.name }}</div>
-          <p class="text-white/65 text-sm leading-[1.7] max-w-[320px] font-light">
+          <p class="text-white/65 text-sm leading-[1.7] max-w-[320px] font-light whitespace-pre-line">
             {{ t.footer.tagline }}
           </p>
         </div>
@@ -45,9 +45,14 @@ const t = useContent()
 .footer-name {
   font-family: 'Brush Script MT', 'Lucida Handwriting', 'Snell Roundhand', cursive;
   font-style: italic;
-  font-size: 40px;
+  font-size: 48px;
   color: #fff;
   line-height: 1;
   margin-bottom: 16px;
+}
+@media (min-width: 1024px) {
+  .footer-name {
+    font-size: 54px;
+  }
 }
 </style>

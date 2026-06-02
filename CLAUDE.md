@@ -115,6 +115,25 @@ Eventapp/
 
 ---
 
+## Mobile-First-Pflicht (WICHTIG)
+
+**Jede Änderung an Layout, Komponenten oder Seiten muss für Mobilgeräte — insbesondere iPhone/iOS (Viewports 375–430px) — optimiert sein.** Das gilt für neue Features genauso wie für Refinements. Mobile ist nicht optional und nicht „später" — es ist Teil der Definition von „fertig".
+
+**Verbindliche Konventionen** (Details & Historie in [05_mobile-optimierung.md](05_mobile-optimierung.md)):
+
+- **Mobile-first denken**: Basiswerte (ohne Präfix) = iPhone; via `sm:`/`md:`/`lg:` bzw. `min-width`-Queries nach oben skalieren. **Niemals** Desktop-Werte als Basis mit `max-width`-Queries nach unten.
+- **Einheitliche Breakpoints**: nur Tailwind-Standard `sm` 640 / `md` 768 / `lg` 1024. Keine Sonder-Breakpoints (z.B. 900px) einführen.
+- **Übergroße Headlines** bekommen das Muster `base → md: → lg:`, wobei der `lg:`-Wert der Desktop-Größe entspricht (Desktop ≥1024px soll stabil bleiben).
+- **Keine hartcodierten px-Schriftgrößen/Höhen ohne responsive Stufung** und keine festen `px`-Spaltenraster ohne mobilen Einspalt-Fallback.
+- **Touch-Targets ≥ 44×44px** (Buttons, Burger, Filter-Pills, Links, Inputs).
+- **Container-Ränder** über `.container-w` (`px-5 sm:px-6 lg:px-8`); Section-Vertikal-Padding gestuft (Muster `py-16 sm:py-24 lg:py-[100px]`).
+- **Kein horizontaler Overflow** bei 375px; lange Wörter/Wordmarks nicht ungeschützt mit `nowrap`.
+- **Inline-Styles mit festen Größen vermeiden** — stattdessen responsive Tailwind-Klassen oder gestufte scoped-CSS-Regeln.
+
+**Verifikation (zusätzlich zur normalen Routen-Prüfung):** betroffene Seiten bei **375 / 390 / 430px** prüfen (kein Overflow, saubere Umbrüche, Tap-Flächen) und bei **≥1280px** gegen den vorherigen Desktop-Stand gegenchecken (Regression vermeiden).
+
+---
+
 ## Content-Konventionen
 
 - **Alle UI-Texte** kommen aus `content/de.ts` (zugriff via `useContent()`) — keine hartcodierten Texte in Komponenten
@@ -139,6 +158,7 @@ Eventapp/
 - **Page-Komponenten** in `pages/` halten den Content kurz: sie holen Texte via `useContent()` und verschalten sie auf die generischen Komponenten
 - **Bestehende Komponenten erweitern** statt neue parallele anzulegen — wenn eine Komponente nicht passt, lieber die props ergänzen oder die Komponente verallgemeinern
 - **Style-Scope**: möglichst `scoped` halten; CSS-Variablen aus `main.css` nutzen statt Werte zu hardcoden
+- **Mobile-first**: jede Komponente muss responsiv und auf iPhone optimiert sein — siehe [Mobile-First-Pflicht](#mobile-first-pflicht-wichtig)
 
 ---
 
@@ -147,7 +167,7 @@ Eventapp/
 - **Plan vor Implementierung** bei nicht-trivialen Vorhaben (3+ Dateien oder neue Architektur)
 - **TypeScript-Strict**: Interfaces aus `data/types.ts` verwenden, keine `any` ohne Begründung
 - **Keine Backwards-Compat-Reste**: gelöschte Komponenten/Routen vollständig entfernen, nicht als Leichen behalten
-- **Verifikation**: nach Änderungen `npm run dev` laufen lassen und betroffene Routen prüfen (HTTP 200, Konsole sauber, sichtbar im Browser)
+- **Verifikation**: nach Änderungen `npm run dev` laufen lassen und betroffene Routen prüfen (HTTP 200, Konsole sauber, sichtbar im Browser) — **inkl. Mobile-Check bei 375/390/430px**, siehe [Mobile-First-Pflicht](#mobile-first-pflicht-wichtig)
 - **Commits**: nur auf explizite Aufforderung; commit-Nachrichten in derselben Sprache wie die User-Kommunikation (deutsch)
 
 ---

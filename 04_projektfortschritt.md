@@ -4,6 +4,34 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-01 — Wording „Conscious" → „Bewusste Veranstaltungen"
+
+### Ausgangslage
+An mehreren Stellen wurde der englische Begriff „Conscious(-Veranstaltungen)" verwendet; gewünscht ist deutschsprachiges Wording an den prominenten Stellen.
+
+### Ziel
+Drei vom User benannte Texte auf Deutsch umstellen — ohne sonstige Inhalte zu verändern.
+
+### Was umgesetzt wurde — [content/de.ts](content/de.ts)
+- **Events-Hero-Untertitel** (`home.hero.subtitleEn`): „— Conscious-Veranstaltungen aus der Region —" → „— Bewusste Veranstaltungen aus der Region —"
+- **Events-Hero-Body** (`home.hero.body`): „… von Conscious-Veranstaltungen in der Rhein-Main-Neckar-Region …" → „… von bewussten Veranstaltungen in der Region Rhein-Main-Neckar …"
+
+**Logo-Tagline neu gestaltet (zweizeilig)** — [components/BrandWordmark.vue](components/BrandWordmark.vue), [content/de.ts](content/de.ts)
+- `brand.tagline` (String) → `brand.taglineLines` (Array). Finaler Inhalt: `['Bewusste Veranstaltungen', 'aus der Region Rhein · Main · Neckar']` (ersetzt das frühere „Conscious Events · Rhein · Main · Neckar")
+- Tagline wird als zwei Zeilen unter der Wortmarke gerendert, **linksbündig**:
+  - **Zeile 1** „Bewusste Veranstaltungen": größere Schrift (`first-child`, mobil 17,5px / Desktop 19px), füllt natürlich die Logo-Breite und definiert die Referenzbreite
+  - **Zeile 2** „aus der Region Rhein · Main · Neckar": kleiner (mobil 12,5px / Desktop 13,5px); per `align-self: stretch` + `text-align-last: justify` **exakt auf die Breite von Zeile 1 gestreckt** → rechte Kante schließt geräteunabhängig bündig ab (die vielen Wörter/Trennpunkte verteilen den Rest unsichtbar)
+- Behebt zugleich das ursprüngliche Overflow-Risiko der längeren Tagline auf iPhone (Zeile-1-Breite bleibt innerhalb der Wortmarke). (Mobile-First-Pflicht beachtet.)
+- Hinweis: mehrere Feinjustier-Iterationen mit dem User zu Schriftgröße/Ausrichtung; obige Werte sind der abgenommene Endstand.
+
+### Verifikation
+- Dev-Server: Startseite liefert die drei neuen Texte; die drei Zielstellen enthalten kein „Conscious" mehr.
+
+### Offene Punkte / nächste Schritte
+- **Bewusst nicht geändert** (nicht beauftragt): Newsletter-Tagline (`footer`-Bereich), Demo-Daten („Conscious Loft", „Conscious-Festival"), sowie „Conscious Szene"-Erwähnungen auf der Vision-Seite — bei Bedarf separat umstellen.
+
+---
+
 ## 2026-06-01 — Mobile-Optimierung (iPhone/iOS)
 
 ### Ausgangslage
@@ -46,6 +74,11 @@ Klarere Struktur und bessere Lesbarkeit auf Mobilgeräten durch gestufte respons
 - Section-Paddings & Closing-Headlines gestuft in [index](pages/index.vue), [vision](pages/vision.vue), [kategorien](pages/kategorien.vue), [kontakt](pages/kontakt.vue), [newsletter](pages/newsletter.vue)
 - [kategorien.vue](pages/kategorien.vue): Cards 2-spaltig ab `sm`
 - [LegalPage.vue](components/LegalPage.vue), [LoginForm.vue](components/LoginForm.vue): Mobile-Paddings/Headline angeglichen
+
+**Projektregel verankert** — [CLAUDE.md](CLAUDE.md)
+- Neue verbindliche Sektion **„Mobile-First-Pflicht (WICHTIG)"**: alle künftigen Änderungen müssen für iPhone/iOS (375–430px) optimiert sein; Mobile-Check ist Teil der „fertig"-Definition
+- Konventionen festgeschrieben: mobile-first statt `max-width`, nur Standard-Breakpoints (640/768/1024), Headline-Muster `base → md: → lg:`, Touch-Targets ≥ 44px, kein Overflow bei 375px
+- Querverweise in „Komponenten-Konventionen" und „Workflow-Erwartungen" (Verifikation jetzt inkl. Mobile-Check bei 375/390/430px)
 
 ### Verifikation
 - Dev-Server (Port 3000) liefert alle 8 Routen mit HTTP 200

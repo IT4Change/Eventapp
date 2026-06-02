@@ -1,13 +1,13 @@
 export default {
   brand: {
     name: 'Soul & Bliss',
-    tagline: 'Conscious Events · Rhein · Main · Neckar',
+    taglineLines: ['Bewusste Veranstaltungen', 'aus der Region Rhein · Main · Neckar'],
   },
   nav: {
     events: 'Events',
     vision: 'Vision',
     categories: 'Kategorien',
-    postEvent: 'Events teilen',
+    postEvent: 'teilen',
     contact: 'Kontakt',
     newsletter: 'Newsletter',
     language: { de: 'DE', en: 'EN' },
@@ -26,9 +26,9 @@ export default {
       eyebrow: 'Aktuelle Events · Rhein · Main · Neckar',
       title: 'Eine kuratierte',
       titleScript: 'Wochenübersicht',
-      subtitleEn: '— Conscious-Veranstaltungen aus der Region —',
+      subtitleEn: '— Bewusste Veranstaltungen aus der Region —',
       body:
-        'Eine kuratierte Wochenübersicht von Conscious-Veranstaltungen in der Rhein-Main-Neckar-Region. Tanz, Heilsame Angebote, Musik und mehr — an einem Ort, immer aktuell.',
+        'Eine kuratierte Wochenübersicht von bewussten Veranstaltungen in der Region Rhein-Main-Neckar. Tanz, Heilsame Angebote, Musik und mehr — an einem Ort, immer aktuell.',
       primaryCta: 'Zu den Events',
       secondaryCta: 'Vision lesen',
     },
@@ -118,21 +118,27 @@ export default {
   },
   postEvent: {
     hero: {
-      eyebrow: 'Eigene Events posten · For organisers',
-      title: 'Werde Teil der',
-      titleScript: 'Bewegung',
-      subtitleEn: '— Become part of the movement —',
+      eyebrow: 'Veranstaltungen teilen',
       body:
         'Du gestaltest selbst bewusste Räume? Teile deine Events kostenlos auf Soul & Bliss und erreiche Menschen, die genau danach suchen.',
     },
-    explainer: {
-      eyebrow: 'So funktioniert es',
-      title: 'In drei',
-      titleScript: 'Schritten',
+    email: {
+      eyebrow: 'Variante 1 · Unkompliziert',
+      title: 'Veranstaltung per',
+      titleScript: 'E-Mail teilen',
+      paragraphs: [
+        'Der schnellste Weg: Schick uns die Eckdaten deiner Veranstaltung — Titel, Datum, Ort, eine kurze Beschreibung und gern ein Bild. Wir stellen dein Event für dich in die Wochenübersicht.',
+        'Ideal, wenn du nur gelegentlich ein Event teilst und dir kein eigenes Konto anlegen möchtest.',
+      ],
+      cta: { label: 'events@soulandbliss.de', to: 'mailto:events@soulandbliss.de' },
+    },
+    login: {
+      eyebrow: 'Variante 2 · Mit eigenem Konto',
+      title: 'Logge dich ein und',
+      titleScript: 'teile selbst',
       paragraphs: [
         'Registriere dich mit deiner E-Mail und einem Passwort. Wir prüfen kurz, ob dein Profil zu unseren Werten passt — das schützt die Szene und alle Gäste.',
-        'Sobald du freigegeben bist, kannst du eigene Events anlegen, bearbeiten und in die Wochenansicht stellen. Du behältst die volle Kontrolle über deine Inhalte.',
-        'Wir bewerben passende Highlights zusätzlich im Newsletter und auf Social. Ohne Pay-to-Play — entscheidend ist die Qualität, nicht das Budget.',
+        'Sobald du freigegeben bist, kannst du eigene Events anlegen, bearbeiten und direkt in die Wochenübersicht stellen. Du behältst die volle Kontrolle über deine Inhalte.',
       ],
       note: 'Hinweis: Diese Login-Funktion ist noch ein Mockup. Eine echte Anmeldung folgt in Kürze.',
     },
@@ -266,13 +272,12 @@ export default {
     note: 'Platzhaltertext — wird vor Live-Gang durch finale rechtliche Daten ersetzt.',
   },
   footer: {
-    tagline:
-      'Conscious Events in der Rhein-Main-Neckar-Region — kuratiert, aktuell, offen für alle, die mitgestalten möchten.',
+    tagline: 'Bewusste Veranstaltungen\naus der Region Rhein · Main · Neckar',
     columns: [
       {
         title: 'Entdecken',
         items: [
-          { label: 'Wochenansicht', href: '/' },
+          { label: 'Events', href: '/' },
           { label: 'Vision', href: '/vision' },
           { label: 'Kategorien', href: '/kategorien' },
         ],
@@ -280,7 +285,7 @@ export default {
       {
         title: 'Mitmachen',
         items: [
-          { label: 'Events posten', href: '/events-posten' },
+          { label: 'Teilen', href: '/teilen' },
           { label: 'Newsletter', href: '/newsletter' },
         ],
       },

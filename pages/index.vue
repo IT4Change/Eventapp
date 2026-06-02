@@ -19,7 +19,7 @@
         <p class="text-ink-soft text-lg leading-[1.7] mb-8 font-light">
           {{ t.home.closing.body }}
         </p>
-        <NuxtLink to="/events-posten" class="btn">{{ t.home.closing.cta }}</NuxtLink>
+        <NuxtLink to="/teilen" class="btn">{{ t.home.closing.cta }}</NuxtLink>
       </div>
     </section>
   </div>

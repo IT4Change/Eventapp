@@ -1,6 +1,15 @@
 <template>
   <section class="bg-white py-14 sm:py-20 lg:py-[100px]">
     <div class="container-w max-w-[560px]">
+      <RichTextBody
+        class="login-intro"
+        :eyebrow="t.postEvent.login.eyebrow"
+        :title="t.postEvent.login.title"
+        :title-script="t.postEvent.login.titleScript"
+        :paragraphs="t.postEvent.login.paragraphs"
+        centered
+      />
+
       <div class="tabs">
         <button
           class="tab"
@@ -84,6 +93,8 @@
       <p v-if="submitted" class="submitted-note">
         Danke! Diese Login-Funktion ist noch ein Mockup — eine echte Anmeldung folgt in Kürze.
       </p>
+
+      <p class="mockup-note">{{ t.postEvent.login.note }}</p>
     </div>
   </section>
 </template>
@@ -105,6 +116,17 @@ function onSubmit() {
 </script>
 
 <style scoped>
+.login-intro {
+  margin-bottom: 36px;
+}
+.mockup-note {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
 .tabs {
   display: flex;
   gap: 4px;

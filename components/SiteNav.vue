@@ -74,7 +74,7 @@ const links = [
   { label: t.nav.events, to: '/' },
   { label: t.nav.vision, to: '/vision' },
   { label: t.nav.categories, to: '/kategorien' },
-  { label: t.nav.postEvent, to: '/events-posten' },
+  { label: t.nav.postEvent, to: '/teilen' },
 ]
 
 function onLangClick() {

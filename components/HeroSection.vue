@@ -12,8 +12,8 @@
         >
           {{ eyebrow }}
         </div>
-        <h1 class="hero-title text-ink font-extralight">
-          {{ title }}<br v-if="titleScript" />
+        <h1 v-if="title || titleScript" class="hero-title text-ink font-extralight">
+          {{ title }}<br v-if="title && titleScript" />
           <span v-if="titleScript" class="script grad-text">{{ titleScript }}</span>
         </h1>
         <p
@@ -48,7 +48,7 @@ interface CtaLink {
 const props = withDefaults(
   defineProps<{
     eyebrow?: string
-    title: string
+    title?: string
     titleScript?: string
     subtitleEn?: string
     body?: string

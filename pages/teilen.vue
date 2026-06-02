@@ -1,24 +1,17 @@
 <template>
   <div>
-    <HeroSection
-      :eyebrow="t.postEvent.hero.eyebrow"
-      :title="t.postEvent.hero.title"
-      :title-script="t.postEvent.hero.titleScript"
-      :subtitle-en="t.postEvent.hero.subtitleEn"
-      :body="t.postEvent.hero.body"
-      image="/img/brand/08_drums_instruments.png"
-    />
-
-    <LoginForm />
-
+    <!-- Bereich 1: Veranstaltung per E-Mail teilen -->
     <RichTextSection
-      :eyebrow="t.postEvent.explainer.eyebrow"
-      :title="t.postEvent.explainer.title"
-      :title-script="t.postEvent.explainer.titleScript"
-      :paragraphs="t.postEvent.explainer.paragraphs"
-      :quote="t.postEvent.explainer.note"
+      :eyebrow="t.postEvent.email.eyebrow"
+      :title="t.postEvent.email.title"
+      :title-script="t.postEvent.email.titleScript"
+      :paragraphs="t.postEvent.email.paragraphs"
+      :cta="t.postEvent.email.cta"
       centered
     />
+
+    <!-- Bereich 2: Login / eigenes Konto -->
+    <LoginForm />
   </div>
 </template>
 
@@ -26,7 +19,7 @@
 const t = useContent()
 
 useHead({
-  title: `${t.brand.name} · ${t.nav.postEvent}`,
+  title: `${t.brand.name} · Events teilen`,
   meta: [{ name: 'description', content: t.postEvent.hero.body }],
 })
 </script>

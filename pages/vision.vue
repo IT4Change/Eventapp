@@ -30,7 +30,7 @@
     <section class="bg-off py-14 sm:py-20 lg:py-[80px] text-center">
       <div class="container-w">
         <div class="flex gap-4 flex-wrap justify-center">
-          <NuxtLink to="/events-posten" class="btn">{{ t.cta.postEvent }}</NuxtLink>
+          <NuxtLink to="/teilen" class="btn">{{ t.cta.postEvent }}</NuxtLink>
           <NuxtLink to="/newsletter" class="btn btn-outline">{{ t.cta.subscribe }}</NuxtLink>
         </div>
       </div>

@@ -39,7 +39,8 @@
     >
       {{ quote }}
     </blockquote>
-    <NuxtLink v-if="cta" :to="cta.to" class="btn">{{ cta.label }}</NuxtLink>
+    <a v-if="cta && isExternal(cta.to)" :href="cta.to" class="btn">{{ cta.label }}</a>
+    <NuxtLink v-else-if="cta" :to="cta.to" class="btn">{{ cta.label }}</NuxtLink>
   </div>
 </template>
 
@@ -62,4 +63,9 @@ withDefaults(
   }>(),
   { centered: false },
 )
+
+// mailto:, tel: und http(s) als externe Links als <a> rendern, interne Routen via NuxtLink
+function isExternal(to: string) {
+  return /^(mailto:|tel:|https?:)/.test(to)
+}
 </script>
