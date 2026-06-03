@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <title>Forest camp — multi-day retreat scene</title>
+  <desc>Forest with tall trees, a tent, a campfire with rising smoke, and a few people gathered. For multi-day events and retreats imagery.</desc>
+
+  <defs>
+    <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F2D9A8"/>
+      <stop offset="100%" stop-color="#E6C079"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="525" fill="url(#forestSky)"/>
+
+  <!-- Sun rays through trees -->
+  <g opacity="0.30">
+    <polygon points="600,80 548,525 652,525" fill="#F7EFE0"/>
+    <polygon points="500,130 474,525 526,525" fill="#F7EFE0"/>
+    <polygon points="700,130 674,525 726,525" fill="#F7EFE0"/>
+  </g>
+
+  <!-- Distant tree line (greener, fuller) -->
+  <g fill="#73804A">
+    <path d="M -20 525 L 60 300 L 110 380 L 170 290 L 230 390 L 290 320 L 360 525 Z"/>
+    <path d="M 320 525 L 400 320 L 450 390 L 510 300 L 570 395 L 630 330 L 700 525 Z"/>
+    <path d="M 660 525 L 740 315 L 800 385 L 860 295 L 920 390 L 980 320 L 1060 525 Z"/>
+    <path d="M 1000 525 L 1080 330 L 1140 400 L 1200 320 L 1240 420 L 1280 360 L 1320 525 Z"/>
+  </g>
+
+  <!-- Big pine trees (prominent, green) -->
+  <g fill="#3F4C29">
+    <g transform="translate(165, 520) scale(1.30)">
+      <rect x="-9" y="0" width="18" height="70" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+    <g transform="translate(1045, 514) scale(1.45)">
+      <rect x="-9" y="0" width="18" height="74" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+    <g transform="translate(355, 522) scale(0.82)">
+      <rect x="-9" y="0" width="18" height="66" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+  </g>
+
+  <!-- Ground (greener, small earth band) -->
+  <path d="M 0 525 Q 600 508 1200 525 L 1200 800 L 0 800 Z" fill="#83904D"/>
+  <path d="M 0 665 Q 600 650 1200 665 L 1200 800 L 0 800 Z" fill="#6E5E3A"/>
+
+  <!-- Tent in the forest -->
+  <g transform="translate(900, 612) scale(1.12)">
+    <path d="M 0 -96 L -74 2 L 74 2 Z" fill="#C25E2A"/>
+    <path d="M 0 -96 L 74 2 L 38 2 L 0 -82 Z" fill="#A8491E"/>
+    <path d="M 0 -90 L -24 2 L 24 2 Z" fill="#5E2F14"/>
+    <line x1="0" y1="-96" x2="0" y2="-110" stroke="#6B3410" stroke-width="4" stroke-linecap="round"/>
+    <path d="M -74 2 L -86 2 M 74 2 L 86 2" stroke="#6B3410" stroke-width="3"/>
+  </g>
+
+  <!-- People gathered around the fire (larger) -->
+  <g fill="#6B3410">
+    <!-- far person (left, smaller) -->
+    <g transform="translate(438, 588) scale(1.05)">
+      <circle cx="0" cy="-46" r="13"/>
+      <path d="M -21 2 Q -23 -36 0 -36 Q 23 -36 21 2 Z"/>
+    </g>
+    <!-- left person -->
+    <g transform="translate(506, 612) scale(1.25)">
+      <circle cx="0" cy="-48" r="14"/>
+      <path d="M -22 2 Q -24 -38 0 -38 Q 24 -38 22 2 Z"/>
+    </g>
+    <!-- right person -->
+    <g transform="translate(700, 612) scale(1.25)">
+      <circle cx="0" cy="-48" r="14"/>
+      <path d="M -22 2 Q -24 -38 0 -38 Q 24 -38 22 2 Z"/>
+    </g>
+  </g>
+
+  <!-- Campfire (larger) -->
+  <g transform="translate(604, 620) scale(1.45)">
+    <path d="M -30 6 L 30 -4" stroke="#6B3410" stroke-width="10" stroke-linecap="round"/>
+    <path d="M -30 -4 L 30 6" stroke="#7A4A24" stroke-width="10" stroke-linecap="round"/>
+    <path d="M 0 -4 Q -18 -22 -9 -46 Q -2 -32 2 -46 Q 1 -24 10 -40 Q 16 -20 0 -4 Z" fill="#E2742E"/>
+    <path d="M 0 -8 Q -9 -24 -2 -44 Q 2 -30 5 -42 Q 9 -22 0 -8 Z" fill="#F4C95D"/>
+  </g>
+
+  <!-- Smoke rising up -->
+  <g fill="#9C9488">
+    <circle cx="606" cy="548" r="13" opacity="0.30"/>
+    <circle cx="620" cy="510" r="16" opacity="0.26"/>
+    <circle cx="602" cy="468" r="18" opacity="0.22"/>
+    <circle cx="618" cy="424" r="21" opacity="0.18"/>
+    <circle cx="604" cy="378" r="23" opacity="0.13"/>
+    <circle cx="616" cy="330" r="25" opacity="0.09"/>
+  </g>
+
+  <!-- A few sparkles -->
+  <g fill="#F7EFE0" opacity="0.6">
+    <circle cx="300" cy="210" r="2"/>
+    <circle cx="430" cy="290" r="1.5"/>
+    <circle cx="800" cy="200" r="2"/>
+    <circle cx="880" cy="285" r="1.5"/>
+  </g>
+
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <title>Ceremony altar motif</title>
+  <desc>Altar arrangement — candles, sage bundle, crystal, bowl. For spiritual/ceremony imagery.</desc>
+
+  <rect width="800" height="600" fill="#F7EFE0"/>
+
+  <!-- Background sun aura -->
+  <circle cx="400" cy="280" r="220" fill="#D4A047" opacity="0.25"/>
+  <circle cx="400" cy="280" r="160" fill="#D4A047" opacity="0.3"/>
+
+  <!-- Altar table -->
+  <rect x="100" y="430" width="600" height="20" fill="#6B3410"/>
+  <rect x="100" y="450" width="600" height="60" fill="#5A2A0D"/>
+  <line x1="100" y1="430" x2="700" y2="430" stroke="#3A1F0E" stroke-width="2"/>
+
+  <!-- Cloth runner -->
+  <path d="M 200 430 L 600 430 L 580 520 L 220 520 Z" fill="#C25E2A"/>
+  <path d="M 200 430 L 600 430 L 600 440 L 200 440 Z" fill="#D4A047"/>
+  <!-- Tassels -->
+  <g stroke="#D4A047" stroke-width="2" stroke-linecap="round">
+    <line x1="225" y1="520" x2="225" y2="535"/>
+    <line x1="245" y1="520" x2="245" y2="540"/>
+    <line x1="265" y1="520" x2="265" y2="535"/>
+    <line x1="535" y1="520" x2="535" y2="535"/>
+    <line x1="555" y1="520" x2="555" y2="540"/>
+    <line x1="575" y1="520" x2="575" y2="535"/>
+  </g>
+
+  <!-- Left candle -->
+  <g transform="translate(220, 430)">
+    <rect x="-10" y="-100" width="20" height="100" fill="#F2D9A8" stroke="#6B3410" stroke-width="1.5"/>
+    <line x1="0" y1="-100" x2="0" y2="-115" stroke="#3A1F0E" stroke-width="1.5"/>
+    <path d="M -7 -118 Q 0 -135 7 -118 Q 5 -125 0 -130 Q -5 -125 -7 -118 Z" fill="#D4A047"/>
+    <ellipse cx="0" cy="-122" rx="3" ry="5" fill="#C25E2A"/>
+  </g>
+
+  <!-- Right candle -->
+  <g transform="translate(580, 430)">
+    <rect x="-10" y="-100" width="20" height="100" fill="#F2D9A8" stroke="#6B3410" stroke-width="1.5"/>
+    <line x1="0" y1="-100" x2="0" y2="-115" stroke="#3A1F0E" stroke-width="1.5"/>
+    <path d="M -7 -118 Q 0 -135 7 -118 Q 5 -125 0 -130 Q -5 -125 -7 -118 Z" fill="#D4A047"/>
+    <ellipse cx="0" cy="-122" rx="3" ry="5" fill="#C25E2A"/>
+  </g>
+
+  <!-- Sage bundle (left of center) -->
+  <g transform="translate(320, 425)">
+    <ellipse cx="0" cy="-30" rx="20" ry="40" fill="#7A8B4A" stroke="#6B3410" stroke-width="1.5"/>
+    <g stroke="#C25E2A" stroke-width="2">
+      <line x1="-8" y1="0" x2="-8" y2="15"/>
+      <line x1="0" y1="0" x2="0" y2="18"/>
+      <line x1="8" y1="0" x2="8" y2="15"/>
+    </g>
+    <!-- Sage leaves -->
+    <g stroke="#3A4D26" stroke-width="1" fill="none">
+      <path d="M -10 -50 Q 0 -60 10 -45"/>
+      <path d="M -12 -30 Q 0 -42 12 -25"/>
+      <path d="M -10 -10 Q 0 -22 10 -5"/>
+    </g>
+  </g>
+
+  <!-- Center bowl with offering -->
+  <g transform="translate(400, 425)">
+    <ellipse cx="0" cy="0" rx="55" ry="14" fill="#6B3410"/>
+    <path d="M -55 0 Q -50 35 0 40 Q 50 35 55 0 Z" fill="#3A1F0E"/>
+    <!-- Offering inside (petals) -->
+    <g>
+      <ellipse cx="-15" cy="-3" rx="6" ry="3" fill="#C25E2A" transform="rotate(-20 -15 -3)"/>
+      <ellipse cx="0" cy="-5" rx="6" ry="3" fill="#D4A047"/>
+      <ellipse cx="15" cy="-3" rx="6" ry="3" fill="#C25E2A" transform="rotate(20 15 -3)"/>
+      <ellipse cx="-10" cy="5" rx="5" ry="2.5" fill="#D4A047"/>
+      <ellipse cx="10" cy="5" rx="5" ry="2.5" fill="#C25E2A"/>
+    </g>
+    <!-- Steam/smoke -->
+    <g stroke="#6B3410" stroke-width="1.5" fill="none" opacity="0.5">
+      <path d="M -10 -10 Q -5 -30 -10 -50 Q -15 -65 -8 -85"/>
+      <path d="M 10 -10 Q 5 -30 10 -50 Q 15 -65 8 -85"/>
+    </g>
+  </g>
+
+  <!-- Crystal (right of center) -->
+  <g transform="translate(480, 425)">
+    <path d="M 0 -60 L 18 -25 L 12 0 L -12 0 L -18 -25 Z" fill="#D4A047" stroke="#6B3410" stroke-width="1.5"/>
+    <path d="M 0 -60 L -18 -25 L -12 0 Z" fill="#C68B3E" opacity="0.7"/>
+    <path d="M 0 -60 L -12 0 L 12 0 Z" fill="#F2D9A8" opacity="0.5"/>
+    <line x1="0" y1="-60" x2="0" y2="0" stroke="#6B3410" stroke-width="1"/>
+  </g>
+
+  <!-- Decorative dots above -->
+  <g fill="#6B3410">
+    <circle cx="280" cy="200" r="3"/>
+    <circle cx="350" cy="170" r="3"/>
+    <circle cx="450" cy="170" r="3"/>
+    <circle cx="520" cy="200" r="3"/>
+    <circle cx="400" cy="140" r="4" fill="#D4A047"/>
+  </g>
+
+  <!-- Mandala accent (top) -->
+  <g transform="translate(400, 100)" fill="none" stroke="#6B3410" stroke-width="1.2">
+    <circle r="40"/>
+    <circle r="25"/>
+    <circle r="10" fill="#D4A047" stroke="#C25E2A" stroke-width="1.5"/>
+    <g stroke-linecap="round">
+      <line x1="0" y1="-50" x2="0" y2="-42"/>
+      <line x1="0" y1="50" x2="0" y2="42"/>
+      <line x1="-50" y1="0" x2="-42" y2="0"/>
+      <line x1="50" y1="0" x2="42" y2="0"/>
+    </g>
+  </g>
+
+</svg>

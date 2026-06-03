@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <title>Mandala motif — sacred geometry brand element</title>
+  <desc>Bold earthy mandala: solid petals around a layered sun centre. Brand seal for the Inspiration &amp; Lernen category.</desc>
+
+  <rect width="600" height="600" fill="#F7EFE0"/>
+
+  <g transform="translate(300, 300)">
+
+    <!-- Outer petals (8) — terracotta, solid -->
+    <g fill="#C25E2A">
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(45)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(90)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(135)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(180)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(225)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(270)"/>
+      <path d="M 0 -235 Q 46 -150 0 -78 Q -46 -150 0 -235 Z" transform="rotate(315)"/>
+    </g>
+
+    <!-- Inner petals (8) — gold, offset 22.5°, solid -->
+    <g fill="#D4A047">
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(22.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(67.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(112.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(157.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(202.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(247.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(292.5)"/>
+      <path d="M 0 -162 Q 33 -106 0 -54 Q -33 -106 0 -162 Z" transform="rotate(337.5)"/>
+    </g>
+
+    <!-- Accent dots (8) just beyond the petal tips -->
+    <g fill="#6B3410">
+      <circle cx="0" cy="-252" r="7"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(45)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(90)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(135)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(180)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(225)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(270)"/>
+      <circle cx="0" cy="-252" r="7" transform="rotate(315)"/>
+    </g>
+
+    <!-- Layered sun centre -->
+    <circle r="74" fill="#D4A047"/>
+    <circle r="50" fill="#C25E2A"/>
+    <circle r="26" fill="#6B3410"/>
+    <circle r="9" fill="#D4A047"/>
+
+  </g>
+</svg>

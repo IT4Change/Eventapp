@@ -4,6 +4,101 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Kategorie-Grafiken: Tanz (Geschlechter-Mix) + „Mehrtägige Events" (grüner)
+
+### Was umgesetzt wurde
+
+**Tanz-SVG (`kategorien/04_dance_silhouettes.svg`, → v4)**
+- Ziel: links und rechts je eine Frau mit Rock und ein Mann mit Hut
+- Figur 2 (links): Rock entfernt + Hut ergänzt → Mann mit Hut
+- Figur 4 (rechts): Hut entfernt + Rock ergänzt → Frau mit Rock
+- Ergebnis: links Figur 1 (Frau/Rock) + Figur 2 (Mann/Hut); rechts Figur 4 (Frau/Rock) + Figur 5 (Mann/Hut)
+
+**Nature-SVG „Mehrtägige Events" (`kategorien/05_nature_scene.svg`, → v3)**
+- Insgesamt wieder grüner: Boden olivgrün (statt braun), vollere/grünere Baumreihe
+- Erdfläche reduziert (nur noch schmaler dunkler Streifen unten)
+- Bäume größer/prominenter (zwei große Tannen + dritte mittlere + dichtere Baumreihe)
+- Personen und Lagerfeuer vergrößert (Personen `scale ~1.25`, Feuer `scale 1.45`); Zelt leicht größer
+
+### Verifikation
+- Beide SVGs via `qlmanage` (Vollbreiten-Render) geprüft — Motive korrekt
+- `/kategorien` → 200; beide bearbeiteten SVG-Assets → 200
+
+### Grafik-Versionen (Kategorien) — Fortführung
+- **04_dance_silhouettes** — … v3 (Hüte, größere rechte Figuren) · **v4** (Frau/Rock + Mann/Hut je Seite)
+- **05_nature_scene** — v1 Original · v2 (erdig, Zelt/Feuer/Menschen) · **v3** (grüner, weniger Erde, größere Bäume/Personen/Feuer)
+
+---
+
+## 2026-06-02 — Kategorie-Grafiken: Tanz verfeinert + „Mehrtägige Events" neu gestaltet
+
+### Was umgesetzt wurde
+
+**Tanz-SVG (`kategorien/04_dance_silhouettes.svg`, → v3)**
+- Fuß-Strich der 2. Figur entfernt; Strich (Fuß) der rechten Figur entfernt
+- Die beiden rechten Figuren (4 & 5) um ~18 % vergrößert (`scale(1.18)`, Translate nachjustiert) und je mit Hut versehen (Figur 4 goldene Krone, Figur 5 terrakotta) → interessanter
+
+**Nature-SVG → „Mehrtägige Events" (`kategorien/05_nature_scene.svg`, neu v2)**
+- Retreat-Kategorie auf SVG umgestellt ([data/categories.ts](data/categories.ts): `05_nature_scene.png` → `kategorien/05_nature_scene.svg`)
+- Grüntöne reduziert: Boden jetzt erdig-braun (statt olivgrün), Hintergrundbäume gedämpft; nur die zwei Tannen bleiben grün
+- Neu ergänzt: **Zelt** (terrakotta A-Frame mit dunklem Eingang) im Wald, **Lagerfeuer** (Flammen + Scheite) mit **aufsteigendem Rauch**, **3 sitzende Menschen** ums Feuer
+- Alte, im Karten-Crop ohnehin unsichtbare Elemente (Steinkreis, Bodenkleinkram) entfernt
+
+### Verifikation
+- SVGs via `qlmanage` gerendert und visuell geprüft (inkl. Vollbreiten-Render über erweiterte Leinwand, da `qlmanage` breite Bilder quadratisch beschneidet)
+- `/kategorien` → 200; alle drei bearbeiteten SVG-Assets → 200; Seite nutzt die SVG-Pfade (dance, mandala, nature)
+
+### Grafik-Versionen (Kategorien) — Fortführung
+- **04_dance_silhouettes** — v1 Original · v2 (Figur 2 dynamisch, Noten/Instrumente) · **v3** (Fuß-Striche raus, Figuren 4&5 größer + Hüte)
+- **02_mandala_motif** — v1 Original · v2 (erdige Vollflächen-Blüte)
+- **05_nature_scene** — v1 Original · **v2** (erdiger, Zelt + Lagerfeuer/Rauch + Menschen)
+
+### Offene Punkte / nächste Schritte
+- 2 übrige Kategorie-Bilder (Singen & Musik = `08_drums_instruments`, Heilsame Angebote = `06_ceremony_motif`) noch als PNG — Umstellung/Überarbeitung separat
+
+---
+
+## 2026-06-02 — Kategorie-Grafiken: SVG-Versionierung + Tanz & Mandala überarbeitet
+
+### Ausgangslage
+Die Kategorie-Karten ([data/categories.ts](data/categories.ts)) zeigten **PNG-Rastergrafiken**, die nicht editierbar sind. Es existieren aber handgeschriebene, editierbare **SVG-Vektor-Versionen** derselben Motive (PNGs sind nur Raster-Exporte davon).
+
+### Ziel
+Kategorie-Grafiken bearbeitbar machen + versionieren; den Anfang machen Tanz (lebendiger, Musik-Bezug) und Inspiration/Mandala (weniger Linien, erdiger).
+
+### Was umgesetzt wurde
+
+**Versionierung / Ordnerstruktur** — `public/img/brand/kategorien/`
+- `originals/` — unveränderte v1-Baseline aller 5 Kategorie-Grafiken (je PNG + SVG), wird nie editiert
+- `kategorien/*.svg` — Arbeits-SVGs, die die Seite nutzt (aktuell die 2 bearbeiteten)
+- `versions/` — Archiv je Iteration (`*_v1.svg`, `*_v2.svg`)
+
+**Format-Umstellung** — [data/categories.ts](data/categories.ts)
+- dance + inspiration `image:` von `/img/brand/*.png` auf `/img/brand/kategorien/*.svg` umgestellt (CSS-`background-image` in [CategoryCard.vue](components/CategoryCard.vue) funktioniert mit SVG identisch). Die 3 übrigen Kategorien bleiben vorerst PNG.
+
+**Tanz-SVG (`kategorien/04_dance_silhouettes.svg`)**
+- 2. Figur von links: statische „Sprung"-Pose → dynamische, geneigte Tanzpose (Arm hochgeworfen, ausgestelltes Bein) mit goldenem Rock-Akzent
+- Musik-Elemente ergänzt: schwebende Notensymbole (Achtel-Paar + Einzelnoten in Braun/Terrakotta), kleine Instrumente am Boden (Djembe-Trommel, Rassel), zusätzliche Schwung-Striche → lebendiger
+
+**Mandala-SVG (`kategorien/02_mandala_motif.svg`)**
+- Komplett neu: dünne Linien/gestrichelten Ring/Konzentrik-Kreise entfernt; vollflächige Blüte aus 8 Terrakotta- + 8 Gold-Blütenblättern, gefüllte Sonnen-Mitte (Gold→Terrakotta→Braun), 8 Akzentpunkte, warmer Hintergrund — kräftig & erdig, passend zu den anderen Bildern
+
+### Verifikation
+- SVGs gerendert (macOS `qlmanage`) und visuell geprüft — Motive korrekt, erdige Farben, Mandala ohne Linien-Wirrwarr
+- Ein XML-Fehler im Mandala (`&` in `<desc>`) erkannt und zu `&amp;` korrigiert
+- Dev-Server (war zwischenzeitlich gestoppt → neu gestartet): `/kategorien` & `/` → 200; beide SVG-Assets → 200, valides XML; Seite nutzt die neuen SVG-Pfade
+
+### Grafik-Versionen (Kategorien)
+- **04_dance_silhouettes** — v1: Original (5 Figuren, Sonne). v2 (2026-06-02): Figur 2 dynamische Tanzpose + Gold-Rock; Noten, Djembe, Rassel, Schwung-Striche.
+- **02_mandala_motif** — v1: Original (blass, viele dünne Linien). v2 (2026-06-02): vollflächige erdige Blüte, gefüllte Sonnen-Mitte, keine dünnen Linien.
+
+### Offene Punkte / nächste Schritte
+- 3 übrige Kategorie-Bilder (Singen & Musik, Heilsame Angebote, Mehrtägige Events) noch als PNG — Umstellung/Überarbeitung separat
+- Optional: bearbeitete SVGs zusätzlich als PNG rastern, falls an anderer Stelle PNG benötigt wird
+- Visueller Feinschliff der neuen Grafiken im Browser/iPhone nach User-Sichtung
+
+---
+
 ## 2026-06-02 — Teilen-Seite: Akzent-Absätze, neue E-Mail & Outline-Button
 
 ### Ausgangslage

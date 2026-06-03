@@ -6,7 +6,7 @@ export const categories: Category[] = [
     label: 'Tanz',
     shortLabel: 'Tanz',
     gradient: 'rainbow',
-    image: '/img/brand/04_dance_silhouettes.png',
+    image: '/img/brand/kategorien/04_dance_silhouettes.svg',
     accent: 'orange',
     description:
       'Räume, in denen Körper und Seele atmen dürfen — ohne Schritte, ohne Show, nur Bewegung als Sprache.',
@@ -39,7 +39,7 @@ export const categories: Category[] = [
     label: 'Inspiration & Lernen',
     shortLabel: 'Inspiration & Lernen',
     gradient: 'warm',
-    image: '/img/brand/02_mandala_motif.png',
+    image: '/img/brand/kategorien/02_mandala_motif.svg',
     accent: 'green',
     description:
       'Vorträge, Workshops und Kreise, in denen neues Wissen, alte Weisheit und gelebte Erfahrung zusammenkommen. Für Menschen, die ihren Horizont erweitern und sich bewusst weiterentwickeln möchten.',
@@ -50,7 +50,7 @@ export const categories: Category[] = [
     label: 'Mehrtägige Events',
     shortLabel: 'Mehrtägige Events',
     gradient: 'nature',
-    image: '/img/brand/05_nature_scene.png',
+    image: '/img/brand/kategorien/05_nature_scene.svg',
     accent: 'coral',
     description:
       'Retreats, Festivals und längere Auszeiten in Natur und Gemeinschaft. Zeit, in der Tiefe entstehen kann — fern vom Alltag, eingebettet in einen klaren Container.',
