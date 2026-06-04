@@ -4,6 +4,47 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Rechtstexte (Datenschutz, Nutzungsbedingungen, Impressum) eingebunden
+
+### Ausgangslage
+Die drei Rechtsseiten enthielten Platzhaltertexte. Der User stellte drei Word-Dokumente bereit (`Docs/Legal Docs/V01/`).
+
+### Was umgesetzt wurde
+- **Texte extrahiert** aus den `.docx` (macOS `textutil`) und in [content/de.ts](content/de.ts) eingebunden: `impressum`, `nutzungsbedingungen`, `datenschutz`
+- **LegalPage erweitert** ([components/LegalPage.vue](components/LegalPage.vue)): Sektionen unterstützen jetzt strukturierte **Blöcke** statt nur `body` — `{ p }` (Absatz), `{ sub }` (Unterüberschrift, h3) und `{ list }` (Aufzählung mit coral-Punkt). So bleiben Überschriften-Hierarchie und Listen erhalten, im einheitlichen Seitendesign (h1/h2 serif, h3 sans, ink/coral-Tokens)
+- Datenschutzerklärung vollständig mit DSGVO-Struktur (I–VII, Unterabschnitte, Aufzählungen); Nutzungsbedingungen mit Unterabschnitten; Impressum schlicht
+- Offensichtliche Tippfehler/Abbrüche aus der V01-Vorlage dezent korrigiert (z. B. „Plattfromen" → „Plattformen", unvollständiger Satz vervollständigt)
+
+### Verifikation
+- `/datenschutz`, `/nutzungsbedingungen`, `/impressum` → 200; Überschriften, Unterüberschriften und Listen werden gerendert; keine echten Fehler im Output
+
+### Offene Punkte / nächste Schritte
+- **Wichtig:** Die Texte sind V01 und enthalten Platzhalter (z. B. „Mohammed Mustermann / Musterstrasse 99", USt-ID `DE XXX`, Google-AdSense-Passage obwohl evtl. nicht genutzt). Vor Live-Gang **juristisch prüfen und finalisieren**; ggf. nicht zutreffende Abschnitte (AdSense) entfernen.
+
+---
+
+## 2026-06-02 — Footer-Restrukturierung + Rechtsseiten (Datenschutz/Nutzungsbedingungen)
+
+### Ausgangslage
+Footer-Spalten: Entdecken / Mitmachen (Teilen, Newsletter) / Rechtliches (Kontakt, Disclaimer, Impressum).
+
+### Ziel
+Kontakt zu „Mitmachen"; „Rechtliches" auf Datenschutz, Nutzungsbedingungen, Impressum umstellen. (Vom User bestätigt: Disclaimer-Seite umbenennen + neue Nutzungsbedingungen-Seite anlegen.)
+
+### Was umgesetzt wurde — [content/de.ts](content/de.ts) + Seiten
+- **Footer-Spalten** ([content/de.ts](content/de.ts)): „Mitmachen" = Teilen · Newsletter · **Kontakt**; „Rechtliches" = **Datenschutz** · **Nutzungsbedingungen** · Impressum
+- **Disclaimer → Datenschutz**: Seite `pages/disclaimer.vue` → `pages/datenschutz.vue` (`git mv`), Route `/disclaimer` → `/datenschutz`; Content-Key `disclaimer` → `datenschutz` mit Titel „Datenschutz" und passenden Datenschutz-Platzhaltertexten (Verantwortliche Stelle, erhobene Daten, Newsletter, Rechte)
+- **Neu: Nutzungsbedingungen** — [pages/nutzungsbedingungen.vue](pages/nutzungsbedingungen.vue) (LegalPage) + Content-Abschnitt `nutzungsbedingungen` (Rolle der Plattform, Veranstaltungen teilen, Teilnahme auf eigene Verantwortung, Inhalte/externe Links — teils aus dem alten Disclaimer übernommen). Platzhalter, finaler Text folgt.
+
+### Verifikation
+- `/datenschutz`, `/nutzungsbedingungen`, `/impressum`, `/kontakt` → 200; alte `/disclaimer` → 404
+- Footer zeigt die neuen Links; keine `disclaimer`-Reste mehr im Code
+
+### Offene Punkte / nächste Schritte
+- Rechtstexte (Datenschutz, Nutzungsbedingungen, Impressum) sind Platzhalter — vor Live-Gang durch finale Texte ersetzen
+
+---
+
 ## 2026-06-02 — Kategorie-Grafiken: Tanz (Geschlechter-Mix) + „Mehrtägige Events" (grüner)
 
 ### Was umgesetzt wurde

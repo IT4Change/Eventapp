@@ -1,9 +1,9 @@
 <template>
   <LegalPage
-    :title="t.disclaimer.title"
-    :intro="t.disclaimer.intro"
-    :sections="t.disclaimer.sections"
-    :note="t.disclaimer.note"
+    :title="t.datenschutz.title"
+    :intro="t.datenschutz.intro"
+    :sections="t.datenschutz.sections"
+    :note="t.datenschutz.note"
   />
 </template>
 
@@ -11,6 +11,6 @@
 const t = useContent()
 
 useHead({
-  title: `${t.brand.name} · ${t.disclaimer.title}`,
+  title: `${t.brand.name} · ${t.datenschutz.title}`,
 })
 </script>

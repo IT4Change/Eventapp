@@ -8,11 +8,34 @@
         {{ intro }}
       </p>
 
-      <div v-for="section in sections" :key="section.heading" class="mb-8">
-        <h2 class="font-serif text-[22px] text-ink mb-3 font-normal">{{ section.heading }}</h2>
-        <p class="text-ink-soft leading-[1.8] whitespace-pre-line font-light">
-          {{ section.body }}
-        </p>
+      <div v-for="section in sections" :key="section.heading" class="mb-9">
+        <h2 class="font-serif text-[22px] md:text-[24px] text-ink mb-3 font-normal">
+          {{ section.heading }}
+        </h2>
+        <template v-for="(block, i) in section.blocks" :key="i">
+          <h3
+            v-if="block.sub"
+            class="font-sans text-[16px] text-ink mb-2 mt-5 font-semibold"
+          >
+            {{ block.sub }}
+          </h3>
+          <ul v-else-if="block.list" class="mb-4 space-y-1.5">
+            <li
+              v-for="(item, j) in block.list"
+              :key="j"
+              class="flex gap-2.5 text-ink-soft leading-[1.7] font-light"
+            >
+              <span class="text-coral font-medium select-none">·</span>
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+          <p
+            v-else-if="block.p"
+            class="text-ink-soft leading-[1.8] mb-4 whitespace-pre-line font-light"
+          >
+            {{ block.p }}
+          </p>
+        </template>
       </div>
 
       <p
@@ -26,9 +49,14 @@
 </template>
 
 <script setup lang="ts">
+interface Block {
+  p?: string
+  sub?: string
+  list?: string[]
+}
 interface Section {
   heading: string
-  body: string
+  blocks: Block[]
 }
 
 defineProps<{
