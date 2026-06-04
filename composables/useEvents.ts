@@ -46,6 +46,25 @@ function dayKey(d: Date): string {
   return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
 }
 
+export function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+export function eventPath(event: Event): string {
+  return `/event/${event.uuid}/${slugify(event.title)}`
+}
+
+export function getEventByUuid(uuid: string): Event | undefined {
+  return allEvents.find((e) => e.uuid === uuid)
+}
+
 export const useEvents = () => {
   const referenceDate = computed(() => {
     const base = startOfWeek(new Date())
@@ -174,5 +193,7 @@ export const useEvents = () => {
     thisWeek,
     getCategoryFor,
     getLocationFor,
+    getEventByUuid,
+    eventPath,
   }
 }

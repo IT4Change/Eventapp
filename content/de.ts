@@ -215,6 +215,22 @@ export default {
       ],
     },
   },
+  event: {
+    descriptionHeading: 'Über dieses Event',
+    contactHeading: 'Veranstalter & Kontakt',
+    dateTime: 'Datum & Zeit',
+    location: 'Ort',
+    directions: 'Wegbeschreibung öffnen',
+    category: 'Kategorie',
+    subcategory: 'Format',
+    registration: 'Anmeldung',
+    price: 'Eintritt',
+    website: 'Zur Website',
+    email: 'E-Mail schreiben',
+    phone: 'Anrufen',
+    back: 'Zurück zu den Events',
+    disclaimerHeading: 'Hinweis',
+  },
   datenschutz: {
     title: 'Datenschutzerklärung',
     sections: [

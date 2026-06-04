@@ -4,6 +4,63 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Event-Detailseiten (`/event/{uuid}/{slug}`)
+
+### Ausgangslage
+Events waren nur Listenzeilen ohne Detailseite/Verlinkung. Ziel: für jedes Event eine Detailseite im bestehenden Design, über eine stabile, SEO-freundliche URL.
+
+### Ziel & Entscheidungen (vom User bestätigt)
+- URL **`/event/{uuid}/{titel-slug}`**: Lookup nur über UUID; Slug = slugifizierter Titel; bei falschem Slug **301-Redirect** auf die kanonische URL; unbekannte UUID → 404.
+- Detailseite zeigt **alle** Zusatzfelder (detaillierte Beschreibung, Veranstalter-Kontakt, Anmeldung + Subkategorie, Maps-Link, Aggregator-Hinweis).
+
+### Was umgesetzt wurde
+- **Datenmodell** ([data/types.ts](data/types.ts)): `Event` um `uuid` (Pflicht) + `subcategory`, `detailedDescription`, `registration`, `email`, `phone`, `mapsUrl`, `source`, `aggregatorNote` erweitert
+- **Daten neu erzeugt** ([data/events.ts](data/events.ts), Generator `/tmp/gen2.mjs`): 50 CSV-Events mit allen Feldern neu erzeugt; allen 65 Events eine **deterministische UUID** (uuid v5 aus der Event-ID → reproduzierbar) vergeben
+- **Helfer** ([composables/useEvents.ts](composables/useEvents.ts)): `slugify`, `eventPath(event)` (kanonischer Pfad), `getEventByUuid(uuid)`
+- **Detailseite** [pages/event/[uuid]/[slug].vue](pages/event/%5Buuid%5D/%5Bslug%5D.vue): Auflösung per UUID (404/Redirect-Logik), Layout aus bestehenden Bausteinen — Hero (mit Event-Bild) → Fakten-Block (Datum/Zeit inkl. Mehrtages-Range, Ort + Maps, Kategorie-Pill + Subkategorie, Anmeldung, Preis, Veranstalter) → Beschreibung (RichTextSection, lange Beschreibung in Absätze gesplittet) → Veranstalter-Kontakt (Website/E-Mail/Telefon als Buttons) → Aggregator-Hinweis + Quelle → Zurück-Link. Dynamische `useHead`-Meta inkl. `og:image`
+- **Liste** ([components/EventListItem.vue](components/EventListItem.vue)): Zeile ist jetzt `NuxtLink` auf `eventPath(event)` (Pfeil funktional)
+- **Texte** ([content/de.ts](content/de.ts)): neuer `event`-Abschnitt mit UI-Labels
+
+### Verifikation
+- Korrekte URL → 200 (alle Sektionen gerendert); falscher Slug → **301** auf kanonische URL; unbekannte UUID → **404**
+- Altes Demo-Event ohne Zusatzfelder rendert sauber (Maps/Kontakt korrekt ausgeblendet); Liste verlinkt auf `/event/…`
+- Keine echten Fehler (die `createError`-Logzeilen stammen vom 404-Test)
+
+### Offene Punkte / nächste Schritte
+- Statische Generierung (Prerender) der dynamischen Routen für Produktion ggf. konfigurieren — im Dev unkritisch
+- Optional: „Ähnliche Events" auf der Detailseite, Bild-Thumbnails in der Listenzeile
+- Visuelle Prüfung im Browser/iPhone steht beim User aus (Hero-Titelgröße bei langen Titeln, Mobile-Umbrüche)
+
+---
+
+## 2026-06-02 — Beispieldaten aus CSV eingespielt (50 Events)
+
+### Ausgangslage
+In `Docs/Beispieldaten/` lag eine CSV mit 50 fiktiven Events (10 je Kategorie) inkl. Bildern, um die Seite mit realistischem Inhalt zu prüfen.
+
+### Ziel
+CSV analysieren und als Daten einspielen, Kategorien korrekt zuordnen, Events sichtbar machen. (User-Entscheidungen: bestehende Demo-Events **ergänzen** statt ersetzen; Bilder **kopieren, aber noch nicht anzeigen**.)
+
+### Was umgesetzt wurde
+- **Generator** (Node, temporär `/tmp/gen_events.mjs`): robuster CSV-Parser (Semikolon, Quotes, mehrzeiliger Header), mappt Felder auf das `Event`-Modell, dedupliziert Locations, kopiert Bilder
+- **Kategorie-Mapping**: Tanz→dance, Singen & Musik→music, Heilsame Angebote→healing, Inspiration & Lernen→inspiration, Mehrtägige Events→retreat (je 10 ✓)
+- **Region-Mapping**: Frankfurt/Aschaffenburg/Darmstadt→main, Mainz/Wiesbaden→rhein, Heidelberg→neckar
+- **[data/events.ts](data/events.ts)**: 50 Events ergänzt (jetzt 65). Felder: `id` (CSV Event-ID), `title`, `category`, `start`/`end` (ISO aus Datum+Zeit, Mehrtages-Events mit End-Datum), `locationId`, `description` (Kurzfassung), `url`, `image`
+- **[data/locations.ts](data/locations.ts)**: 30 neue Locations (Präfix `bsp-`) ergänzt (jetzt 40)
+- **Bilder**: 50 PNGs nach [public/img/events/](public/img/events/) kopiert (Unterordner je Kategorie); Pfad in `image` gespeichert, in der Liste (noch) nicht angezeigt
+
+### Verifikation
+- `/` → 200; CSV-Events sichtbar (z. B. „Grenzen spüren, Klarheit finden"); Counter „30 von 58 Events" (58 kommende ab heute, Paginierung „Mehr laden")
+- Orts-Filter zeigt die neuen Locations; keine `undefined`-Location-Anzeigen; Beispielbild lädt (200); keine Konsolen-/Build-Fehler
+- Datums-Spanne der Importe: 2026-07-04 bis 2027-03-19
+
+### Offene Punkte / nächste Schritte
+- Event-Bilder werden noch nicht angezeigt — optionale UI-Erweiterung (Thumbnail in der Liste oder Detailseite) möglich
+- Orts-Filter hat durch 40 Locations viele Einträge — ggf. später nach Stadt gruppieren
+- CSV enthält weitere Felder (Subkategorie, Telefon, Anmeldung erforderlich, detaillierte Beschreibung, Quelle) — bei Bedarf ins Modell aufnehmen
+
+---
+
 ## 2026-06-02 — Rechtstexte (Datenschutz, Nutzungsbedingungen, Impressum) eingebunden
 
 ### Ausgangslage

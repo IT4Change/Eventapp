@@ -1,5 +1,5 @@
 <template>
-  <article class="event-row group">
+  <NuxtLink :to="eventPath(event)" class="event-row group">
     <div class="event-time">
       <span class="text-[15px] font-medium text-ink">{{ timeRange(event.start, event.end) }}</span>
     </div>
@@ -29,7 +29,7 @@
     <div class="event-arrow">
       <span class="arrow">→</span>
     </div>
-  </article>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -55,6 +55,8 @@ const location = computed(() => getLocationFor(props.event))
   align-items: start;
   cursor: pointer;
   transition: padding-left 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
 .event-row:hover {
   padding-left: 8px;

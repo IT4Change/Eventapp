@@ -24,14 +24,23 @@ export interface Location {
 
 export interface Event {
   id: string
+  uuid: string
   title: string
   category: CategoryKey
+  subcategory?: string
   start: string
   end?: string
   locationId: string
   description: string
+  detailedDescription?: string
+  registration?: string
   url?: string
+  email?: string
+  phone?: string
+  mapsUrl?: string
   image?: string
   organizer?: string
   price?: string
+  source?: string
+  aggregatorNote?: string
 }
