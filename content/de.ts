@@ -121,7 +121,7 @@ export default {
         'Du gestaltest selbst bewusste Räume? Teile deine Events kostenlos auf Soul & Bliss und erreiche Menschen, die genau danach suchen.',
     },
     email: {
-      eyebrow: 'Variante 1 · Unkompliziert',
+      eyebrow: 'Variante 1',
       title: 'Veranstaltung per',
       titleScript: 'E-Mail teilen',
       paragraphs: [
@@ -131,7 +131,7 @@ export default {
       cta: { label: 'veranstaltung-teilen@soul-and-bliss.de', to: 'mailto:veranstaltung-teilen@soul-and-bliss.de' },
     },
     login: {
-      eyebrow: 'Variante 2 · Mit eigenem Konto',
+      eyebrow: 'Variante 2',
       title: 'Logge dich ein und',
       titleScript: 'teile selbst',
       paragraphs: [

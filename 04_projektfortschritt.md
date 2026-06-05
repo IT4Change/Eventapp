@@ -4,6 +4,84 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Events-Sektion linksbündig + einklappbarer Filter
+
+### Ausgangslage / Ziel
+Die Sektion „Aktuelle Events" unter dem Hero war zentriert, mit viel Padding (60–80px), und der Filter eine große Karte mit drei Zeilen (Kategorien, Zeitraum, Ort — Ort-Dropdown mit 40 Einträgen immer offen). Ziel: linksbündig, kompakter, Filter „viel kleiner", Ort nur bei Bedarf, Gesamtsektion auf-/zuklappbar mit Animation. **Filter-Konzept per Rückfrage abgestimmt** → Variante „Kategorien sichtbar + Rest aufklappbar".
+
+### Was umgesetzt wurde
+- **[components/EventList.vue](components/EventList.vue)**: Überschriften (Eyebrow „Aktuelle Events", Titel, Intro) **linksbündig** (eigene `ev-*`-Styles statt der zentrierten globalen `section-*`-Klassen); Sektion-Padding `py-[60px] md:py-[80px]` → `py-9 sm:py-12`; Margins reduziert
+- **[components/EventFilter.vue](components/EventFilter.vue)** neu aufgebaut: große Karte entfernt → schlanke **Pill-Zeile** (Kategorien immer sichtbar) + Toggle **„Weitere Filter ▾"** (gestrichelt, Chevron dreht). Zeitraum + Ort liegen in einem **aufklappbaren Bereich** mit **Slide-Animation** (CSS-Grid `grid-template-rows: 0fr → 1fr`, plus Opacity/Margin-Transition). Ort-Dropdown erscheint nur im aufgeklappten Zustand. Aktiver Erweitert-Filter (Datum/Ort) hält den Bereich offen und zeigt einen coral Punkt am Toggle; „Filter zurücksetzen" im Panel
+
+### Verifikation
+- Desktop: eingeklappt (Pills + Toggle, linksbündig, kompakt) und aufgeklappt (Zeitraum + Ort gleiten herunter, Chevron ▴) per CDP geprüft — `more-wrap.open`, Höhe 102px, Ort-Select sichtbar
+- Mobil 390/375: Pills brechen sauber um, **kein Overflow** (per DevTools-Protokoll gemessen)
+
+### Nachjustierung
+- Tags kleiner (Pill-Padding 8/15→6/13px, Font 12→11px)
+- Abstand Intro→Tags verkleinert (`ev-head` mb 22→12px)
+- „Weitere Filter"-Toggle hebt sich jetzt ab: gefülltes dunkles Pill (`--ink`, weiße Schrift) mit Filter-Icon (Trichter-SVG) statt gestrichelter Outline; kein Overflow (390/375 gemessen)
+
+---
+
+## 2026-06-02 — Hero-Bereiche ~30% kompakter (Events, Vision, Kategorien)
+
+### Was umgesetzt wurde — [components/HeroSection.vue](components/HeroSection.vue)
+- Slim-Hero-Padding reduziert: oben/unten 40 → 26px (mobil), lg 56 → 38px → weniger Platz oben
+- **Überschrift einzeilig**: festen `<br>` zwischen Titel und Script-Teil entfernt, inline mit Leerzeichen (z. B. „Eine kuratierte Wochenübersicht" auf einer Zeile auf Desktop; bricht auf Mobil sauber um)
+- Engerer Zeilenabstand: Titel `line-height` 1.1 → 1.05, Body-Akzent `leading` 1.6 → 1.45; Eyebrow-/Body-Abstände verkleinert (`mb-[22px]`→`mb-3`, `my-[22/26px] mb-9` → `mt-3 mb-4/5`)
+- Defensive `min-w-0` an der Hero-`.container-w` (Flex-Item) ergänzt
+
+### Verifikation
+- Headless-Screenshots (Desktop): Events/Vision/Kategorien deutlich kompakter, linksbündig, Überschrift einzeilig
+- **Mobil-Overflow exakt gemessen** (Chrome DevTools-Protokoll, Viewport 390 & 375): scrollWidth = Viewport, **0 überstehende Elemente** → kein Overflow. Hinweis: `--headless=new --window-size` setzt den Viewport NICHT (rendert ~500px) → frühere „abgeschnittene" Screenshots waren Artefakte; korrekte 390px-Screenshots via CDP (`Emulation.setDeviceMetricsOverride`) bestätigen sauberes Mobil-Layout
+
+### 2. Iteration (noch kompakter + größere Überschrift)
+- Slim-Padding nochmals ~15% kleiner (22px mobil / 32px lg)
+- Roter Akzent-Text breiter: Block `max-w-[720px]`→`880px`, Akzent-`max-w` 600→840px → längere Zeilen, weniger Raum rechts, vertikal kompakter
+- Überschrift größer; Script-Teil (z. B. „Wochenübersicht") deutlich größer als der Rest: slim-Titel 28/35/42px, Script 42/54/64px (Verhältnis ~1,5×)
+- Erneut bei 390/375 gemessen: kein Overflow; Desktop einzeilig, Mobil bricht sauber um
+
+### 3. Iteration (Vision/Kategorien einzeilig garantieren + weniger Platz unten)
+- `white-space: nowrap` für `.hero-slim .hero-title` ab `md` → Überschrift **garantiert einzeilig** auf Desktop/Tablet (unabhängig von Schreibschrift-Font-Fallback, der bei einzelnen Systemen umbrechen ließ); auf Mobil weiter Umbruch erlaubt. Bei 770px/1280px geprüft: einzeilig, kein Overflow
+- Unteres slim-Padding asymmetrisch reduziert (padding-bottom 22→15 mobil / 32→22 lg) → weniger Leerraum unter dem roten Text (v. a. auf Kategorien sichtbar). Alle drei Heroes jetzt strukturell identisch
+- Mobil-Overflow erneut gemessen (Vision, 390/375): kein Overflow
+
+---
+
+## 2026-06-02 — Hero linksbündig + E-Mail-Button kleiner
+
+### Was umgesetzt wurde
+- **Hero-Bereiche linksbündig** ([components/HeroSection.vue](components/HeroSection.vue)): Bug behoben — der Hero ist ein `flex`-Container, dadurch schrumpfte die innere `.container-w` auf Inhaltsbreite (720px) und wurde per `mx-auto` zentriert (Hero wirkte eingerückt/zentriert). Fix: `w-full` an die `.container-w` → spannt volle Breite (max 1240, zentriert wie die Nav), 720er-Block linksbündig darin → Eyebrow/Titel/Text fluchten mit dem Logo. Gilt für alle Hero-Seiten (Events, Vision, Kategorien, Kontakt, Newsletter)
+- **E-Mail-Button (`.btn-mail`) ~15% kleiner** ([assets/css/main.css](assets/css/main.css)): Padding `px-6 sm:px-10 py-4 sm:py-5` → `px-5 sm:px-8 py-3 sm:py-4`; Schrift `text-base sm:text-lg lg:text-xl` → `text-sm sm:text-base lg:text-lg`
+
+### Verifikation
+- Headless-Screenshots: Vision-Hero linksbündig (bündig mit Logo); /teilen-Button kleiner & proportionaler. Alle Routen (`/`, `/vision`, `/kategorien`, `/teilen`) → 200
+
+---
+
+## 2026-06-02 — Teilen-Seite kompakter & linksbündig
+
+### Ausgangslage / Ziel
+Die /teilen-Seite war zentriert und großzügig gesetzt (viel Leerraum oben, großer Abstand zwischen den Varianten, zweizeilige Überschriften). Gewünscht: übersichtlicher, alles linksbündig, Akzentschrift kleiner, Überschrift „Veranstaltung per E-Mail teilen" einzeilig, engere Abstände.
+
+### Was umgesetzt wurde
+- **[pages/teilen.vue](pages/teilen.vue)** neu aufgebaut: eine schlanke, **linksbündige** Spalte (`container-w` volle Breite + linker `max-w-[680px]`-Block, bündig mit dem Logo), reduziertes oberes Padding (`py-7 sm:py-10`). Beide Varianten als kompakte Blöcke: Eyebrow (grad-text) + **einzeilige** Überschrift (Titel + cursive `script`-Teil inline, kein Umbruch mehr) + kleinere coral-Akzentabsätze (15/16px, engerer Zeilenabstand) + CTA bzw. Formular. Geringerer Abstand zwischen Variante 1 und 2 (dezente Trennlinie statt großem Padding)
+- **[components/LoginForm.vue](components/LoginForm.vue)** zum kompakten, **linksbündigen** Formular-Block umgebaut: Intro (RichTextBody) und großflächiger Section-Rahmen entfernt (Intro liefert jetzt die Seite); Formular als schmale weiße Karte (max-width 440px), Überschrift/Hinweise linksbündig, kompaktere Inputs/Tabs
+- RichTextSection-Nutzung auf /teilen entfernt (Layout jetzt direkt in der Seite)
+
+### Verifikation
+- `/teilen` → 200; Headless-Screenshot bestätigt kompaktes, linksbündiges Layout, einzeilige Überschrift, kleinere Akzentschrift; `/` und Event-Detailseite weiterhin 200
+
+### Nachjustierung (Überschriften)
+- Bunten (grad-text) Eyebrow entfernt; Inhalt auf schlichtes **„Variante 1" / „Variante 2"** (ink-soft) gekürzt ([content/de.ts](content/de.ts))
+- Überschriften größer (27 → 36px); der cursive grad-text-Teil („E-Mail teilen" / „teile selbst") zusätzlich `1.18em` größer
+
+### Nachjustierung (Breite)
+- Inhalt nutzt auf Desktop mehr Breite: Spalte `max-w-[680px]` → `max-w-[920px]`, Akzenttext `max-width` 600 → 820px. **Mobil unverändert** (Caps liegen über der Handy-Breite), per Screenshot bei 390px gegengeprüft (kein Overflow)
+
+---
+
 ## 2026-06-02 — Event-Detailseite kompakter gestaltet
 
 ### Ausgangslage / Ziel

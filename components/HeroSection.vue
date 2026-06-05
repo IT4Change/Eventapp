@@ -4,17 +4,16 @@
     :class="`hero-${variant}`"
     :style="bgStyle"
   >
-    <div class="container-w">
-      <div class="relative z-10 hero-inner max-w-[720px]">
+    <div class="container-w w-full min-w-0">
+      <div class="relative z-10 hero-inner max-w-[880px]">
         <div
           v-if="eyebrow"
-          class="hero-eyebrow grad-text text-[13px] tracking-[5px] uppercase mb-[22px] font-medium inline-block"
+          class="hero-eyebrow grad-text text-[13px] tracking-[5px] uppercase mb-3 font-medium inline-block"
         >
           {{ eyebrow }}
         </div>
         <h1 v-if="title || titleScript" class="hero-title text-ink font-extralight">
-          {{ title }}<br v-if="title && titleScript" />
-          <span v-if="titleScript" class="script grad-text">{{ titleScript }}</span>
+          {{ title }} <span v-if="titleScript" class="script grad-text">{{ titleScript }}</span>
         </h1>
         <p
           v-if="subtitleEn"
@@ -25,8 +24,8 @@
         <p
           v-if="body"
           :class="accentBody
-            ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.6] my-[22px] mb-9 max-w-[600px]'
-            : 'text-lg leading-[1.8] text-ink-soft my-[26px] mb-9 max-w-[560px] font-light'"
+            ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.45] mt-2.5 mb-4 max-w-[840px]'
+            : 'text-lg leading-[1.6] text-ink-soft mt-3 mb-5 max-w-[640px] font-light'"
         >
           {{ body }}
         </p>
@@ -106,24 +105,24 @@ const bgStyle = computed(() => {
   opacity: 0.55;
 }
 .hero-slim .hero-inner {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 22px;
+  padding-bottom: 15px;
 }
 .hero-title {
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 34px;
-  line-height: 1.1;
-  margin-bottom: 6px;
+  line-height: 1.05;
+  margin-bottom: 4px;
 }
 .hero-title .script {
   font-size: 46px;
   font-weight: 400;
 }
 .hero-slim .hero-title {
-  font-size: 26px;
+  font-size: 28px;
 }
 .hero-slim .hero-title .script {
-  font-size: 34px;
+  font-size: 42px;
 }
 .hero-slim .hero-en {
   font-size: 15px;
@@ -141,8 +140,8 @@ const bgStyle = computed(() => {
   .hero-medium { min-height: 420px; }
   .hero-title { font-size: 46px; }
   .hero-title .script { font-size: 64px; }
-  .hero-slim .hero-title { font-size: 32px; }
-  .hero-slim .hero-title .script { font-size: 42px; }
+  .hero-slim .hero-title { font-size: 35px; white-space: nowrap; }
+  .hero-slim .hero-title .script { font-size: 54px; }
   .hero-slim .hero-en { font-size: 17px; }
 }
 
@@ -152,11 +151,11 @@ const bgStyle = computed(() => {
   .hero-medium { min-height: 480px; }
   .hero-title { font-size: 60px; }
   .hero-title .script { font-size: 82px; }
-  .hero-slim .hero-title { font-size: 38px; }
-  .hero-slim .hero-title .script { font-size: 50px; }
+  .hero-slim .hero-title { font-size: 42px; }
+  .hero-slim .hero-title .script { font-size: 64px; }
   .hero-slim .hero-inner {
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-top: 32px;
+    padding-bottom: 22px;
   }
 }
 </style>
