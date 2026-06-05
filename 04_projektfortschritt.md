@@ -4,6 +4,33 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-02 — Event-Detailseite kompakter gestaltet
+
+### Ausgangslage / Ziel
+Die Detailseite verschenkte Platz: der Hero (Bild als Hintergrund) füllte fast die halbe Seite, Sektionen hatten große Paddings. Gewünscht: übersichtlicher, dichter, weniger Leerraum; Bild **nicht** als Hintergrund, sondern eigenständig weiter unten in natürlicher Auflösung.
+
+### Was umgesetzt wurde — [pages/event/[uuid]/[slug].vue](pages/event/%5Buuid%5D/%5Bslug%5D.vue)
+- HeroSection (Bild-Hintergrund, große Min-Höhe) und die großflächigen RichTextSection/Sektions-Paddings entfernt
+- Stattdessen **eine kompakte Spalte** (`container-w max-w-[820px]`, geringes Padding): kleiner Kopf (Kategorie-Pill + Titel + Kurzbeschreibung) → **kompakte Fakten** (Label/Wert-Raster, schmale Zeilen) → Kontakt-Buttons → „Über dieses Event" → **eigenständiges Bild** (`<img>`, zentriert, max-width 460px, 512×512 natürlich, nicht gestreckt/gecroppt) → Hinweis/Quelle
+- Titelgröße moderat (26 → 34 → 40px statt Hero-60px); Design-Tokens (ink/coral, pill-Farben, .btn) beibehalten
+
+### Verifikation
+- Beispiel-Event → 200; Bild als `<img class="event-image">` mit echtem `src` (kein Hintergrund mehr); Headless-Screenshot bestätigt kompaktes, dichtes Layout; keine Fehler
+
+### Feinjustierung (2. Iteration, nach User-Feedback)
+- Padding über/unter „Zurück zu den Events" reduziert (`py-4 sm:py-6`, engerer Kopf)
+- Neben dem Kategorie-Pill kein zusätzliches „Tanz · Contact Dance" mehr (Pill genügt); Subkategorie ganz entfernt
+- Titel kleiner (22 → 27 → 30px) + engerer Zeilenabstand (1.1); Fließtext-Zeilenabstand 1.6
+- **Website, E-Mail, Telefon** als genannte Werte oben in den Fakten (gleiches Label/Wert-Format wie Datum/Ort)
+- Die drei Kontakt-Buttons (Website/E-Mail/Anrufen) nach **ganz unten** (unter Beschreibung + Foto) verschoben
+- **Linksbündig** statt zentriert: äußerer Container volle Breite (wie die Nav), lesbarer 820px-Block links → Inhalt fluchtet mit dem „Soul & Bliss"-Logo
+- Per Headless-Screenshot gegengeprüft
+
+### Offene Punkte
+- Weitere visuelle Feinjustierung mit User (Bildgröße, Fakten-Spaltenbreite mobil) — iterativ
+
+---
+
 ## 2026-06-02 — Event-Detailseiten (`/event/{uuid}/{slug}`)
 
 ### Ausgangslage
