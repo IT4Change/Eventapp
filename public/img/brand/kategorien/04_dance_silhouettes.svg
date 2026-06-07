@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500">
   <title>Dancing silhouettes — ecstatic movement</title>
-  <desc>Row of stylized dancing figures expressing joy and movement. Use as a section header or page footer band.</desc>
+  <desc>Row of stylized dancing figures expressing joy and movement.</desc>
 
   <rect width="1200" height="500" fill="#F7EFE0"/>
 
@@ -67,70 +67,6 @@
       <path d="M -16 -123 Q -15 -151 0 -153 Q 15 -151 16 -123 Z" fill="#C25E2A"/>
     </g>
 
-  </g>
-
-  <!-- Energy lines / movement marks -->
-  <g stroke="#C25E2A" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6">
-    <path d="M 80 250 Q 100 240 110 250"/>
-    <path d="M 90 230 Q 105 220 115 230"/>
-    <path d="M 1100 250 Q 1080 240 1070 250"/>
-    <path d="M 1090 230 Q 1075 220 1065 230"/>
-    <circle cx="60" cy="380" r="3" fill="#C25E2A"/>
-    <circle cx="1130" cy="380" r="3" fill="#C25E2A"/>
-    <circle cx="70" cy="350" r="2" fill="#D4A047"/>
-    <circle cx="1120" cy="350" r="2" fill="#D4A047"/>
-    <!-- extra swing strokes near figures for liveliness -->
-    <path d="M 296 214 Q 316 202 330 212"/>
-    <path d="M 308 192 Q 326 182 340 192"/>
-    <path d="M 868 214 Q 888 202 902 212"/>
-  </g>
-
-  <!-- Small instruments on the floor -->
-  <g>
-    <!-- hand drum (djembe) between centre figures -->
-    <g transform="translate(675, 360)">
-      <path d="M -24 0 L -19 74 L 19 74 L 24 0 Z" fill="#9C5A2E"/>
-      <ellipse cx="0" cy="0" rx="24" ry="8" fill="#D9A86E"/>
-      <ellipse cx="0" cy="0" rx="24" ry="8" fill="none" stroke="#6B3410" stroke-width="2.5"/>
-      <path d="M -20 30 L 20 30" stroke="#6B3410" stroke-width="1.5" opacity="0.4"/>
-    </g>
-    <!-- shaker / maraca between left figures -->
-    <g transform="translate(250, 388)">
-      <ellipse cx="0" cy="0" rx="13" ry="17" fill="#C25E2A"/>
-      <rect x="-3" y="13" width="6" height="28" rx="3" fill="#6B3410"/>
-      <circle cx="-4" cy="-3" r="2" fill="#F7EFE0"/>
-      <circle cx="3" cy="3" r="2" fill="#F7EFE0"/>
-    </g>
-  </g>
-
-  <!-- Musical notes floating -->
-  <g fill="#6B3410">
-    <!-- eighth-note pair, upper centre -->
-    <g transform="translate(470, 92)">
-      <ellipse cx="0" cy="0" rx="8" ry="6"/>
-      <ellipse cx="32" cy="-5" rx="8" ry="6"/>
-      <rect x="6" y="-44" width="3" height="44"/>
-      <rect x="38" y="-49" width="3" height="44"/>
-      <path d="M 6 -44 L 41 -49 L 41 -40 L 6 -35 Z"/>
-    </g>
-    <!-- single eighth note, terracotta, left -->
-    <g transform="translate(248, 128)" fill="#C25E2A">
-      <ellipse cx="0" cy="0" rx="8" ry="6" transform="rotate(-18)"/>
-      <rect x="6" y="-40" width="3" height="40"/>
-      <path d="M 9 -40 Q 24 -36 20 -18" stroke="#C25E2A" stroke-width="3" fill="none" stroke-linecap="round"/>
-    </g>
-    <!-- single eighth note, brown, right -->
-    <g transform="translate(842, 98)">
-      <ellipse cx="0" cy="0" rx="8" ry="6" transform="rotate(-18)"/>
-      <rect x="6" y="-42" width="3" height="42"/>
-      <path d="M 9 -42 Q 24 -38 20 -20" stroke="#6B3410" stroke-width="3" fill="none" stroke-linecap="round"/>
-    </g>
-    <!-- small note, far right terracotta -->
-    <g transform="translate(1044, 150)" fill="#C25E2A">
-      <ellipse cx="0" cy="0" rx="7" ry="5" transform="rotate(-18)"/>
-      <rect x="5" y="-34" width="3" height="34"/>
-      <path d="M 8 -34 Q 21 -31 18 -15" stroke="#C25E2A" stroke-width="3" fill="none" stroke-linecap="round"/>
-    </g>
   </g>
 
 </svg>

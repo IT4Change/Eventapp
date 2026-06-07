@@ -73,28 +73,22 @@ export default {
       intro: 'Der Inhalt dieser Website ruht auf drei Säulen.',
       items: [
         {
-          img: '/img/brand/02_mandala_motif.png',
           title: 'Achtsamkeit',
           en: 'Mindfulness',
           text:
             'Wir kuratieren mit Bedacht. Veranstaltungen, die hier geteilt werden, können anregen und inspirieren — sie sollen gut tun und in einem klaren Rahmen sicher gehalten werden.',
-          style: 'object-fit: contain;',
         },
         {
-          img: '/img/brand/04_dance_silhouettes.png',
           title: 'Verbindung',
           en: 'Connection',
           text:
             'Wir glauben an reale Begegnung. Die Plattform ist Mittel zum Zweck — der Zweck ist das Treffen im Raum, nicht der Klick.',
-          style: 'object-fit: contain;',
         },
         {
-          img: '/img/brand/05_nature_scene.png',
           title: 'Offenheit',
           en: 'Openness',
           text:
             'Wir sind eine offene Plattform. Jede·r mit guten Absichten ist eingeladen, eigene Events zu teilen — kostenlos und ohne Schwellen.',
-          style: 'object-fit: cover; border-radius: 50%;',
         },
       ],
     },

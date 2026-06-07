@@ -4,6 +4,107 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-07 — Zweite Vision-Grafik (Sternengucker im Nachthimmel)
+
+### Ausgangslage / Ziel
+Auf der Vision-Seite eine **zweite Grafik** über dem „Was uns leitet"-Bereich (oberhalb von „Unsere Leitlinien"). Vorgabe: bekannte Brand-Farben mit **starken Gelb- und Rottönen**, ein **Nachthimmel** mit **Stern** und **Mond** sowie **Menschen, die zum Stern / in den Nachthimmel schauen**.
+
+### Was umgesetzt wurde
+- **Neu: [public/img/brand/kategorien/10_vision_stargazers.svg](public/img/brand/kategorien/10_vision_stargazers.svg)** (viewBox 1280×720, 16:9 wie das Meditations-Banner): warmer **Nachthimmel** (linearer Verlauf dunkel-warm `#1E1310` → tiefes Rot `#C9461E`) mit kräftigem **Horizont-Afterglow** (radial Gelb `#FDEFA8` → Orange → Rot) hinter den Figuren; **Mond** (warmes Gold, weicher Halo, dezente Krater) oben links; **leuchtender Stern** (4-zackig mit Glow) oben rechts; verstreute kleine Sterne; **vier Menschen-Silhouetten** auf einem dunklen Hügel, die hochschauen — die vordere zeigt mit erhobenem Arm zum Stern. Gefüllte Flächen, Brand-Palette
+- **[components/TriCardSection.vue](components/TriCardSection.vue)** um optionale **`image`**-Prop erweitert (analog zum `top`-Banner der RichTextSection): rendert ein **Banner über dem Section-Header** (`.tri-banner`, `aspect-ratio` 3/2 mobil → 16/9 ab `md`, `cover`, Radius 24px, ohne Rahmen), linksbündig `max-w-[480px]` — gleiche Größe/Stil wie das Meditations-Banner
+- **[pages/vision.vue](pages/vision.vue)**: `image="/img/brand/kategorien/10_vision_stargazers.svg"` an die `TriCardSection` übergeben
+
+### Verifikation
+- SVG nativ (1280×720) gerendert → Nachthimmel mit Mond, leuchtendem Stern, kleinen Sternen, kräftigem Gelb-Rot-Afterglow und hochschauenden, zeigenden Figuren
+- `/vision` → 200; **Desktop**-Screenshot: Banner sitzt über „Was uns leitet/Unsere Leitlinien", konsistent mit dem oberen Meditations-Banner; **CDP-Messung** echte Viewports 375/390/430 → **`overflow = 0`** überall, beide Banner gleich breit & linksbündig (`left=20`); CDP-390-Screenshot bestätigt sauberes Mobil-Layout (3:2-Crop zeigt Mond/Stern/Menschen zentriert)
+
+### Iteration nach Feedback (heller, erdig-warm, Mond raus, grüner Boden)
+User: zu dunkel → Farben **wie die Meditationsgrafik** (erdig-warm), **kein Nachthimmel** sondern heller **Sonnenuntergang**, **Mond entfernen**, **Stern präsenter**, **Boden grünlich** statt schwarz, **weniger Rottöne**.
+- [10_vision_stargazers.svg](public/img/brand/kategorien/10_vision_stargazers.svg) neu gefasst: heller, warmer **Sonnenuntergangs-Himmel** (Verlauf `#FDF1DB` → `#EDA258`, kein Dunkel mehr); Horizont-Afterglow jetzt **gelb-gold-orange** (`#FFF6D6`/`#F9D277`/`#F4A94E`, deutlich weniger Rot); **Mond entfernt**, ebenso die kleinen Nacht-Sterne; **Stern größer & präsenter** (8-zackiges Funkeln mit großem Glow); **grüner Hügel** (Oliv `#7A8B4A`/`#9CB060`/`#5E6B38`) statt schwarzem Boden, ein paar gedämpfte Oliv-Bäume zur Rahmung; **Figuren in Brand-Braun `#6B3410`** (wie die Meditationsfigur) statt fast-schwarz, eine zeigt weiter zum Stern
+- Layout/CSS unverändert (nur SVG-Inhalt) → bestehender Banner-Check gilt weiter (Banner gleich groß/linksbündig, `overflow = 0`); Inhalt für den 3:2-Mobil-Crop zentriert (Stern + Gruppe mittig)
+- Verifikation: SVG nativ + `/vision`-Desktop-Screenshot → hell, erdig-warm, stimmig zum oberen Meditations-Banner; Mond weg, Stern prominent, grüner Boden, weniger Rot
+
+### Offene Punkte / nächste Schritte
+- Bei Bedarf Feinschliff (Anzahl/Pose der Figuren, Stern-Position/-Größe, Intensität des Sonnenuntergang-Glühens) — iterativ
+
+---
+
+## 2026-06-07 — Vision-Grafik neu gezeichnet (Meditation im Wald)
+
+### Ausgangslage / Ziel
+Die Grafik links neben „Unsere Motivation für diese Seite" auf der Vision-Seite war das alte Raster-PNG `07_watercolor_splash.png` und gefiel dem User nicht. In der Vorgänger-Session abgesprochen (Eintrag stand als „OFFEN / NÄCHSTER SCHRITT" oben): komplett neue Grafik **analog zu den Kategorien-SVGs** (gleiche erdige Palette, gefüllte Flächen, kaum Outlines), anhand eines vom User hochgeladenen **Inspirationsbilds** (meditierende Person im Wald, von der Abendsonne hinterleuchtet).
+
+### Was umgesetzt wurde
+- **Neu: [public/img/brand/kategorien/09_vision_scene.svg](public/img/brand/kategorien/09_vision_scene.svg)** (viewBox 800×800, quadratisch passend zum Slot): meditierende Figur im Schneidersitz (Lotus-Basis, aufrechter Torso, auf den Knien ruhende Arme/Hände, Kopf) als Braun-Silhouette `#6B3410`; **Sonnen-Aura** (konzentrische Kreise `#F2D9A8`/`#D4A047`) mit hellem Kern (`#F4C95D`/`#FCEBB6`) **genau hinter dem Kopf** → hinterleuchteter Heiligenschein wie in der Vorlage; gerahmt von ruhigen Bäumen (zwei flankierende Tannen `#5E6B38` + zwei kleinere + gedämpfte ferne Baumreihe in Oliv `#7A8B4A`); Bodenschatten-Ellipse unter der Figur; ein paar weiche Lichtpunkte. Überwiegend gefüllte Flächen, kaum Outlines — Stil/Palette wie `04_dance_silhouettes.svg` / `08_music_scene.svg` / `06_ceremony_motif.svg`
+- **[pages/vision.vue](pages/vision.vue)**: `image`-Prop der `RichTextSection` (Abschnitt `t.vision.about`, `image-side="left"`) von `/img/brand/07_watercolor_splash.png` auf das neue SVG umgestellt. PNG-Original unverändert gelassen
+
+### Verifikation
+- SVG bei nativer Größe (800×800) per Headless-Chrome gerendert → sauberes, valides Bild, trifft die Inspirationsvorlage (Silhouette + Sonnen-Halo + Wald)
+- `/vision` → 200; neue SVG-URL → 200; Section-Slot per Screenshot geprüft: **Desktop** (1280) zeigt die Grafik im quadratischen Slot mit türkisem Versatzrahmen, cover-gecroppt, vollständiges Motiv; **Mobil** (390, ~1.4:1-Crop) zeigt die Figur sauber zentriert (Kopf + Halo + Sitz im Bild), kein Overflow
+
+### Iteration nach Feedback (Sonnenfarbe, Format, Layout)
+User-Wünsche: Sonne im Hintergrund rötlicher (aber weiter gelb/hell, im Farbschema); Figur minimal kleiner; Bild **über** dem „Warum es uns gibt"-Text statt daneben; Format **breiter & nicht quadratisch**; **türkiser Versatzrahmen** („blauer Balken") weg — nur das Bild; gesamter Text **linksbündig**.
+- **[09_vision_scene.svg](public/img/brand/kategorien/09_vision_scene.svg) neu im Querformat** (viewBox 1280×720, 16:9): Sonne jetzt als **radialer Sonnenuntergangs-Verlauf** (`#FFF6DD` → `#F8D277` → Orange `#F2994A` → Coral `#E87A5D` → blendet in Creme `#F7EFE0`) — heller gelb-weißer Kern, rötlicher Rand, alles aus der Brand-Palette; heller Halo direkt hinter dem Kopf; Figur etwas kleiner (`scale 0.8`) und zentriert; Wald über die ganze Breite (vier flankierende Tannen + ferne Baumreihe); Bodenschatten + Lichtpunkte
+- **[components/RichTextSection.vue](components/RichTextSection.vue)** um Modus **`image-side="top"`** erweitert (generisch, statt Duplikat): Bild als **Banner über dem Text** (`.rich-banner`, `aspect-ratio` 3/2 mobil → 16/9 ab `md`, `background cover`, Radius 24px, **ohne** Versatzrahmen), darunter `RichTextBody` linksbündig; bestehende `left`/`right`-Modi unverändert. Block linksbündig in `max-w-[920px]`
+- **[pages/vision.vue](pages/vision.vue)**: `image-side="left"` → `image-side="top"`
+
+#### Verifikation (Iteration)
+- Neues SVG nativ (1280×720) gerendert → warmer Sonnenuntergang (gelb-heller Kern, rötlicher Rand), zentrierte kleinere Figur, Wald über die Breite
+- `/vision` → 200; Screenshot **Desktop** (1280): Banner **über** dem Text, Querformat, **kein** türkiser Rahmen, Eyebrow/Titel/Absätze linksbündig; **Mobil** (390): Banner über Text, Figur im 3:2-Crop sauber zentriert, kein Overflow
+
+### Iteration 2 nach Feedback (Bild kleiner, mehr Rot, weniger Leerraum)
+- **Bild kleiner**: Banner bekommt eigene Max-Breite `max-w-[600px]` (Textblock `max-w-[820px]`) → Grafik braucht spürbar weniger Platz, weiter linksbündig ([components/RichTextSection.vue](components/RichTextSection.vue))
+- **Mehr Rottöne in der Sonne**: Verlauf in [09_vision_scene.svg](public/img/brand/kategorien/09_vision_scene.svg) erweitert — gelb-heller Kern (`#FFF6DD`/`#FAD06A`) bleibt, danach Orange `#F2994A` → Coral `#E87A5D` → tiefes Rot-Terrakotta `#D2542A`/`#C25E2A` → Creme-Fade; der rote Bereich ist jetzt deutlich präsenter
+- **Weniger Leerraum Hero→Bild**: Section-Top-Padding der `RichTextSection` von `py-16 sm:py-24 lg:py-[100px]` auf **asymmetrisch** `pt-6 sm:pt-8 lg:pt-10` (Unterkante `pb-16 sm:pb-24 lg:pb-[100px]` unverändert) reduziert
+- Verifikation: SVG nativ + `/vision` Desktop/Mobil per Screenshot → kleineres Banner, kräftigeres Rot bei hellem Kern, deutlich engerer Abstand unter dem Hero; linksbündig, kein Overflow
+
+### Iteration 3 nach Feedback (kompakter, „Leitlinien"-Bereich, Säulen-Bilder raus)
+- **Banner nochmal ~20% kleiner**: `max-w-[600px]` → `max-w-[480px]`; Banner→Text-Abstand `mb-7/9` → `mb-5/6` ([components/RichTextSection.vue](components/RichTextSection.vue))
+- **Noch weniger Abstand Hero→Bild + Bild→Folge-Bereich**: `RichTextSection`-Padding auf `pt-3 sm:pt-4 lg:pt-5 pb-8 sm:pb-10 lg:pb-12` (vorher `pt-6/8/10` + `pb-16/24/100`)
+- **Engerer Zeilenabstand im About-Text** ([components/RichTextBody.vue](components/RichTextBody.vue)): Eyebrow `mb-4`→`mb-2`; Titel `mb-1.5 leading-[1.2]`→`mb-1 leading-[1.1]`; EN-Zeile `mb-6`→`mb-3`; Fließtext `mb-5 leading-[1.8]`→`mb-3 leading-[1.55]` (Akzent-Variante analog)
+- **„Unsere Motivation für diese Seite" einzeilig**: harter `<br>` zwischen Titel und Script-Teil entfernt → inline; auf Desktop/≥~415px eine Zeile, auf schmalen Phones bricht es natürlich sauber um (kein erzwungener/abgeschnittener Umbruch)
+- **„Was uns leitet / Unsere Leitlinien" umgebaut** ([components/TriCardSection.vue](components/TriCardSection.vue)): jetzt **linksbündig** (zentrierte `section-*`-Klassen ersetzt durch explizite, mit dem About-Bereich konsistente Klassen, `max-w-[820px]`-Block), **schließt direkt an** (`pt-2 sm:pt-3 lg:pt-4` statt `py-16/24/100`), engere Abstände (Header→Grid `mt-6/8`, Card-Padding 36/44→24/28px, Fließtext `leading-[1.7]`→`leading-[1.5]`)
+- **Säulen-Bilder entfernt**: Icon/Bild-Block aus den drei Karten (Achtsamkeit/Verbindung/Offenheit) raus; `img`/`style` aus den Items in [content/de.ts](content/de.ts) und aus dem `Item`-Interface gelöscht (keine Leichen)
+- Verifikation: `/vision` → 200; **CDP-Messung** (echte Viewports 375/390/430, `Emulation.setDeviceMetricsOverride`): **`overflowPx = 0`** bei allen drei → kein horizontaler Overflow; Titel einzeilig ab ~415px, darunter sauberer 2-Zeilen-Umbruch; Desktop- + CDP-390-Screenshot bestätigen kompakteres, linksbündiges Layout ohne Säulen-Bilder. Hinweis: `--window-size`-Screenshots sind hier irreführend (rendern breiter) — Maße via CDP gegengeprüft
+
+### Iteration 4 nach Feedback (Sonne an das Leitlinien-Bild angeglichen)
+User: das Rot in der Sonne des oberen Meditationsbildes soll am Rand **eher Orange** sein — die **Farbkombination des unteren Leitlinien-Bildes** auch oben nutzen.
+- `sunGlow`-Verlauf in [09_vision_scene.svg](public/img/brand/kategorien/09_vision_scene.svg) auf die Gelb-Gold-Orange-Stops des unteren Afterglows umgestellt: `#FFF6D6` → `#F9D277` → `#F4A94E` → `#EE9244` → Creme-Fade `#F7EFE0` (Rot-Stops `#E87A5D`/`#D2542A`/`#C25E2A` entfernt) → heller Kern bleibt, Rand jetzt orange wie unten
+- Verifikation: SVG nativ + `/vision`-Desktop → beide Banner teilen nun dieselbe warme Gold/Orange-Palette (stimmiges Paar); nur SVG-Verlauf geändert, kein Layout-Eingriff
+
+### Offene Punkte / nächste Schritte
+- Bei Bedarf weiterer visueller Feinschliff (Banner-Größe, Glüh-Intensität) — iterativ
+- Altes `07_watercolor_splash.png` wird nun nirgends mehr referenziert — bei Gelegenheit aufräumen, falls endgültig nicht mehr gebraucht
+
+---
+
+## 2026-06-02 — Kategorie-Grafiken überarbeitet (Singen & Musik, Heilsame Angebote)
+
+### Ausgangslage / Ziel
+Diese beiden Kategorien zeigten noch die alten Raster-**PNGs** (`08_drums_instruments.png` = Instrumenten-Stillleben, `06_ceremony_motif.png`). Gewünscht: Musik-Grafik komplett neu (weniger Linien, statt Stillleben ein paar musizierende Menschen analog Tanz, erkennbare Gitarre + klarere Trommeln, Noten, erdige Farben); Heilsame Angebote nur sanft überarbeiten (weniger Linien, größere Kerzen, etwas Rauch).
+
+### Was umgesetzt wurde
+- **Neu: [public/img/brand/kategorien/08_music_scene.svg](public/img/brand/kategorien/08_music_scene.svg)** (1200×500, Stil/Palette wie Tanz-SVG): drei Musizierende — Djembe-Spieler (olive), sitzender Gitarrist mit klar erkennbarer Gitarre (Korpus, Schallloch, Hals, wenige Saiten), singende Figur mit erhobenem Arm (terrakotta) — plus schwebende Noten, Sonnen-Aura, Bodenschatten. Überwiegend gefüllte Flächen, kaum Outlines
+- **Neu: [public/img/brand/kategorien/06_ceremony_motif.svg](public/img/brand/kategorien/06_ceremony_motif.svg)**: Basis = altes Ceremony-SVG, aber **größere Kerzen** + **aufsteigender Rauch** aus den Flammen; linienlastige Elemente entfernt (Mandala-Akzent, Deko-Punkte, Tassels, Salbei-Blatt-Outlines); Salbei jetzt gefüllt, Kristall ohne Outline. Komposition sonst wie zuvor
+- **[data/categories.ts](data/categories.ts)**: `music`- und `healing`-Image auf die neuen SVGs umgestellt (PNGs als Originale unverändert erhalten)
+
+### Verifikation
+- Beide SVGs in Originalgröße via Headless-Chrome gerendert (sauber, valides XML) + auf der `/kategorien`-Seite in den Karten (Cover-Crop) geprüft — `/kategorien` → 200
+
+### Iteration nach Feedback
+- **Tanz** ([04_dance_silhouettes.svg](public/img/brand/kategorien/04_dance_silhouettes.svg)): alle Noten, die Boden-Instrumente (Djembe/Maraca) und die Bewegungs-Marks/Punkte links/rechts entfernt — nur noch Figuren + Sonne + Bodenschatten
+- **Heilsame Angebote** ([06_ceremony_motif.svg](public/img/brand/kategorien/06_ceremony_motif.svg)): Kerzen **ohne Ränder** (weiche Füll-Schattierung statt Outline-Stroke), Wachs minimal dunkler (`#E6C88A`); Schalen-Rauch in der Mitte größer/präsenter (3 Schwaden, dicker), Kerzenrauch reduziert
+- **Singen & Musik** ([08_music_scene.svg](public/img/brand/kategorien/08_music_scene.svg)): Djembe links kleiner; Sängerinnen-Kleid realistischer (taillierte Bodice + A-Linie + geschwungener Saum + Taillenband/Falten); Gitarre mit realistischeren Proportionen (kleiner oberer Bug, großer unterer Bug, langer Hals); Noten größer (`scale(1.35)`)
+
+### Iteration 2 (Musik-Feinschliff)
+- **Gitarre** kleiner + realistischere Proportionen; **anderer Haltewinkel** (diagonal über dem Schoß, Hals nach oben-links, −52°); **Arme neu** — Greifhand am Hals, Schlaghand am Schallloch (per CDP-`getBoundingClientRect` numerisch bestätigt: Hände sitzen auf Hals/Schallloch, Content innerhalb der viewBox)
+- **Djembe**: Rand-/Outline-Linie auf der Trommelfläche entfernt (gefülltes helles Fell statt Stroke)
+- **Sängerin**: bodenlanges Kleid → **hüftlanges Top + sichtbare Beine** (wie die anderen Figuren)
+- **Note oben-links** nach unten verschoben (y148→196), überlappt nicht mehr mit dem Kategorie-Tag in der Karte
+- Hinweis: gerendertes Bild dieser Iteration konnte ich wegen eines Bild-Tool-Limits (sehr viele Screenshots in der Session) nicht selbst sichten — Geometrie numerisch geprüft, visuelle Abnahme durch User
+
+---
+
 ## 2026-06-02 — Events-Sektion linksbündig + einklappbarer Filter
 
 ### Ausgangslage / Ziel

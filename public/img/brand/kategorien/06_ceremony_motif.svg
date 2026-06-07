@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <title>Ceremony altar motif</title>
+  <desc>Altar arrangement — borderless candles with a little smoke, prominent bowl steam, sage bundle, crystal. Earthy palette, minimal outlines.</desc>
+
+  <rect width="800" height="600" fill="#F7EFE0"/>
+
+  <!-- Background sun aura -->
+  <circle cx="400" cy="300" r="235" fill="#D4A047" opacity="0.2"/>
+  <circle cx="400" cy="300" r="165" fill="#D4A047" opacity="0.28"/>
+
+  <!-- Altar table -->
+  <rect x="100" y="430" width="600" height="20" fill="#6B3410"/>
+  <rect x="100" y="450" width="600" height="64" fill="#5A2A0D"/>
+
+  <!-- Cloth runner -->
+  <path d="M 200 430 L 600 430 L 580 522 L 220 522 Z" fill="#C25E2A"/>
+  <path d="M 200 430 L 600 430 L 600 441 L 200 441 Z" fill="#D4A047"/>
+
+  <!-- Left candle (borderless, soft shading, slightly darker) — little smoke -->
+  <g transform="translate(212, 430)">
+    <g stroke="#A2917A" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3">
+      <path d="M 0 -160 Q -11 -176 -3 -194"/>
+    </g>
+    <rect x="-15" y="-138" width="30" height="138" rx="4" fill="#E6C88A"/>
+    <rect x="6" y="-136" width="9" height="136" rx="3" fill="#C7A45E" opacity="0.55"/>
+    <rect x="-15" y="-136" width="6" height="136" rx="3" fill="#F2DEB0" opacity="0.6"/>
+    <ellipse cx="0" cy="-138" rx="15" ry="5" fill="#F0DAA6"/>
+    <line x1="0" y1="-140" x2="0" y2="-156" stroke="#3A1F0E" stroke-width="2"/>
+    <path d="M -11 -158 Q -13 -188 0 -208 Q 13 -188 11 -158 Q 7 -142 0 -141 Q -7 -142 -11 -158 Z" fill="#E0992F"/>
+    <ellipse cx="0" cy="-165" rx="5.5" ry="10" fill="#F4C95D"/>
+  </g>
+
+  <!-- Right candle -->
+  <g transform="translate(588, 430)">
+    <g stroke="#A2917A" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3">
+      <path d="M 0 -160 Q 11 -176 3 -194"/>
+    </g>
+    <rect x="-15" y="-138" width="30" height="138" rx="4" fill="#E6C88A"/>
+    <rect x="6" y="-136" width="9" height="136" rx="3" fill="#C7A45E" opacity="0.55"/>
+    <rect x="-15" y="-136" width="6" height="136" rx="3" fill="#F2DEB0" opacity="0.6"/>
+    <ellipse cx="0" cy="-138" rx="15" ry="5" fill="#F0DAA6"/>
+    <line x1="0" y1="-140" x2="0" y2="-156" stroke="#3A1F0E" stroke-width="2"/>
+    <path d="M -11 -158 Q -13 -188 0 -208 Q 13 -188 11 -158 Q 7 -142 0 -141 Q -7 -142 -11 -158 Z" fill="#E0992F"/>
+    <ellipse cx="0" cy="-165" rx="5.5" ry="10" fill="#F4C95D"/>
+  </g>
+
+  <!-- Sage bundle (left of center) — filled -->
+  <g transform="translate(332, 425)">
+    <ellipse cx="0" cy="-34" rx="21" ry="42" fill="#7A8B4A"/>
+    <ellipse cx="-6" cy="-44" rx="9" ry="20" fill="#8DA055" opacity="0.7"/>
+    <g stroke="#C25E2A" stroke-width="2.5" stroke-linecap="round">
+      <line x1="-8" y1="2" x2="-8" y2="16"/>
+      <line x1="0" y1="2" x2="0" y2="18"/>
+      <line x1="8" y1="2" x2="8" y2="16"/>
+    </g>
+  </g>
+
+  <!-- Center offering bowl with petals + prominent rising steam -->
+  <g transform="translate(400, 425)">
+    <g stroke="#A2917A" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5">
+      <path d="M -16 -18 Q -6 -54 -16 -90 Q -24 -120 -12 -154"/>
+      <path d="M 0 -22 Q 12 -60 0 -100 Q -12 -134 4 -170"/>
+      <path d="M 16 -18 Q 26 -54 16 -90 Q 8 -120 20 -154"/>
+    </g>
+    <ellipse cx="0" cy="0" rx="60" ry="15" fill="#6B3410"/>
+    <path d="M -60 0 Q -54 40 0 45 Q 54 40 60 0 Z" fill="#3A1F0E"/>
+    <g>
+      <ellipse cx="-17" cy="-3" rx="7" ry="3.5" fill="#C25E2A" transform="rotate(-20 -17 -3)"/>
+      <ellipse cx="0" cy="-5" rx="7" ry="3.5" fill="#D4A047"/>
+      <ellipse cx="17" cy="-3" rx="7" ry="3.5" fill="#C25E2A" transform="rotate(20 17 -3)"/>
+      <ellipse cx="-10" cy="6" rx="6" ry="3" fill="#D4A047"/>
+      <ellipse cx="10" cy="6" rx="6" ry="3" fill="#C25E2A"/>
+    </g>
+  </g>
+
+  <!-- Crystal (right of center) — no outline -->
+  <g transform="translate(492, 425)">
+    <path d="M 0 -66 L 20 -27 L 13 0 L -13 0 L -20 -27 Z" fill="#D4A047"/>
+    <path d="M 0 -66 L -20 -27 L -13 0 Z" fill="#C68B3E" opacity="0.85"/>
+    <path d="M 0 -66 L -13 0 L 13 0 Z" fill="#F2D9A8" opacity="0.5"/>
+  </g>
+
+</svg>

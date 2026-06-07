@@ -17,7 +17,7 @@ export const categories: Category[] = [
     label: 'Singen & Musik',
     shortLabel: 'Singen & Musik',
     gradient: 'cool',
-    image: '/img/brand/08_drums_instruments.png',
+    image: '/img/brand/kategorien/08_music_scene.svg',
     accent: 'teal',
     description:
       'Mantra-Singen, Sound Journeys, Kirtan und gemeinsames Musizieren. Die Stimme als Instrument, der Klang als Brücke — zurück zu dir und in die Gemeinschaft.',
@@ -28,7 +28,7 @@ export const categories: Category[] = [
     label: 'Heilsame Angebote',
     shortLabel: 'Heilsame Angebote',
     gradient: 'ceremony',
-    image: '/img/brand/06_ceremony_motif.png',
+    image: '/img/brand/kategorien/06_ceremony_motif.svg',
     accent: 'blue',
     description:
       'Zeremonien, Atemarbeit, Körperarbeit und energetische Sessions. Begleitete Räume für Integration, Loslassen und Heilung — sanft gehalten, mit Respekt für deinen Prozess.',

@@ -2,25 +2,24 @@
   <div :class="{ 'text-center': centered }">
     <div
       v-if="eyebrow"
-      class="section-eyebrow grad-text inline-block"
+      class="section-eyebrow grad-text inline-block mb-2"
       :style="{ textAlign: centered ? 'center' : 'left' }"
     >
       {{ eyebrow }}
     </div>
     <h2
       v-if="title || titleScript"
-      class="font-sans text-[28px] sm:text-[34px] md:text-[42px] text-ink mb-1.5 leading-[1.2] font-extralight"
+      class="font-sans text-[28px] sm:text-[34px] md:text-[42px] text-ink mb-1 leading-[1.1] font-extralight"
       :class="{ 'text-center': centered }"
     >
-      <template v-if="title">{{ title }}</template>
-      <br v-if="title && titleScript" />
+      <template v-if="title">{{ title }} </template>
       <span v-if="titleScript" class="script grad-text text-[34px] sm:text-[44px] md:text-[54px]">
         {{ titleScript }}
       </span>
     </h2>
     <span
       v-if="en"
-      class="italic text-coral text-base mb-6 block font-serif"
+      class="italic text-coral text-base mb-3 block font-serif"
       :class="{ 'text-center': centered }"
     >
       {{ en }}
@@ -29,8 +28,8 @@
       v-for="(p, i) in paragraphs"
       :key="i"
       :class="accentBody
-        ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.6] mb-4'
-        : 'text-base text-ink-soft mb-5 leading-[1.8] font-light'"
+        ? 'italic font-serif text-coral text-[17px] sm:text-lg leading-[1.45] mb-3'
+        : 'text-base text-ink-soft mb-3 leading-[1.55] font-light'"
     >
       {{ p }}
     </p>

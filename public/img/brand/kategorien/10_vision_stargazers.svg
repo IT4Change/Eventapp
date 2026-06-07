@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <title>Vision — gazing at a star at sunset</title>
+  <desc>People on a green hill looking up at a bright star, in a warm earthy sunset. Light, warm palette, soft filled shapes.</desc>
+
+  <defs>
+    <!-- Light, warm sunset sky (no dark night, few reds) -->
+    <linearGradient id="sunsetSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDF1DB"/>
+      <stop offset="45%" stop-color="#F9DCA4"/>
+      <stop offset="75%" stop-color="#F3BE74"/>
+      <stop offset="100%" stop-color="#EDA258"/>
+    </linearGradient>
+    <!-- Horizon sunset glow: bright yellow → gold → soft orange (fades into sky) -->
+    <radialGradient id="afterglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF6D6"/>
+      <stop offset="26%" stop-color="#F9D277"/>
+      <stop offset="52%" stop-color="#F4A94E"/>
+      <stop offset="78%" stop-color="#EE9244"/>
+      <stop offset="100%" stop-color="#EDA258" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF8DC" stop-opacity="0.95"/>
+      <stop offset="32%" stop-color="#F8D277" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#F8D277" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1280" height="720" fill="url(#sunsetSky)"/>
+
+  <!-- Horizon sunset glow behind the people -->
+  <ellipse cx="640" cy="596" rx="520" ry="320" fill="url(#afterglow)"/>
+
+  <!-- Prominent star (the one they gaze at) -->
+  <g transform="translate(748, 152)">
+    <circle cx="0" cy="0" r="122" fill="url(#starGlow)"/>
+    <path d="M 0 -66 L 15 -15 L 66 0 L 15 15 L 0 66 L -15 15 L -66 0 L -15 -15 Z" fill="#FFF6D0"/>
+    <path d="M 0 -36 L 8 -8 L 36 0 L 8 8 L 0 36 L -8 8 L -36 0 L -8 -8 Z" transform="rotate(45)" fill="#FBE6A0"/>
+    <path d="M 0 -30 L 7 -7 L 30 0 L 7 7 L 0 30 L -7 7 L -30 0 L -7 -7 Z" fill="#FFFDF2"/>
+  </g>
+
+  <!-- Green hill -->
+  <path d="M 0 720 L 0 608 Q 330 562 640 572 Q 960 582 1280 600 L 1280 720 Z" fill="#7A8B4A"/>
+  <path d="M 0 608 Q 330 562 640 572 Q 960 582 1280 600 L 1280 606 Q 960 588 640 578 Q 330 568 0 614 Z" fill="#9CB060" opacity="0.7"/>
+  <path d="M 0 720 L 0 680 Q 330 662 640 672 Q 960 682 1280 672 L 1280 720 Z" fill="#5E6B38"/>
+
+  <!-- A few muted trees on the hill -->
+  <g fill="#4E5C30">
+    <g transform="translate(150, 592) scale(0.46)">
+      <rect x="-9" y="0" width="18" height="70" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+    <g transform="translate(248, 600) scale(0.34)">
+      <rect x="-9" y="0" width="18" height="70" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+    <g transform="translate(1090, 596) scale(0.46)">
+      <rect x="-9" y="0" width="18" height="70" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+    <g transform="translate(1178, 602) scale(0.34)">
+      <rect x="-9" y="0" width="18" height="70" fill="#6B3410"/>
+      <path d="M 0 -210 L -48 -105 L -26 -105 L -58 -42 L -32 -42 L -68 32 L 68 32 L 32 -42 L 58 -42 L 26 -105 L 48 -105 Z"/>
+    </g>
+  </g>
+
+  <!-- Ground shadow under the group -->
+  <ellipse cx="660" cy="586" rx="150" ry="14" fill="#3A1F0E" opacity="0.12"/>
+
+  <!-- People gazing up at the star (warm brown silhouettes) -->
+  <g fill="#6B3410">
+    <!-- Figure 1 (tall, pointing toward the star) -->
+    <g transform="translate(556, 580) scale(1.12)">
+      <circle cx="0" cy="-150" r="14"/>
+      <path d="M -16 -134 Q -21 -74 -16 -8 L -4 -8 L -2 -66 L 2 -66 L 4 -8 L 16 -8 Q 21 -74 16 -134 Q 8 -142 0 -142 Q -8 -142 -16 -134 Z"/>
+      <path d="M 12 -120 Q 44 -150 58 -186" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- Figure 2 -->
+    <g transform="translate(634, 586) scale(0.96)">
+      <circle cx="0" cy="-150" r="14"/>
+      <path d="M -16 -134 Q -21 -74 -16 -8 L -4 -8 L -2 -66 L 2 -66 L 4 -8 L 16 -8 Q 21 -74 16 -134 Q 8 -142 0 -142 Q -8 -142 -16 -134 Z"/>
+    </g>
+    <!-- Figure 3 -->
+    <g transform="translate(708, 582) scale(1.06)">
+      <circle cx="0" cy="-150" r="14"/>
+      <path d="M -16 -134 Q -21 -74 -16 -8 L -4 -8 L -2 -66 L 2 -66 L 4 -8 L 16 -8 Q 21 -74 16 -134 Q 8 -142 0 -142 Q -8 -142 -16 -134 Z"/>
+    </g>
+    <!-- Figure 4 (shorter) -->
+    <g transform="translate(774, 588) scale(0.8)">
+      <circle cx="0" cy="-150" r="14"/>
+      <path d="M -16 -134 Q -21 -74 -16 -8 L -4 -8 L -2 -66 L 2 -66 L 4 -8 L 16 -8 Q 21 -74 16 -134 Q 8 -142 0 -142 Q -8 -142 -16 -134 Z"/>
+    </g>
+  </g>
+
+</svg>

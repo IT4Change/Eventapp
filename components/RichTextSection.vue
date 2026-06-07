@@ -1,8 +1,26 @@
 <template>
-  <section class="bg-off py-16 sm:py-24 lg:py-[100px]">
+  <section class="bg-off pt-3 sm:pt-4 lg:pt-5 pb-8 sm:pb-10 lg:pb-12">
     <div class="container-w">
+      <!-- Banner on top: full-width image above the text, no offset frame -->
+      <div v-if="image && imageSide === 'top'" class="max-w-[820px]">
+        <div
+          class="rich-banner max-w-[480px] mb-5 sm:mb-6"
+          :style="{ backgroundImage: `url('${image}')` }"
+        />
+        <RichTextBody
+          :eyebrow="eyebrow"
+          :title="title"
+          :title-script="titleScript"
+          :en="en"
+          :paragraphs="paragraphs"
+          :quote="quote"
+          :cta="cta"
+          :accent-body="accentBody"
+          :cta-class="ctaClass"
+        />
+      </div>
       <div
-        v-if="image"
+        v-else-if="image"
         class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-14 md:gap-20 items-center"
       >
         <div
@@ -61,7 +79,7 @@ withDefaults(
     paragraphs?: string[]
     quote?: string
     image?: string
-    imageSide?: 'left' | 'right'
+    imageSide?: 'left' | 'right' | 'top'
     centered?: boolean
     cta?: CtaLink
     accentBody?: boolean
@@ -75,6 +93,18 @@ withDefaults(
 </script>
 
 <style scoped>
+/* Banner-on-top: only the image, no offset frame; wider-than-tall format */
+.rich-banner {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background-size: cover;
+  background-position: center;
+  border-radius: 24px;
+}
+@media (min-width: 768px) {
+  .rich-banner { aspect-ratio: 16 / 9; }
+}
+
 .rich-image-wrap {
   position: relative;
 }

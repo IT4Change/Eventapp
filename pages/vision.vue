@@ -15,8 +15,8 @@
       :title-script="t.vision.about.titleScript"
       :en="t.vision.about.en"
       :paragraphs="t.vision.about.paragraphs"
-      image="/img/brand/07_watercolor_splash.png"
-      image-side="left"
+      image="/img/brand/kategorien/09_vision_scene.svg"
+      image-side="top"
     />
 
     <TriCardSection
@@ -25,6 +25,7 @@
       :title-script="t.vision.pillars.titleScript"
       :intro="t.vision.pillars.intro"
       :items="t.vision.pillars.items"
+      image="/img/brand/kategorien/10_vision_stargazers.svg"
     />
 
     <section class="bg-off py-14 sm:py-20 lg:py-[80px] text-center">
