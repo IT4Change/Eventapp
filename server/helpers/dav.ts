@@ -45,17 +45,11 @@ export function fetchEventsInRange(
   })
 }
 
-// Einzelnes Event per Dateiname (<uid>.ics) aus einem Kalender.
-export function fetchEventObject(
-  calendar: DAVCalendar,
-  headers: Record<string, string>,
-  uid: string,
-) {
-  return fetchCalendarObjects({
-    calendar,
-    headers,
-    objectUrls: [`${uid}.ics`],
-  })
+// Alle Event-Objekte eines Kalenders (ohne Zeitfenster). Wird für die Einzel-
+// Suche per UID genutzt — der Dateiname (href) entspricht NICHT zwingend der UID
+// (CalDAV-Clients/Baikal-UI vergeben zufällige hrefs), daher Suche über den Inhalt.
+export function fetchAllEvents(calendar: DAVCalendar, headers: Record<string, string>) {
+  return fetchCalendarObjects({ calendar, headers })
 }
 
 // Letztes Pfadsegment einer Kalender-URL → Kalender-URI (z. B. 'dance').
