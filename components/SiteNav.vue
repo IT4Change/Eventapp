@@ -1,36 +1,40 @@
 <template>
   <nav class="sticky top-0 z-50 nav-bg backdrop-blur-md">
     <div class="flex items-center justify-between px-5 sm:px-6 lg:px-8 py-[18px] max-w-container mx-auto gap-8">
-      <NuxtLink to="/" class="flex items-center gap-3 logo-link" aria-label="Soul & Bliss">
+      <NuxtLinkLocale to="/" class="flex items-center gap-3 logo-link" aria-label="Soul & Bliss">
         <BrandWordmark size="md" with-tagline />
-      </NuxtLink>
+      </NuxtLinkLocale>
 
       <ul class="hidden lg:flex gap-[36px] list-none items-center flex-1 justify-end">
         <li v-for="link in links" :key="link.to">
-          <NuxtLink
+          <NuxtLinkLocale
             :to="link.to"
             class="nav-link"
             active-class="nav-link-active"
           >
             {{ link.label }}
-          </NuxtLink>
+          </NuxtLinkLocale>
         </li>
       </ul>
 
       <div class="hidden lg:flex items-center gap-5 nav-actions">
-        <NuxtLink to="/newsletter" class="btn nav-newsletter">
-          {{ t.nav.newsletter }}
-        </NuxtLink>
-        <button class="lang-btn" aria-label="Sprache wechseln" @click="onLangClick">
-          <span class="text-coral font-medium">{{ t.nav.language.de }}</span>
+        <NuxtLinkLocale to="/newsletter" class="btn nav-newsletter">
+          {{ $t('nav.newsletter') }}
+        </NuxtLinkLocale>
+        <div class="lang-switch" :aria-label="$t('nav.a11y.langSwitch')">
+          <NuxtLink :to="switchLocalePath('de')" class="lang-opt" :class="{ active: locale === 'de' }">
+            {{ $t('nav.language.de') }}
+          </NuxtLink>
           <span class="mx-1">·</span>
-          <span>{{ t.nav.language.en }}</span>
-        </button>
+          <NuxtLink :to="switchLocalePath('en')" class="lang-opt" :class="{ active: locale === 'en' }">
+            {{ $t('nav.language.en') }}
+          </NuxtLink>
+        </div>
       </div>
 
       <button
         class="lg:hidden burger"
-        aria-label="Menü öffnen"
+        :aria-label="$t('nav.a11y.menu')"
         @click="mobileOpen = !mobileOpen"
       >
         <span :class="{ open: mobileOpen }" />
@@ -42,24 +46,34 @@
     <div v-if="mobileOpen" class="lg:hidden mobile-menu">
       <ul class="flex flex-col gap-1 px-5 sm:px-6 py-6 list-none">
         <li v-for="link in links" :key="link.to">
-          <NuxtLink
+          <NuxtLinkLocale
             :to="link.to"
             class="block py-3.5 text-ink text-[15px] tracking-[2px] uppercase no-underline border-b border-ink/10"
             active-class="text-coral"
             @click="mobileOpen = false"
           >
             {{ link.label }}
-          </NuxtLink>
+          </NuxtLinkLocale>
         </li>
         <li class="pt-5">
-          <NuxtLink to="/newsletter" class="btn block text-center" @click="mobileOpen = false">
-            {{ t.nav.newsletter }}
-          </NuxtLink>
+          <NuxtLinkLocale to="/newsletter" class="btn block text-center" @click="mobileOpen = false">
+            {{ $t('nav.newsletter') }}
+          </NuxtLinkLocale>
         </li>
-        <li class="text-xs text-ink-soft tracking-[1px] pt-4 text-center">
-          <span class="text-coral font-medium">{{ t.nav.language.de }}</span>
-          <span class="mx-1">·</span>
-          <span>{{ t.nav.language.en }}</span>
+        <li class="pt-4 text-center">
+          <NuxtLink
+            :to="switchLocalePath('de')"
+            class="lang-opt text-[15px] tracking-[1px]"
+            :class="{ active: locale === 'de' }"
+            @click="mobileOpen = false"
+          >{{ $t('nav.language.de') }}</NuxtLink>
+          <span class="mx-1 text-ink-soft">·</span>
+          <NuxtLink
+            :to="switchLocalePath('en')"
+            class="lang-opt text-[15px] tracking-[1px]"
+            :class="{ active: locale === 'en' }"
+            @click="mobileOpen = false"
+          >{{ $t('nav.language.en') }}</NuxtLink>
         </li>
       </ul>
     </div>
@@ -67,19 +81,16 @@
 </template>
 
 <script setup lang="ts">
-const t = useContent()
+const { t, locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 const mobileOpen = ref(false)
 
-const links = [
-  { label: t.nav.events, to: '/' },
-  { label: t.nav.vision, to: '/vision' },
-  { label: t.nav.categories, to: '/kategorien' },
-  { label: t.nav.postEvent, to: '/teilen' },
-]
-
-function onLangClick() {
-  console.log('Sprachumschaltung folgt — English version coming soon.')
-}
+const links = computed(() => [
+  { label: t('nav.events'), to: '/' },
+  { label: t('nav.vision'), to: '/vision' },
+  { label: t('nav.categories'), to: '/kategorien' },
+  { label: t('nav.postEvent'), to: '/teilen' },
+])
 
 const route = useRoute()
 watch(() => route.path, () => { mobileOpen.value = false })
@@ -138,17 +149,27 @@ watch(() => route.path, () => { mobileOpen.value = false })
   letter-spacing: 1.4px !important;
 }
 
-.lang-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
   font-size: 15px;
-  color: var(--ink);
-  padding: 8px 2px;
   letter-spacing: 1.4px;
-  font-weight: 500;
   text-transform: uppercase;
+  color: var(--ink);
+}
+.lang-opt {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 2px;
+  transition: color 0.2s;
+}
+.lang-opt:hover {
+  color: var(--coral);
+}
+.lang-opt.active {
+  color: var(--coral);
+  font-weight: 600;
 }
 
 .burger {

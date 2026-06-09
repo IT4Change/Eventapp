@@ -2,7 +2,7 @@
   <article class="bg-off">
     <div class="container-w py-4 sm:py-6">
       <div class="max-w-[820px]">
-      <NuxtLink to="/" class="back-link">← {{ t.event.back }}</NuxtLink>
+      <NuxtLinkLocale to="/" class="back-link">← {{ $t('event.back') }}</NuxtLinkLocale>
 
       <!-- Kompakter Kopf -->
       <header class="ev-head">
@@ -14,11 +14,11 @@
       <!-- Fakten (kompakt) -->
       <dl class="event-facts">
         <div class="row">
-          <dt>{{ t.event.dateTime }}</dt>
+          <dt>{{ $t('event.dateTime') }}</dt>
           <dd>{{ dateTimeValue }}</dd>
         </div>
         <div class="row">
-          <dt>{{ t.event.location }}</dt>
+          <dt>{{ $t('event.location') }}</dt>
           <dd>
             {{ location?.city }} · {{ location?.name }}
             <a
@@ -27,38 +27,38 @@
               target="_blank"
               rel="noopener"
               class="maps-link"
-            >{{ t.event.directions }} →</a>
+            >{{ $t('event.directions') }} →</a>
           </dd>
         </div>
         <div v-if="registrationLabel" class="row">
-          <dt>{{ t.event.registration }}</dt>
+          <dt>{{ $t('event.registration') }}</dt>
           <dd>{{ registrationLabel }}</dd>
         </div>
         <div v-if="event.price" class="row">
-          <dt>{{ t.event.price }}</dt>
+          <dt>{{ $t('event.price') }}</dt>
           <dd>{{ event.price }}</dd>
         </div>
         <div v-if="event.organizer" class="row">
-          <dt>{{ t.event.organizer }}</dt>
+          <dt>{{ $t('event.organizer') }}</dt>
           <dd>{{ event.organizer }}</dd>
         </div>
         <div v-if="event.url" class="row">
-          <dt>{{ t.event.websiteLabel }}</dt>
+          <dt>{{ $t('event.websiteLabel') }}</dt>
           <dd><a :href="event.url" target="_blank" rel="noopener" class="fact-link">{{ websiteDisplay }}</a></dd>
         </div>
         <div v-if="event.email" class="row">
-          <dt>{{ t.event.emailLabel }}</dt>
+          <dt>{{ $t('event.emailLabel') }}</dt>
           <dd><a :href="`mailto:${event.email}`" class="fact-link">{{ event.email }}</a></dd>
         </div>
         <div v-if="event.phone" class="row">
-          <dt>{{ t.event.phoneLabel }}</dt>
+          <dt>{{ $t('event.phoneLabel') }}</dt>
           <dd><a :href="`tel:${event.phone.replace(/\s+/g, '')}`" class="fact-link">{{ event.phone }}</a></dd>
         </div>
       </dl>
 
       <!-- Beschreibung -->
       <section class="block">
-        <h2 class="block-heading">{{ t.event.descriptionHeading }}</h2>
+        <h2 class="block-heading">{{ $t('event.descriptionHeading') }}</h2>
         <p v-for="(p, i) in descriptionParagraphs" :key="i" class="body-p">{{ p }}</p>
       </section>
 
@@ -76,17 +76,17 @@
 
       <!-- Kontakt-Buttons ganz unten -->
       <div v-if="hasContact" class="contact-actions">
-        <a v-if="event.url" :href="event.url" target="_blank" rel="noopener" class="btn">{{ t.event.website }}</a>
-        <a v-if="event.email" :href="`mailto:${event.email}`" class="btn btn-outline">{{ t.event.email }}</a>
-        <a v-if="event.phone" :href="`tel:${event.phone.replace(/\s+/g, '')}`" class="btn btn-outline">{{ t.event.phone }}</a>
+        <a v-if="event.url" :href="event.url" target="_blank" rel="noopener" class="btn">{{ $t('event.website') }}</a>
+        <a v-if="event.email" :href="`mailto:${event.email}`" class="btn btn-outline">{{ $t('event.email') }}</a>
+        <a v-if="event.phone" :href="`tel:${event.phone.replace(/\s+/g, '')}`" class="btn btn-outline">{{ $t('event.phone') }}</a>
       </div>
 
       <!-- Hinweis + Quelle -->
       <footer class="event-foot">
         <p v-if="event.aggregatorNote" class="event-note">
-          <strong>{{ t.event.disclaimerHeading }}:</strong> {{ event.aggregatorNote }}
+          <strong>{{ $t('event.disclaimerHeading') }}:</strong> {{ event.aggregatorNote }}
         </p>
-        <p v-if="event.source" class="event-source">Quelle: {{ event.source }}</p>
+        <p v-if="event.source" class="event-source">{{ $t('event.sourceLabel') }}: {{ event.source }}</p>
       </footer>
       </div>
     </div>
@@ -96,16 +96,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { getEventByUuid, slugify, eventPath } from '~/composables/useEvents'
-import { categoryByKey } from '~/data/categories'
-import { locationById } from '~/data/locations'
 
-const t = useContent()
+const { t, te } = useI18n()
 const route = useRoute()
 const { weekday, dayMonth, time, timeRange, dateRangeLabel } = useFormat()
+const { categoryByKey } = useCategories()
+const { getLocationFor } = useEvents()
 
 const event = getEventByUuid(route.params.uuid as string)
 if (!event) {
-  throw createError({ statusCode: 404, statusMessage: 'Event nicht gefunden', fatal: true })
+  throw createError({ statusCode: 404, statusMessage: t('event.notFound'), fatal: true })
 }
 
 // kanonischer Slug erzwingen (Redirect bei falschem/veraltetem Slug)
@@ -113,8 +113,8 @@ if (route.params.slug !== slugify(event.title)) {
   await navigateTo(eventPath(event), { redirectCode: 301, replace: true })
 }
 
-const category = computed(() => categoryByKey[event!.category])
-const location = computed(() => locationById[event!.locationId])
+const category = computed(() => categoryByKey.value[event!.category])
+const location = computed(() => getLocationFor(event!))
 
 const dateTimeValue = computed(() => {
   const start = new Date(event!.start)
@@ -123,7 +123,7 @@ const dateTimeValue = computed(() => {
   const dateLabel = multiDay && end
     ? dateRangeLabel(start, end)
     : `${weekday(start)}, ${dayMonth(start)} ${start.getFullYear()}`
-  const timeText = multiDay ? `ab ${time(start)} Uhr` : timeRange(event!.start, event!.end)
+  const timeText = multiDay ? t('event.fromTime', { time: time(start) }) : timeRange(event!.start, event!.end)
   return `${dateLabel} · ${timeText}`
 })
 
@@ -131,14 +131,11 @@ const websiteDisplay = computed(() =>
   (event!.url || '').replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''),
 )
 
-const REG_LABEL: Record<string, string> = {
-  ja: 'Erforderlich',
-  empfohlen: 'Empfohlen',
-  nein: 'Nicht erforderlich',
-}
-const registrationLabel = computed(() =>
-  event!.registration ? REG_LABEL[event!.registration] ?? event!.registration : '',
-)
+const registrationLabel = computed(() => {
+  if (!event!.registration) return ''
+  const key = `event.registrationValues.${event!.registration}`
+  return te(key) ? t(key) : event!.registration
+})
 
 const descriptionParagraphs = computed(() => {
   const text = event!.detailedDescription || event!.description || ''
@@ -155,7 +152,7 @@ const descriptionParagraphs = computed(() => {
 const hasContact = computed(() => !!(event!.url || event!.email || event!.phone))
 
 useHead({
-  title: `${t.brand.name} · ${event.title}`,
+  title: `${t('brand.name')} · ${event.title}`,
   meta: [
     { name: 'description', content: event.description },
     { property: 'og:title', content: event.title },

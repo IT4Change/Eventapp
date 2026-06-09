@@ -11,4 +11,12 @@
 
 <script setup lang="ts">
 const route = useRoute()
+
+// SEO: <html lang>, hreflang-Alternates und canonical pro Locale
+const head = useLocaleHead()
+useHead(() => ({
+  htmlAttrs: { lang: head.value.htmlAttrs?.lang },
+  link: [...(head.value.link || [])],
+  meta: [...(head.value.meta || [])],
+}))
 </script>

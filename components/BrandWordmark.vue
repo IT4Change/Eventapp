@@ -1,9 +1,9 @@
 <template>
   <span class="brand-lockup" :class="[size, { 'has-tagline': withTagline }]">
-    <span class="brand-wordmark">{{ t.brand.name }}</span>
+    <span class="brand-wordmark">{{ $t('brand.name') }}</span>
     <span v-if="withTagline" class="brand-tagline">
       <span
-        v-for="(line, i) in t.brand.taglineLines"
+        v-for="(line, i) in taglineLines"
         :key="i"
         class="brand-tagline-line"
       >{{ line }}</span>
@@ -22,7 +22,11 @@ withDefaults(
     withTagline: false,
   },
 )
-const t = useContent()
+const { tm, rt, locale } = useI18n()
+const taglineLines = computed(() => {
+  void locale.value
+  return (tm('brand.taglineLines') as unknown[]).map((x) => rt(x as never))
+})
 </script>
 
 <style scoped>

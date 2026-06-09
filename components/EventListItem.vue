@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="eventPath(event)" class="event-row group">
+  <NuxtLinkLocale :to="eventPath(event)" class="event-row group">
     <div class="event-time">
       <span class="text-[15px] font-medium text-ink">{{ timeRange(event.start, event.end) }}</span>
     </div>
@@ -29,7 +29,7 @@
     <div class="event-arrow">
       <span class="arrow">→</span>
     </div>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">
@@ -37,10 +37,11 @@ import type { Event } from '~/data/types'
 
 const props = defineProps<{ event: Event }>()
 
-const { getCategoryFor, getLocationFor } = useEvents()
+const { getLocationFor } = useEvents()
+const { categoryByKey } = useCategories()
 const { timeRange } = useFormat()
 
-const category = computed(() => getCategoryFor(props.event))
+const category = computed(() => categoryByKey.value[props.event.category])
 const location = computed(() => getLocationFor(props.event))
 </script>
 

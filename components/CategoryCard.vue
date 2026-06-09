@@ -10,7 +10,7 @@
         {{ category.label }}
       </h3>
       <p v-if="category.includes?.length" class="card-includes">
-        <span class="includes-label">{{ t.categories.includesLabel }}:</span>
+        <span class="includes-label">{{ $t('categories.includesLabel') }}:</span>
         {{ category.includes.join(' · ') }}
       </p>
       <p class="text-[15px] text-ink-soft leading-[1.7] font-light">
@@ -21,10 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Category } from '~/data/types'
+import type { LocalizedCategory } from '~/data/types'
 
-defineProps<{ category: Category }>()
-const t = useContent()
+defineProps<{ category: LocalizedCategory }>()
 </script>
 
 <style scoped>

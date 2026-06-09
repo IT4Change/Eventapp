@@ -11,6 +11,10 @@ export default {
     contact: 'Kontakt',
     newsletter: 'Newsletter',
     language: { de: 'DE', en: 'EN' },
+    a11y: {
+      langSwitch: 'Sprache wechseln',
+      menu: 'Menü öffnen',
+    },
   },
   cta: {
     weekView: 'Zur aktuellen Woche',
@@ -20,6 +24,15 @@ export default {
     subscribe: 'Newsletter abonnieren',
     moreInfo: 'Mehr erfahren',
     details: 'Details',
+  },
+  filter: {
+    more: 'Weitere Filter',
+    period: 'Zeitraum',
+    from: 'Von',
+    to: 'Bis',
+    location: 'Ort',
+    allLocations: 'Alle Orte',
+    reset: 'Filter zurücksetzen',
   },
   home: {
     hero: {
@@ -32,11 +45,13 @@ export default {
       secondaryCta: 'Vision lesen',
     },
     week: {
+      eyebrow: 'Aktuelle Events',
       title: 'Aktuelle Events im Überblick',
       intro: 'Filter nach Kategorien, Datum und Ort.',
       emptyState: 'In dieser Auswahl sind keine Events. Probiere andere Filter.',
       todayLabel: 'Heute',
       loadMore: 'Weitere 30 Events laden',
+      count: '{visible} von {total} Events',
     },
     closing: {
       title: 'Auch du gestaltest die Szene',
@@ -107,6 +122,43 @@ export default {
       body: 'Schau dir die Events der aktuellen Woche an — gefiltert nach dem, was dich ruft.',
       cta: 'Zur Wochenansicht',
     },
+    items: {
+      dance: {
+        label: 'Tanz',
+        shortLabel: 'Tanz',
+        description:
+          'Räume, in denen Körper und Seele atmen dürfen — ohne Schritte, ohne Show, nur Bewegung als Sprache.',
+        includes: ['Ecstatic Dance', 'Contact Dance', '5 Rhythmen'],
+      },
+      music: {
+        label: 'Singen & Musik',
+        shortLabel: 'Singen & Musik',
+        description:
+          'Mantra-Singen, Sound Journeys, Kirtan und gemeinsames Musizieren. Die Stimme als Instrument, der Klang als Brücke — zurück zu dir und in die Gemeinschaft.',
+        includes: ['Singkreis', 'Konzert'],
+      },
+      healing: {
+        label: 'Heilsame Angebote',
+        shortLabel: 'Heilsame Angebote',
+        description:
+          'Zeremonien, Atemarbeit, Körperarbeit und energetische Sessions. Begleitete Räume für Integration, Loslassen und Heilung — sanft gehalten, mit Respekt für deinen Prozess.',
+        includes: ['Zeremonien', 'Körperarbeit', 'Massagen', 'Breathwork'],
+      },
+      inspiration: {
+        label: 'Inspiration & Lernen',
+        shortLabel: 'Inspiration & Lernen',
+        description:
+          'Vorträge, Workshops und Kreise, in denen neues Wissen, alte Weisheit und gelebte Erfahrung zusammenkommen. Für Menschen, die ihren Horizont erweitern und sich bewusst weiterentwickeln möchten.',
+        includes: ['Workshops', 'Vorträge', 'Coachings'],
+      },
+      retreat: {
+        label: 'Mehrtägige Events',
+        shortLabel: 'Mehrtägige Events',
+        description:
+          'Retreats, Festivals und längere Auszeiten in Natur und Gemeinschaft. Zeit, in der Tiefe entstehen kann — fern vom Alltag, eingebettet in einen klaren Container.',
+        includes: ['Festivals', 'Retreats'],
+      },
+    },
   },
   postEvent: {
     hero: {
@@ -122,7 +174,7 @@ export default {
         'Der schnellste Weg: Schick uns die Eckdaten deiner Veranstaltung — Titel, Datum, Ort, eine kurze Beschreibung und gern ein Bild. Wir stellen dein Event für dich in die Wochenübersicht.',
         'Ideal, wenn du nur gelegentlich ein Event teilst und dir kein eigenes Konto anlegen möchtest.',
       ],
-      cta: { label: 'veranstaltung-teilen@soul-and-bliss.de', to: 'mailto:veranstaltung-teilen@soul-and-bliss.de' },
+      cta: { label: 'veranstaltung-teilen{\'@\'}soul-and-bliss.de', to: 'mailto:veranstaltung-teilen{\'@\'}soul-and-bliss.de' },
     },
     login: {
       eyebrow: 'Variante 2',
@@ -139,7 +191,7 @@ export default {
       login: {
         title: 'Willkommen zurück',
         emailLabel: 'E-Mail',
-        emailPlaceholder: 'deine@email.de',
+        emailPlaceholder: 'deine{\'@\'}email.de',
         passwordLabel: 'Passwort',
         passwordPlaceholder: '••••••••',
         submit: 'Einloggen',
@@ -150,12 +202,13 @@ export default {
         nameLabel: 'Name oder Organisations-Name',
         namePlaceholder: 'z. B. Tempel Frankfurt',
         emailLabel: 'E-Mail',
-        emailPlaceholder: 'deine@email.de',
+        emailPlaceholder: 'deine{\'@\'}email.de',
         passwordLabel: 'Passwort wählen',
         passwordPlaceholder: 'mindestens 8 Zeichen',
         submit: 'Konto anlegen',
         terms: 'Mit der Registrierung akzeptierst du unsere Werte und den Disclaimer.',
       },
+      successMock: 'Danke! Diese Login-Funktion ist noch ein Mockup — eine echte Anmeldung folgt in Kürze.',
     },
   },
   contact: {
@@ -170,7 +223,7 @@ export default {
       {
         title: 'Per E-Mail',
         body: 'Der schnellste Weg uns zu erreichen: ',
-        link: { label: 'hallo@soulandbliss.de', href: 'mailto:hallo@soulandbliss.de' },
+        link: { label: 'hallo{\'@\'}soulandbliss.de', href: 'mailto:hallo{\'@\'}soulandbliss.de' },
       },
       {
         title: 'Für Veranstalter·innen',
@@ -196,7 +249,7 @@ export default {
       heading: 'Bleib in Verbindung',
       body:
         'Keine Werbung. Keine Weitergabe deiner Daten. Abmeldung jederzeit mit einem Klick.',
-      placeholder: 'deine@email.de',
+      placeholder: 'deine{\'@\'}email.de',
       submit: 'Anmelden',
     },
     expectations: {
@@ -228,6 +281,14 @@ export default {
     phone: 'Anrufen',
     back: 'Zurück zu den Events',
     disclaimerHeading: 'Hinweis',
+    sourceLabel: 'Quelle',
+    fromTime: 'ab {time} Uhr',
+    notFound: 'Event nicht gefunden',
+    registrationValues: {
+      ja: 'Erforderlich',
+      empfohlen: 'Empfohlen',
+      nein: 'Nicht erforderlich',
+    },
   },
   datenschutz: {
     title: 'Datenschutzerklärung',
@@ -236,7 +297,7 @@ export default {
         heading: 'I. Name und Anschrift des Verantwortlichen',
         blocks: [
           { p: 'Der Verantwortliche im Sinne der Datenschutz-Grundverordnung und anderer nationaler Datenschutzgesetze der Mitgliedsstaaten sowie sonstiger datenschutzrechtlicher Bestimmungen ist:' },
-          { p: 'Soul-and-bliss\nMohammed Mustermann\nMusterstrasse 99\n99999 Musterhausen\nE-Mail: kontakt@soul-and-bliss.de' },
+          { p: 'Soul-and-bliss\nMohammed Mustermann\nMusterstrasse 99\n99999 Musterhausen\nE-Mail: kontakt{\'@\'}soul-and-bliss.de' },
         ],
       },
       {
@@ -376,7 +437,7 @@ export default {
       {
         heading: 'VII. Widerspruchs- und Beseitigungsrecht',
         blocks: [
-          { p: 'Der Nutzer hat jederzeit die Möglichkeit, seine Einwilligung zur Verarbeitung der personenbezogenen Daten zu widerrufen. Hierzu muss lediglich Kontakt mit uns aufgenommen, und die Löschung der Daten beantragt werden. Hierfür raten wir zur Kontaktaufnahme via E-Mail zu kontakt@soul-and-bliss.de. Alle personenbezogenen Daten werden in diesem Fall gelöscht.' },
+          { p: 'Der Nutzer hat jederzeit die Möglichkeit, seine Einwilligung zur Verarbeitung der personenbezogenen Daten zu widerrufen. Hierzu muss lediglich Kontakt mit uns aufgenommen, und die Löschung der Daten beantragt werden. Hierfür raten wir zur Kontaktaufnahme via E-Mail zu kontakt{\'@\'}soul-and-bliss.de. Alle personenbezogenen Daten werden in diesem Fall gelöscht.' },
         ],
       },
     ],
@@ -536,6 +597,6 @@ export default {
       },
     ],
     copyright: '© 2026 Soul & Bliss · Made with care · Rhein-Main-Neckar',
-    language: 'Deutsch · English coming soon',
+    language: 'Deutsch · English',
   },
 }

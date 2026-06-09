@@ -1,10 +1,10 @@
 <template>
   <div>
     <HeroSection
-      :eyebrow="t.contact.hero.eyebrow"
-      :title="t.contact.hero.title"
-      :title-script="t.contact.hero.titleScript"
-      :body="t.contact.hero.body"
+      :eyebrow="$t('contact.hero.eyebrow')"
+      :title="$t('contact.hero.title')"
+      :title-script="$t('contact.hero.titleScript')"
+      :body="$t('contact.hero.body')"
       accent-body
       image="/img/brand/07_watercolor_splash.png"
     />
@@ -12,11 +12,11 @@
     <section class="bg-off py-16 sm:py-24 lg:py-[100px]">
       <div class="container-w max-w-[820px]">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="block in t.contact.blocks" :key="block.title" class="contact-block">
+          <div v-for="block in blocks" :key="block.title" class="contact-block">
             <h3 class="font-serif text-[22px] text-ink mb-3 font-normal">{{ block.title }}</h3>
             <p class="text-[15px] text-ink-soft leading-[1.7] font-light">
               {{ block.body }}<a
-                v-if="'link' in block && block.link"
+                v-if="block.link"
                 :href="block.link.href"
                 class="contact-link"
               >{{ block.link.label }}</a>
@@ -29,11 +29,20 @@
 </template>
 
 <script setup lang="ts">
-const t = useContent()
+const { t, tm, rt, locale } = useI18n()
+
+const blocks = computed(() => {
+  void locale.value
+  return (tm('contact.blocks') as any[]).map((b) => ({
+    title: rt(b.title),
+    body: rt(b.body),
+    link: b.link ? { href: rt(b.link.href), label: rt(b.link.label) } : undefined,
+  }))
+})
 
 useHead({
-  title: `${t.brand.name} · ${t.nav.contact}`,
-  meta: [{ name: 'description', content: t.contact.hero.body }],
+  title: `${t('brand.name')} · ${t('nav.contact')}`,
+  meta: [{ name: 'description', content: t('contact.hero.body') }],
 })
 </script>
 

@@ -22,7 +22,7 @@
           <line x1="4.5" y1="8" x2="11.5" y2="8" />
           <line x1="6.5" y1="11.5" x2="9.5" y2="11.5" />
         </svg>
-        Weitere Filter
+        {{ $t('filter.more') }}
         <span v-if="advActive" class="dot" />
         <span class="chev">▾</span>
       </button>
@@ -32,23 +32,23 @@
     <div class="more-wrap" :class="{ open: expanded }">
       <div class="more-inner">
         <div class="adv-row">
-          <span class="filter-label">Zeitraum</span>
+          <span class="filter-label">{{ $t('filter.period') }}</span>
           <div class="filter-controls">
             <label class="date-field">
-              <span>Von</span>
+              <span>{{ $t('filter.from') }}</span>
               <input v-model="dateFrom" type="date" class="date-input" />
             </label>
             <label class="date-field">
-              <span>Bis</span>
+              <span>{{ $t('filter.to') }}</span>
               <input v-model="dateTo" type="date" class="date-input" />
             </label>
           </div>
         </div>
         <div class="adv-row">
-          <span class="filter-label">Ort</span>
+          <span class="filter-label">{{ $t('filter.location') }}</span>
           <div class="filter-controls">
             <select v-model="selectedLocationId" class="location-select">
-              <option value="">Alle Orte</option>
+              <option value="">{{ $t('filter.allLocations') }}</option>
               <option v-for="loc in locations" :key="loc.id" :value="loc.id">
                 {{ loc.city }} — {{ loc.name }}
               </option>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <button v-if="hasActiveFilters" class="clear-btn" @click="onClear">
-          Filter zurücksetzen
+          {{ $t('filter.reset') }}
         </button>
       </div>
     </div>
@@ -65,7 +65,6 @@
 
 <script setup lang="ts">
 const {
-  categories,
   locations,
   selectedCategories,
   selectedLocationId,
@@ -74,6 +73,7 @@ const {
   toggleCategory,
   clearFilters,
 } = useEvents()
+const { categories } = useCategories()
 
 const expanded = ref(false)
 

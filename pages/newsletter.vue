@@ -1,10 +1,10 @@
 <template>
   <div>
     <HeroSection
-      :eyebrow="t.newsletter.hero.eyebrow"
-      :title="t.newsletter.hero.title"
-      :title-script="t.newsletter.hero.titleScript"
-      :body="t.newsletter.hero.body"
+      :eyebrow="$t('newsletter.hero.eyebrow')"
+      :title="$t('newsletter.hero.title')"
+      :title-script="$t('newsletter.hero.titleScript')"
+      :body="$t('newsletter.hero.body')"
       accent-body
     />
 
@@ -13,10 +13,10 @@
     <section class="bg-off py-14 sm:py-20 lg:py-[80px]">
       <div class="container-w max-w-[720px]">
         <h2 class="font-serif text-[28px] text-ink mb-6 font-normal text-center">
-          {{ t.newsletter.expectations.title }}
+          {{ $t('newsletter.expectations.title') }}
         </h2>
         <ul class="expectations-list">
-          <li v-for="(item, i) in t.newsletter.expectations.items" :key="i">
+          <li v-for="(item, i) in expectationItems" :key="i">
             <span class="expectation-marker">·</span>
             {{ item }}
           </li>
@@ -27,11 +27,16 @@
 </template>
 
 <script setup lang="ts">
-const t = useContent()
+const { t, tm, rt, locale } = useI18n()
+
+const expectationItems = computed(() => {
+  void locale.value
+  return (tm('newsletter.expectations.items') as unknown[]).map((x) => rt(x as never))
+})
 
 useHead({
-  title: `${t.brand.name} · ${t.nav.newsletter}`,
-  meta: [{ name: 'description', content: t.newsletter.hero.body }],
+  title: `${t('brand.name')} · ${t('nav.newsletter')}`,
+  meta: [{ name: 'description', content: t('newsletter.hero.body') }],
 })
 </script>
 

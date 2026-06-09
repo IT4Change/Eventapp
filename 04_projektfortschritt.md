@@ -4,6 +4,46 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-09 — Internationalisierung (DE/EN) mit @nuxtjs/i18n
+
+### Ausgangslage
+Alle Texte lagen statisch in `content/de.ts`, ausgelesen über `useContent()`. Der DE·EN-Schalter in der Nav war ein Stub (nur `console.log`). Daneben hartcodierte Strings (EventFilter, DayBlock-Monate, LoginForm, aria-labels), deutsche Display-Felder in `data/` (Kategorien) und deutsche Datums-Arrays in `useFormat`.
+
+### Ziel
+Echte DE/EN-Mehrsprachigkeit produktiv schalten — Texte in Locale-Quellen extrahieren, funktionierender Sprachschalter, vollständige englische Übersetzung inkl. Rechtstexte. Plan: [06_i18n-internationalisierung.md](06_i18n-internationalisierung.md).
+
+### Was umgesetzt wurde
+- **Architektur:** `@nuxtjs/i18n` v10 (Vollmodul). Kanonischer **vue-i18n Message-Store + `$t`** (User-Entscheidung gegen den Hybrid-Ansatz). Einzelstrings via `$t('pfad')`, verschachtelte Arrays/Objekte via `tm()` + `rt()`.
+- **Config** ([nuxt.config.ts](nuxt.config.ts)): `locales` de/en, `defaultLocale: 'de'`, `strategy: 'prefix_except_default'` (DE behält URLs, EN unter `/en/...`), `lazy` + `langDir: 'locales'`, `detectBrowserLanguage` mit Funktions-Cookie `i18n_locale`, `baseUrl` für SEO.
+- **Locale-Dateien:** [i18n/locales/de.ts](i18n/locales/de.ts) (aus altem `content/de.ts` + neue Keys) und [i18n/locales/en.ts](i18n/locales/en.ts) (vollständige Übersetzung **inkl.** Datenschutz/Nutzungsbedingungen/Impressum in GDPR/TMG-Terminologie). `content/de.ts` und `composables/useContent.ts` **gelöscht**.
+- **Neue Keys** für vormals hartcodierte Strings: `filter.*`, `home.week.eyebrow/count`, `postEvent.form.successMock`, `event.notFound/sourceLabel/fromTime/registrationValues`, `nav.a11y.*` sowie `categories.items.<key>.*`.
+- **Kategorien lokalisiert:** `data/categories.ts` enthält nur noch strukturelle Felder (`gradient/image/accent`); Texte liegen im Store. Neues Composable [composables/useCategories.ts](composables/useCategories.ts) führt beides reaktiv zusammen (`LocalizedCategory`-Typ in `data/types.ts`).
+- **Rechtstext-Auflösung:** [composables/useLegal.ts](composables/useLegal.ts) (`useLegalSections`) löst die verschachtelten `sections[].blocks[]` via `tm`+`rt` zu Plain-Objekten auf — `LegalPage.vue` blieb unverändert.
+- **Datum/Zeit lokalisiert:** [composables/useFormat.ts](composables/useFormat.ts) mit DE/EN-Arrays (Wochentage, Monate, Kurzmonate) je `locale`; `DayBlock` nutzt `monthShort` aus useFormat (eigenes Array entfernt).
+- **Sprachschalter** ([components/SiteNav.vue](components/SiteNav.vue)): Stub ersetzt durch `useSwitchLocalePath()`, aktive Sprache hervorgehoben, Desktop + Mobile.
+- **Lokale Links:** interne `<NuxtLink>` → `<NuxtLinkLocale>` (Nav, Footer, Hero-CTAs, Event-Liste, Event-Detail) — bleiben beim Sprachwechsel in der Locale.
+- **SEO:** `useLocaleHead()` im [layouts/default.vue](layouts/default.vue) setzt `<html lang>`, `hreflang`-Alternates und canonical; Seiten-Titel/Description je Locale via `$t`.
+
+### Architekturentscheidung (Warum)
+- **`$t`-Store statt Hybrid:** kanonisch/erwartbar, lazy-loadbar, native Pluralisierung/Interpolation. Preis: Umbau aller ~18 Komponenten/Seiten + `tm`/`rt` für die strukturierten Legal-Arrays.
+- **Kategorie-Split (Struktur vs. Text):** Backend-Daten bleiben sprachneutral; nur Texte i18n-fähig — saubere Trennung, kein doppeltes Pflegen.
+
+### Verifikation
+- `npm run dev`: alle Routen **DE und `/en`** → HTTP 200 (Home, Vision, Kategorien, Teilen, Newsletter, Kontakt, Datenschutz, Nutzungsbedingungen, Impressum, Event-Detail).
+- Inhalt geprüft: echte Übersetzungen statt Key-Fallback (keine `home.hero`/`nav.*`-Leaks), Brand/Tagline DE+EN, EN-Datenschutz mit GDPR-Terminologie.
+- Schalter hin (DE→`/en`) und zurück (EN→`/`), `hreflang`-Alternates korrekt, `<html lang>` = `de-DE`/`en-US`, Interpolation (`30 von 55 Events`), lokalisierte Wochentage (Dienstag/Tuesday).
+- **Konsole sauber** (keine Fehler/Warnungen mehr nach Fixes).
+- **Bugfix während der Umsetzung:** literale `@` in E-Mail-Adressen brachen den vue-i18n-Compiler (`Invalid linked format`) → alle als `{'@'}` escaped. Außerdem `baseUrl` ergänzt.
+
+### Offene Punkte / nächste Schritte
+- **Übersetzte Slugs** (z. B. `/en/categories` statt `/en/kategorien`) bewusst nicht umgesetzt — eigenes Paket via `pages:`-Route-Mapping.
+- **Demo-Events/Locations** (`data/events.ts`, `data/locations.ts`) bleiben deutsch (Platzhalter bis Backend) — erscheinen so auch in der EN-Ansicht.
+- **Rechtstext-EN juristisch prüfen** (sinngemäße Übersetzung; V01-Hinweis gilt weiter).
+- **Mobile-Visualcheck** bei 375/390/430px für die EN-Strings (Nav/Switcher-Tap-Flächen) empfohlen — Layout strukturell unverändert, EN-Längen vergleichbar.
+- TypeScript-Typecheck nicht ausgeführt (kein `vue-tsc`/`typecheck`-Script im Projekt); Verifikation über Dev-Build.
+
+---
+
 ## 2026-06-07 — Zweite Vision-Grafik (Sternengucker im Nachthimmel)
 
 ### Ausgangslage / Ziel

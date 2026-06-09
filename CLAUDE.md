@@ -1,6 +1,6 @@
 # Soul & Bliss Eventapp — Claude-Anleitung
 
-Dieses Projekt ist eine Event-Aggregator-Plattform für die Conscious Szene in der Rhein-Main-Neckar-Region. Tech-Stack: Nuxt 3, Vue 3, Tailwind CSS, TypeScript. Sprache: Deutsch (DE/EN-Switcher ist vorbereitet, aber noch nicht funktional).
+Dieses Projekt ist eine Event-Aggregator-Plattform für die Conscious Szene in der Rhein-Main-Neckar-Region. Tech-Stack: Nuxt 3, Vue 3, Tailwind CSS, TypeScript. Mehrsprachig DE/EN über `@nuxtjs/i18n` (vue-i18n Message-Store, `$t`), Default `de`, EN unter `/en/...`; Sprachschalter in der Nav ist funktional.
 
 ---
 
@@ -71,19 +71,22 @@ Eventapp/
 │   ├── disclaimer.vue
 │   └── impressum.vue
 │
-├── content/
-│   └── de.ts                # Alle deutschen Texte (i18n-Vorstufe)
+├── i18n/
+│   └── locales/
+│       ├── de.ts            # Alle deutschen Texte (vue-i18n Message-Store)
+│       └── en.ts            # Englische Übersetzung (strukturgleich)
 │
 ├── data/                    # Datenmodell für späteres Backend
-│   ├── types.ts             # Event, Category, Location Interfaces
-│   ├── categories.ts        # 5 Event-Kategorien + Gradient-Mapping
-│   ├── locations.ts         # Demo-Orte Rhein-Main-Neckar
-│   └── events.ts            # Demo-Events
+│   ├── types.ts             # Event, Location, Category (struktur) + LocalizedCategory
+│   ├── categories.ts        # 5 Kategorien — nur Struktur (gradient/image/accent)
+│   ├── locations.ts         # Demo-Orte Rhein-Main-Neckar (bleiben DE)
+│   └── events.ts            # Demo-Events (bleiben DE)
 │
 ├── composables/
-│   ├── useContent.ts        # Liefert content/de.ts (→ später $t())
+│   ├── useCategories.ts     # Struktur (categories.ts) + i18n-Texte → LocalizedCategory
+│   ├── useLegal.ts          # Löst Rechtstext-Sektionen via tm()+rt() auf
 │   ├── useEvents.ts         # Filter, Wochengruppierung, Navigation
-│   └── useFormat.ts         # Deutsche Datums-/Zeitformatierung
+│   └── useFormat.ts         # Locale-abhängige Datums-/Zeitformatierung (DE/EN)
 │
 ├── components/
 │   ├── SiteNav.vue, SiteFooter.vue, BrandWordmark.vue
@@ -136,10 +139,13 @@ Eventapp/
 
 ## Content-Konventionen
 
-- **Alle UI-Texte** kommen aus `content/de.ts` (zugriff via `useContent()`) — keine hartcodierten Texte in Komponenten
-- **Brand-Name**: "Soul & Bliss" (in `content/de.ts` als `brand.name`)
-- **Bei neuen Texten**: in die passende Sektion in `content/de.ts` einsortieren (`home`, `vision`, `categories`, `postEvent`, `contact`, `newsletter`, `disclaimer`, `impressum`, `footer`, `nav`, `cta`)
-- Neue Sprache (EN): NICHT in `content/de.ts` hinzufügen — stattdessen `content/en.ts` anlegen und `@nuxtjs/i18n` einbauen (siehe offene Punkte in 04_projektfortschritt.md)
+- **Alle UI-Texte** liegen im vue-i18n Message-Store: `i18n/locales/de.ts` + `i18n/locales/en.ts`. Zugriff in Komponenten/Seiten via `$t('pfad')` (Einzelstrings) bzw. `tm('pfad')` + `rt()` für verschachtelte Arrays/Objekte (`paragraphs`, `pillars.items`, Legal-`sections`, `footer.columns`). Keine hartcodierten nutzersichtbaren Texte in Komponenten.
+- **Beide Locale-Dateien strukturgleich halten**: jeder Key muss in `de.ts` UND `en.ts` existieren (fehlende Keys → Konsolen-Warnung + Key-Fallback im UI).
+- **Sonderzeichen escapen**: literale `@` (E-Mails/mailto), `|` und `{`/`}` sind vue-i18n-Syntax — als `{'@'}` etc. schreiben (in den `.ts`-Strings als `{\'@\'}`), sonst bricht der Message-Compiler die ganze Datei.
+- **Brand-Name**: "Soul & Bliss" (als `brand.name`)
+- **Bei neuen Texten**: in die passende Sektion beider Dateien einsortieren (`home`, `vision`, `categories`, `postEvent`, `contact`, `newsletter`, `event`, `filter`, `datenschutz`, `nutzungsbedingungen`, `impressum`, `footer`, `nav`, `cta`)
+- **Interne Links**: `<NuxtLinkLocale :to="…">` statt `<NuxtLink>` (hält die aktive Sprache); externe Links (mailto/http) bleiben `<a>`
+- **Datum/Zeit** immer über `useFormat()` (locale-abhängig), nicht selbst formatieren
 
 ---
 
@@ -148,14 +154,14 @@ Eventapp/
 - Events werden aktuell als statische Demo-Daten in `data/events.ts` gehalten
 - Beim Anschluss eines echten Backends: `useEvents()` Composable so anpassen, dass es `useFetch('/api/events')` verwendet — die Komponenten ändern sich nicht
 - Neue Event-Felder: zuerst in `data/types.ts` das Interface erweitern, dann Demo-Daten ergänzen, dann Komponenten anpassen
-- Kategorien sind eine geschlossene Liste mit 5 Werten (siehe `data/categories.ts`) — neue Kategorien erfordern Absprache
+- Kategorien sind eine geschlossene Liste mit 5 Werten — **Struktur** (gradient/image/accent) in `data/categories.ts`, **Texte** (label/shortLabel/description/includes) lokalisiert unter `categories.items.<key>` in den Locale-Dateien; `useCategories()` führt beides zu `LocalizedCategory` zusammen. Neue Kategorien erfordern Absprache.
 
 ---
 
 ## Komponenten-Konventionen
 
 - **Generische Komponenten** (`RichTextSection`, `TriCardSection`, `HeroSection`, `LegalPage`): props-driven, mehrfach verwendbar — bei Erweiterung props ergänzen statt zu duplizieren
-- **Page-Komponenten** in `pages/` halten den Content kurz: sie holen Texte via `useContent()` und verschalten sie auf die generischen Komponenten
+- **Page-Komponenten** in `pages/` halten den Content kurz: sie holen Texte via `$t`/`tm`+`rt` und verschalten sie auf die generischen Komponenten
 - **Bestehende Komponenten erweitern** statt neue parallele anzulegen — wenn eine Komponente nicht passt, lieber die props ergänzen oder die Komponente verallgemeinern
 - **Style-Scope**: möglichst `scoped` halten; CSS-Variablen aus `main.css` nutzen statt Werte zu hardcoden
 - **Mobile-first**: jede Komponente muss responsiv und auf iPhone optimiert sein — siehe [Mobile-First-Pflicht](#mobile-first-pflicht-wichtig)

@@ -1,16 +1,15 @@
 <template>
   <LegalPage
-    :title="t.nutzungsbedingungen.title"
-    :intro="t.nutzungsbedingungen.intro"
-    :sections="t.nutzungsbedingungen.sections"
-    :note="t.nutzungsbedingungen.note"
+    :title="$t('nutzungsbedingungen.title')"
+    :sections="sections"
   />
 </template>
 
 <script setup lang="ts">
-const t = useContent()
+const { t } = useI18n()
+const sections = useLegalSections('nutzungsbedingungen')
 
 useHead({
-  title: `${t.brand.name} · ${t.nutzungsbedingungen.title}`,
+  title: `${t('brand.name')} · ${t('nutzungsbedingungen.title')}`,
 })
 </script>

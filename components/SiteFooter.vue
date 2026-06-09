@@ -3,24 +3,24 @@
     <div class="container-w">
       <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-x-6 gap-y-9 md:gap-12 mb-12">
         <div class="col-span-2 md:col-span-1">
-          <div class="footer-name">{{ t.brand.name }}</div>
+          <div class="footer-name">{{ $t('brand.name') }}</div>
           <p class="text-white/65 text-sm leading-[1.7] max-w-[320px] font-light whitespace-pre-line">
-            {{ t.footer.tagline }}
+            {{ $t('footer.tagline') }}
           </p>
         </div>
 
-        <div v-for="col in t.footer.columns" :key="col.title">
+        <div v-for="col in columns" :key="col.title">
           <h4 class="text-xs tracking-[3px] uppercase text-gold mb-[18px] font-medium">
             {{ col.title }}
           </h4>
           <ul class="list-none">
             <li v-for="item in col.items" :key="item.label" class="mb-2.5">
-              <NuxtLink
+              <NuxtLinkLocale
                 :to="item.href"
                 class="text-white/70 no-underline text-sm transition-colors duration-200 hover:text-gold font-light"
               >
                 {{ item.label }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
           </ul>
         </div>
@@ -30,15 +30,26 @@
         class="pt-6 flex justify-between text-xs text-white/50 flex-wrap gap-4"
         style="border-top: 1px solid rgba(255,255,255,0.12);"
       >
-        <span>{{ t.footer.copyright }}</span>
-        <span>{{ t.footer.language }}</span>
+        <span>{{ $t('footer.copyright') }}</span>
+        <span>{{ $t('footer.language') }}</span>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-const t = useContent()
+const { tm, rt, locale } = useI18n()
+
+const columns = computed(() => {
+  void locale.value
+  return (tm('footer.columns') as any[]).map((col) => ({
+    title: rt(col.title),
+    items: (col.items as any[]).map((item) => ({
+      label: rt(item.label),
+      href: rt(item.href),
+    })),
+  }))
+})
 </script>
 
 <style scoped>

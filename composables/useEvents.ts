@@ -1,6 +1,5 @@
 import { computed, ref } from 'vue'
 import { events as allEvents } from '~/data/events'
-import { categories, categoryByKey } from '~/data/categories'
 import { locations, locationById } from '~/data/locations'
 import type { CategoryKey, Event } from '~/data/types'
 
@@ -162,16 +161,11 @@ export const useEvents = () => {
     weekOffset.value = 0
   }
 
-  function getCategoryFor(event: Event) {
-    return categoryByKey[event.category]
-  }
-
   function getLocationFor(event: Event) {
     return locationById[event.locationId]
   }
 
   return {
-    categories,
     locations,
     selectedCategories,
     selectedLocationId,
@@ -191,7 +185,6 @@ export const useEvents = () => {
     nextWeek,
     prevWeek,
     thisWeek,
-    getCategoryFor,
     getLocationFor,
     getEventByUuid,
     eventPath,

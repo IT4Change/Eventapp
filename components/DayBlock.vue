@@ -3,7 +3,7 @@
     <header class="day-header">
       <div class="day-number-wrap">
         <span class="day-number grad-text">{{ day.getDate() }}</span>
-        <span class="day-month text-ink-soft">{{ monthShort }}</span>
+        <span class="day-month text-ink-soft">{{ monthShortLabel }}</span>
       </div>
       <div class="day-weekday">
         <span class="text-[12px] tracking-[3px] uppercase font-medium text-coral">
@@ -29,16 +29,12 @@ const props = defineProps<{
   events: Event[]
 }>()
 
-const t = useContent()
-const { weekday, isToday } = useFormat()
+const { t } = useI18n()
+const { weekday, monthShort, isToday } = useFormat()
 
-const MONTHS_DE = [
-  'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez',
-]
-const monthShort = computed(() => MONTHS_DE[props.day.getMonth()])
+const monthShortLabel = computed(() => monthShort(props.day))
 
-const todayLabel = computed(() => (isToday(props.day) ? t.home.week.todayLabel : ' '))
+const todayLabel = computed(() => (isToday(props.day) ? t('home.week.todayLabel') : ' '))
 </script>
 
 <style scoped>

@@ -4,16 +4,16 @@
       <h2
         class="newsletter-heading text-white font-extralight text-[28px] sm:text-[36px] lg:text-[42px] mb-2"
       >
-        {{ t.newsletter.form.heading.split(' ').slice(0, -1).join(' ') }}
+        {{ $t('newsletter.form.heading').split(' ').slice(0, -1).join(' ') }}
         <span class="script text-[36px] sm:text-[44px] lg:text-[52px] font-normal">
-          {{ t.newsletter.form.heading.split(' ').slice(-1)[0] }}
+          {{ $t('newsletter.form.heading').split(' ').slice(-1)[0] }}
         </span>
       </h2>
       <p
         class="mb-[34px] max-w-[540px] mx-auto font-light"
         style="color: rgba(255,255,255,0.92);"
       >
-        {{ t.newsletter.form.body }}
+        {{ $t('newsletter.form.body') }}
       </p>
       <form
         class="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto sm:flex-wrap justify-center"
@@ -22,11 +22,11 @@
         <input
           v-model="email"
           type="email"
-          :placeholder="t.newsletter.form.placeholder"
+          :placeholder="$t('newsletter.form.placeholder')"
           class="newsletter-input w-full sm:flex-1 sm:min-w-[240px] px-[22px] py-[15px] text-ink text-sm rounded-full"
         />
         <button type="submit" class="btn newsletter-btn w-full sm:w-auto">
-          {{ t.newsletter.form.submit }}
+          {{ $t('newsletter.form.submit') }}
         </button>
       </form>
     </div>
@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-const t = useContent()
 const email = ref('')
 
 function onSubmit() {

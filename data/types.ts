@@ -2,13 +2,19 @@ export type CategoryKey = 'inspiration' | 'dance' | 'healing' | 'music' | 'retre
 
 export type GradientKey = 'warm' | 'cool' | 'rainbow' | 'ceremony' | 'nature'
 
+// Strukturelle Kategorie-Daten (sprachneutral). Die Texte (label, shortLabel,
+// description, includes) liegen lokalisiert im i18n-Store unter categories.items.<key>.
 export interface Category {
   key: CategoryKey
-  label: string
-  shortLabel: string
   gradient: GradientKey
   image: string
   accent: string
+}
+
+// Kategorie inkl. lokalisierter Texte — von useCategories() zusammengeführt.
+export interface LocalizedCategory extends Category {
+  label: string
+  shortLabel: string
   description: string
   includes: string[]
 }

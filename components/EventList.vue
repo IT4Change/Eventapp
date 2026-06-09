@@ -2,9 +2,9 @@
   <section class="bg-white py-9 sm:py-12">
     <div class="container-w">
       <div class="ev-head">
-        <div class="ev-eyebrow grad-text">Aktuelle Events</div>
-        <h2 class="ev-title">{{ t.home.week.title }}</h2>
-        <p class="ev-intro">{{ t.home.week.intro }}</p>
+        <div class="ev-eyebrow grad-text">{{ $t('home.week.eyebrow') }}</div>
+        <h2 class="ev-title">{{ $t('home.week.title') }}</h2>
+        <p class="ev-intro">{{ $t('home.week.intro') }}</p>
       </div>
 
       <EventFilter />
@@ -18,15 +18,15 @@
         />
       </div>
       <div v-else class="empty-state">
-        <p class="text-ink-soft text-lg font-light italic">{{ t.home.week.emptyState }}</p>
+        <p class="text-ink-soft text-lg font-light italic">{{ $t('home.week.emptyState') }}</p>
       </div>
 
       <div v-if="hasMore" class="load-more">
         <button class="btn btn-outline" @click="loadMore">
-          {{ t.home.week.loadMore }}
+          {{ $t('home.week.loadMore') }}
         </button>
         <p class="load-more-info">
-          {{ visibleCount }} von {{ totalCount }} Events
+          {{ $t('home.week.count', { visible: visibleCount, total: totalCount }) }}
         </p>
       </div>
     </div>
@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-const t = useContent()
 const { visibleByDay, hasMore, loadMore, visibleCount, totalCount } = useEvents()
 </script>
 
