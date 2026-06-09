@@ -4,6 +4,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
   css: ['~/assets/css/main.css'],
+  // Server-only Zugangsdaten für den CalDAV-Server (Baikal). Default = lokale
+  // Compose-Instanz + dort provisionierter admin-Account. Per Env überschreibbar.
+  runtimeConfig: {
+    dav: {
+      url: process.env.DAV_URL || 'http://localhost:8088',
+      username: process.env.DAV_USERNAME || 'admin',
+      password: process.env.DAV_PASSWORD || 'admin',
+      // Vorwärtsfenster für /api/events in Monaten
+      windowMonths: process.env.DAV_WINDOW_MONTHS || '12',
+    },
+  },
   i18n: {
     baseUrl: 'https://soul-and-bliss.de',
     langDir: 'locales',

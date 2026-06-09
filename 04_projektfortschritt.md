@@ -4,6 +4,47 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-09 — Baikal/CalDAV als Event-Backend
+
+### Ausgangslage
+Events lagen statisch in `data/events.ts` (Import in `useEvents()`). Kein Backend, kein Docker-Stack.
+
+### Ziel
+Events aus einem **Baikal (CalDAV)**-Server laden, Baikal als Teil eines **docker-compose**-Stacks, Credentials per Config (Default = lokale Instanz + admin-Account), die bestehenden Demo-Events nach Baikal seeden (1 Kalender je Kategorie), Anzeige wie bisher gemeinsam. Plan & Evaluierung: [07_baikal-caldav-backend.md](07_baikal-caldav-backend.md). Blueprint: Schwesterprojekt `webcraftmedia/jahrweiser`.
+
+### Was umgesetzt wurde
+- **Architektur:** `Browser → Nitro /api/events → tsdav/ical.js → Baikal`. Kein direkter Browser→DAV-Zugriff; Credentials nur server-seitig. Entspricht der in CLAUDE.md vorgesehenen `useFetch('/api/events')`-Umstellung.
+- **Docker-Stack:** [docker-compose.yml](docker-compose.yml) (Baikal `ckulka/baikal:0.10.1-nginx` + App) + [docker-compose.override.yml](docker-compose.override.yml) (Dev), [Dockerfile](Dockerfile) (dev/prod-Targets), [.dockerignore](.dockerignore). **Kein MariaDB** (read-only, keine User-Accounts). Baikal-Port via `BAIKAL_PORT` (Default 8088).
+- **Baikal-Bootstrap:** [infra/baikal/init-bootstrap.sh](infra/baikal/init-bootstrap.sh) (überspringt Web-Installer, SQLite, Europe/Berlin) + [infra/baikal/provision-dav-user.php](infra/baikal/provision-dav-user.php) (legt admin-DAV-User an). Adaptiert aus jahrweiser.
+- **Config:** `runtimeConfig.dav` (server-only) aus `DAV_URL`/`DAV_USERNAME`/`DAV_PASSWORD` (+ `DAV_WINDOW_MONTHS`), Default `localhost:8088` + `admin/admin`. [.env.example](.env.example).
+- **Nitro-API:** [server/helpers/dav.ts](server/helpers/dav.ts) (CalDAV via tsdav), [server/utils/ical.ts](server/utils/ical.ts) (Event⇄VEVENT-Mapping mit ical.js — Build & Parse, X-SB-Props, floating Zeiten), [server/api/events.get.ts](server/api/events.get.ts) (5 Kategorie-Kalender, heute→+12 Monate, sortiert), [server/api/event.get.ts](server/api/event.get.ts) (Einzel-Event per uuid).
+- **Feld-Mapping:** nativ `UID/SUMMARY/DTSTART/DTEND/DESCRIPTION/URL/IMAGE/ORGANIZER/CATEGORIES/LOCATION`; Sonderfelder als `X-SB-*` (`teaser`, `subcategory`, `registration`, `price`, `source`, `note`, `location-id`, `maps-url`, `phone`, ggf. `organizer`). Kategorie = Quell-Kalender. **Zeiten floating-local** (verlustfreier Round-Trip, identische Semantik zum bisherigen `new Date("…")`).
+- **Locations:** `data/locations.ts` bleibt statische Frontend-Referenz; im VEVENT `LOCATION`-Text + `X-SB-LOCATION-ID`. `region` ungenutzt.
+- **Seeding:** [cli/seed-baikal.ts](cli/seed-baikal.ts) (MKCALENDAR der 5 Kategorie-Kalender + ICS-`PUT` der Events via `buildEventIcs`), [cli/baikal-bootstrap.ts](cli/baikal-bootstrap.ts), [cli/tools/config.ts](cli/tools/config.ts) (mit Local-Guard). npm: `cli:baikal:bootstrap`, `cli:seed`. `data/events.ts` ist jetzt **Seed-Fixture** (nicht gelöscht).
+- **Frontend (minimal):** `useEvents()` lädt `allEvents` via `useFetch('/api/events')` (key `events`); Event-Detailseite via `useFetch('/api/event?uuid=')`. Filter/Wochengruppierung/Pagination/Komponenten unverändert.
+
+### Architekturentscheidungen (Warum)
+- **jahrweiser-Pattern übernommen** statt neu erfinden: in-house erprobt, gleiche Org/Stack, entschärft Baikal-Installer-/Seeding-Friktion.
+- **Kein MariaDB:** jahrweiser nutzt es nur für User-Login/Sync; wir sind read-only.
+- **Zeiten floating-local:** kein TZ-Mathe, exakter Round-Trip, deckt sich mit dem bestehenden Modell.
+- **`X-SB-*` statt nur LOCATION/Notes:** unser Datenmodell ist reicher als jahrweisers; round-trippt verlustfrei in sabre/dav.
+
+### Verifikation
+- `docker compose up baikal` (Test-Port 8089, da jahrweisers Baikal 8088 belegte) → healthy.
+- `cli:baikal:bootstrap` + `cli:seed` → 5 Kalender, **65/65 Events** in Baikal.
+- iCal-Build/Parse-Round-Trip vorab via tsx getestet: Escaping (`\,`), Line-Folding, X-Props, Organizer-Split, lange `detailedDescription` — verlustfrei.
+- `/api/events` → HTTP 200, **55 Events** (10 vergangene korrekt durchs Zeitfenster gefiltert); volle Events mappen alle `X-SB`-Felder.
+- Frontend DE + `/en`: `/`, `/vision`, `/kategorien`, Event-Detail → 200; Home zeigt aus Baikal geladenen Titel; Detailseite rendert. **Konsole/Server-Log sauber.**
+
+### Offene Punkte / nächste Schritte
+- **Caching** für `/api/events` (Nitro-Cache / `sync-collection`-Token) bei wachsender Eventzahl.
+- **Recurrence** (`RRULE`) wird aktuell nicht expandiert (Seed hat keine wiederkehrenden Events) — Hook im Mapper vorgesehen.
+- **App-Image-Build** (`docker compose up app`) in dieser Session nicht ausgeführt (Verifikation lief gegen Host-`npm run dev`); Compose/Dockerfile liegen bereit.
+- **Posting/Moderation** (Schreibpfad) weiterhin Mockup — eigenes Paket.
+- **Bild-Hosting** für echte Uploads (Demo-Bilder liegen in `public/img/`).
+
+---
+
 ## 2026-06-09 — Internationalisierung (DE/EN) mit @nuxtjs/i18n
 
 ### Ausgangslage

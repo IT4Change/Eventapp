@@ -1,6 +1,6 @@
 # Soul & Bliss Eventapp — Claude-Anleitung
 
-Dieses Projekt ist eine Event-Aggregator-Plattform für die Conscious Szene in der Rhein-Main-Neckar-Region. Tech-Stack: Nuxt 3, Vue 3, Tailwind CSS, TypeScript. Mehrsprachig DE/EN über `@nuxtjs/i18n` (vue-i18n Message-Store, `$t`), Default `de`, EN unter `/en/...`; Sprachschalter in der Nav ist funktional.
+Dieses Projekt ist eine Event-Aggregator-Plattform für die Conscious Szene in der Rhein-Main-Neckar-Region. Tech-Stack: Nuxt 3, Vue 3, Tailwind CSS, TypeScript. Mehrsprachig DE/EN über `@nuxtjs/i18n` (vue-i18n Message-Store, `$t`), Default `de`, EN unter `/en/...`; Sprachschalter in der Nav ist funktional. **Event-Backend: Baikal (CalDAV)** als Teil des docker-compose-Stacks; gelesen server-seitig via Nitro (`/api/events` → `tsdav`/`ical.js`).
 
 ---
 
@@ -151,9 +151,10 @@ Eventapp/
 
 ## Datenkonventionen
 
-- Events werden aktuell als statische Demo-Daten in `data/events.ts` gehalten
-- Beim Anschluss eines echten Backends: `useEvents()` Composable so anpassen, dass es `useFetch('/api/events')` verwendet — die Komponenten ändern sich nicht
-- Neue Event-Felder: zuerst in `data/types.ts` das Interface erweitern, dann Demo-Daten ergänzen, dann Komponenten anpassen
+- **Events kommen aus Baikal (CalDAV)** über die Nitro-Route `server/api/events.get.ts` (`useEvents()` lädt via `useFetch('/api/events')`). Kein direkter Browser→DAV-Zugriff; Credentials nur server-seitig (`runtimeConfig.dav`, Env `DAV_URL`/`DAV_USERNAME`/`DAV_PASSWORD`, Default `localhost:8088` + `admin`). Details/Plan: [07_baikal-caldav-backend.md](07_baikal-caldav-backend.md).
+- **`data/events.ts` ist die Seed-Fixture** (nicht die Laufzeitquelle): `npm run cli:seed` schreibt sie nach Baikal (vorher einmal `docker compose up -d baikal` + `npm run cli:baikal:bootstrap`). Ein Kalender je Kategorie (URI = CategoryKey).
+- **Event⇄VEVENT-Mapping** liegt zentral in `server/utils/ical.ts` (Build & Parse). Nativ: `UID/SUMMARY/DTSTART/DTEND/DESCRIPTION/URL/IMAGE/ORGANIZER/CATEGORIES/LOCATION`. Domänenfelder ohne iCal-Pendant als **`X-SB-*`** (`teaser`, `subcategory`, `registration`, `price`, `source`, `note`, `location-id`, `maps-url`, `phone`). Zeiten **floating-local** (kein TZ-Mathe). Kategorie = Quell-Kalender.
+- Neue Event-Felder: zuerst `data/types.ts` erweitern, dann das Mapping in `server/utils/ical.ts` (Build **und** Parse) ergänzen, dann Seed-Fixture + Komponenten. Beim Mapping `@`/`,`/`;` in Werten beachtet ical.js automatisch (Escaping/Folding).
 - Kategorien sind eine geschlossene Liste mit 5 Werten — **Struktur** (gradient/image/accent) in `data/categories.ts`, **Texte** (label/shortLabel/description/includes) lokalisiert unter `categories.items.<key>` in den Locale-Dateien; `useCategories()` führt beides zu `LocalizedCategory` zusammen. Neue Kategorien erfordern Absprache.
 
 ---

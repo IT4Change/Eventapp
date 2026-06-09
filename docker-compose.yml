@@ -1,0 +1,40 @@
+services:
+  # CalDAV-Server (Event-Backend)
+  baikal:
+    image: ckulka/baikal:0.10.1-nginx
+    restart: unless-stopped
+    ports:
+      - '${BAIKAL_PORT:-8088}:80'
+    volumes:
+      - baikal_config:/var/www/baikal/config
+      - baikal_data:/var/www/baikal/Specific
+      - ./infra/baikal/init-bootstrap.sh:/docker-entrypoint.d/99-bootstrap.sh:ro
+    environment:
+      - BAIKAL_ADMIN_PASSWORD=${BAIKAL_ADMIN_PASSWORD:-admin}
+    healthcheck:
+      test: ['CMD-SHELL', 'test -e /var/run/nginx.pid']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Nuxt-App (liest Events server-seitig via CalDAV aus Baikal)
+  app:
+    image: soulbliss/eventapp:local-production
+    build:
+      context: .
+      target: production
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - DAV_URL=http://baikal
+      - DAV_USERNAME=${DAV_USERNAME:-admin}
+      - DAV_PASSWORD=${DAV_PASSWORD:-admin}
+      - DAV_WINDOW_MONTHS=${DAV_WINDOW_MONTHS:-12}
+    depends_on:
+      baikal:
+        condition: service_started
+
+volumes:
+  baikal_config:
+  baikal_data:

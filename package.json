@@ -7,16 +7,22 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "cli:baikal:bootstrap": "tsx cli/baikal-bootstrap.ts",
+    "cli:seed": "tsx cli/seed-baikal.ts"
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.4.0",
+    "ical.js": "^2.2.1",
     "nuxt": "^3.14.1592",
+    "tsdav": "^2.2.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "tailwindcss": "^3.4.17"
+    "dotenv": "^17.4.2",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.22.4"
   }
 }

@@ -95,7 +95,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { getEventByUuid, slugify, eventPath } from '~/composables/useEvents'
+import { slugify, eventPath } from '~/composables/useEvents'
+import type { Event } from '~/data/types'
 
 const { t, te } = useI18n()
 const route = useRoute()
@@ -103,7 +104,13 @@ const { weekday, dayMonth, time, timeRange, dateRangeLabel } = useFormat()
 const { categoryByKey } = useCategories()
 const { getLocationFor } = useEvents()
 
-const event = getEventByUuid(route.params.uuid as string)
+// Einzel-Event aus dem Backend (Nitro /api/event → Baikal/CalDAV).
+const { data: eventData } = await useFetch<Event | null>('/api/event', {
+  query: { uuid: route.params.uuid },
+  key: `event-${route.params.uuid}`,
+  default: () => null,
+})
+const event = eventData.value
 if (!event) {
   throw createError({ statusCode: 404, statusMessage: t('event.notFound'), fatal: true })
 }

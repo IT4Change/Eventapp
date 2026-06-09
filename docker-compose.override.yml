@@ -1,0 +1,14 @@
+# Dev-Overrides: App im development-Target mit Live-Reload (Bind-Mount).
+# Wird von `docker compose up` automatisch zusätzlich geladen.
+services:
+  app:
+    image: soulbliss/eventapp:local-development
+    build:
+      target: development
+    environment:
+      - NODE_ENV=development
+      - DAV_URL=http://baikal
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev -- --host

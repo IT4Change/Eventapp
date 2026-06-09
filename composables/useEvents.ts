@@ -1,5 +1,4 @@
 import { computed, ref } from 'vue'
-import { events as allEvents } from '~/data/events'
 import { locations, locationById } from '~/data/locations'
 import type { CategoryKey, Event } from '~/data/types'
 
@@ -60,11 +59,15 @@ export function eventPath(event: Event): string {
   return `/event/${event.uuid}/${slugify(event.title)}`
 }
 
-export function getEventByUuid(uuid: string): Event | undefined {
-  return allEvents.find((e) => e.uuid === uuid)
-}
-
 export const useEvents = () => {
+  // Events kommen aus dem Backend (Nitro /api/events → Baikal/CalDAV).
+  // key teilt den Request/SSR-Payload über alle Komponenten hinweg.
+  const { data: allEventsData } = useFetch<Event[]>('/api/events', {
+    key: 'events',
+    default: () => [],
+  })
+  const allEvents = computed<Event[]>(() => allEventsData.value ?? [])
+
   const referenceDate = computed(() => {
     const base = startOfWeek(new Date())
     return addDays(base, weekOffset.value * 7)
@@ -76,7 +79,7 @@ export const useEvents = () => {
 
   const filtered = computed(() => {
     const today = startOfDay(new Date())
-    return allEvents
+    return allEvents.value
       .filter((evt) => {
         const start = new Date(evt.start)
         if (start < today) return false
@@ -186,7 +189,6 @@ export const useEvents = () => {
     prevWeek,
     thisWeek,
     getLocationFor,
-    getEventByUuid,
     eventPath,
   }
 }
