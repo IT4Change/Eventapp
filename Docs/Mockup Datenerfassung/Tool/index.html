@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Soul &amp; Bliss – Event-Datentool</title>
+<style>
+  :root {
+    --bg: #faf9f5; --surface: #ffffff; --border: #e3e0d8; --text: #1f1e1b;
+    --muted: #6f6d66; --accent: #4a6741; --accent-bg: #eef2ec;
+    --warn: #b07514; --warn-bg: #fdf3e0; --ok: #2e7d4f; --ok-bg: #e7f3ec;
+    --info: #1f5fa5; --info-bg: #e8f0f9; --danger: #b03030;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.5 -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; }
+  header h1 { font-size: 17px; font-weight: 600; margin: 0; }
+  .stats { display: flex; gap: 8px; margin-left: auto; }
+  .chip { padding: 4px 12px; border: 1px solid transparent; border-radius: 99px; font-size: 12.5px;
+    background: var(--accent-bg); color: var(--accent); cursor: pointer; font-family: inherit; }
+  .chip:hover { border-color: currentColor; }
+  .chip.aktiv { background: var(--accent); color: #fff; }
+  .chip.grau { background: #f1efe8; color: #5f5e5a; }
+  .chip.grau.aktiv { background: #5f5e5a; color: #fff; }
+  .chip.warn { background: var(--warn-bg); color: var(--warn); }
+  .chip.warn.aktiv { background: var(--warn); color: #fff; }
+  .chip.ok { background: var(--ok-bg); color: var(--ok); }
+  .chip.ok.aktiv { background: var(--ok); color: #fff; }
+  .chip.info { background: var(--info-bg); color: var(--info); }
+  .chip.info.aktiv { background: var(--info); color: #fff; }
+  .toolbar { display: flex; gap: 8px; padding: 14px 24px 0; align-items: center; flex-wrap: wrap; }
+  input[type=text], input[type=date], input[type=time], input[type=url], input[type=email], select, textarea {
+    font: inherit; padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #suche { flex: 1; min-width: 200px; }
+  button { font: inherit; padding: 7px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); cursor: pointer; }
+  button:hover { background: var(--accent-bg); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.primary:hover { background: #3c5535; }
+  button.danger { color: var(--danger); }
+  button.danger:hover { background: #fbeaea; }
+  main { padding: 14px 24px 60px; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  thead th { text-align: left; font-size: 12px; font-weight: 600; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: var(--accent-bg); }
+  tbody tr.dup { background: var(--warn-bg); }
+  tbody tr.dup:hover { background: #f8e9c8; }
+  .ev-name { font-weight: 600; }
+  .badge { display: inline-block; font-size: 11px; padding: 1px 9px; border-radius: 99px; margin-top: 2px; }
+  .dup-hinweis { font-size: 11.5px; color: var(--warn); margin-top: 2px; }
+  .thumb { width: 52px; height: 34px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); display: block; }
+  td.center, th.center { text-align: center; }
+  input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+  .icon-btn { border: 0; background: none; padding: 4px 6px; font-size: 15px; color: var(--muted); }
+  .icon-btn:hover { color: var(--danger); background: none; }
+  .leer { padding: 40px; text-align: center; color: var(--muted); }
+  #overlay { position: fixed; inset: 0; background: rgba(30,28,22,.35); display: none; z-index: 9; }
+  #drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 95vw); background: var(--surface); border-left: 1px solid var(--border); display: none; flex-direction: column; z-index: 10; }
+  #drawer.offen, #overlay.offen { display: flex; }
+  #overlay.offen { display: block; }
+  .drawer-kopf { display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .drawer-kopf h2 { font-size: 15px; margin: 0; flex: 1; }
+  .drawer-kopf .id { font-size: 12px; color: var(--muted); }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+  .drawer-fuss { display: flex; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--border); align-items: center; }
+  .feld { margin-bottom: 12px; }
+  .feld label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .feld input, .feld select, .feld textarea { width: 100%; }
+  .feld textarea { resize: vertical; }
+  .zeile2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .status-box { display: flex; gap: 20px; padding: 10px 12px; background: var(--bg); border-radius: 8px; margin-bottom: 14px; }
+  .status-box label { display: flex; gap: 7px; align-items: center; font-size: 13.5px; cursor: pointer; }
+  .bild-vorschau { width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 6px; display: none; }
+  .meta { font-size: 11.5px; color: var(--muted); margin-right: auto; }
+  #meldung { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; padding: 9px 18px; border-radius: 10px; font-size: 13px; display: none; z-index: 20; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Soul &amp; Bliss · Event-Datentool</h1>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="toolbar">
+  <input type="text" id="suche" placeholder="Suchen: Name, Ort, Location, Beschreibung, Quelle …">
+  <select id="fKategorie"><option value="">Alle Kategorien</option></select>
+  <select id="fStatus">
+    <option value="">Alle Status</option>
+    <option value="ungeprueft">Ungeprüft</option>
+    <option value="geprueft">Geprüft, nicht hochgeladen</option>
+    <option value="hochgeladen">Hochgeladen</option>
+    <option value="duplikate">Mögliche Duplikate</option>
+  </select>
+  <button id="btnImport" title="Neue Events aus einer CSV-Datei einlesen (alle ungeprüft)">CSV-Import</button>
+  <input type="file" id="importDatei" accept=".csv,.txt" hidden>
+  <button id="btnExport" title="Gefilterte Liste als CSV exportieren">CSV-Export</button>
+  <button class="primary" id="btnNeu">+ Neues Event</button>
+</div>
+
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:118px">Event ID</th>
+        <th style="width:54px">Bild</th>
+        <th style="width:88px">Eventdatum</th>
+        <th>Event</th>
+        <th style="width:120px">Ort</th>
+        <th style="width:140px">Quelle</th>
+        <th style="width:78px" title="Datum, an dem der Datensatz importiert/angelegt wurde">Importiert</th>
+        <th class="center" style="width:60px">Geprüft</th>
+        <th class="center" style="width:86px">Hochgeladen</th>
+        <th style="width:40px"></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="leer" id="leer" style="display:none">Keine Events gefunden.</div>
+</main>
+
+<div id="overlay"></div>
+<aside id="drawer" aria-label="Event bearbeiten">
+  <div class="drawer-kopf">
+    <h2 id="drawerTitel">Event bearbeiten</h2>
+    <span class="id" id="drawerId"></span>
+    <button id="btnZu" title="Schließen">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="status-box">
+      <label><input type="checkbox" id="eGeprueft"> Geprüft</label>
+      <label><input type="checkbox" id="eHochgeladen"> Hochgeladen</label>
+    </div>
+    <div class="feld"><label>Name Event *</label><input type="text" id="eName"></div>
+    <div class="feld"><label>Beschreibung (Zusammenfassung)</label><textarea id="eKurz" rows="2"></textarea></div>
+    <div class="zeile2">
+      <div class="feld"><label>Kategorie</label><select id="eKategorie"></select></div>
+      <div class="feld"><label>Subkategorie</label><select id="eSub"></select></div>
+    </div>
+    <div class="zeile2">
+      <div class="feld"><label>Datum Start *</label><input type="date" id="eDatumStart"></div>
+      <div class="feld"><label>Datum Ende</label><input type="date" id="eDatumEnde"></div>
+    </div>
+    <div class="zeile2">
+      <div class="feld"><label>Startzeit</label><input type="time" id="eStartzeit"></div>
+      <div class="feld"><label>Endzeit</label><input type="time" id="eEndzeit"></div>
+    </div>
+    <div class="zeile2">
+      <div class="feld"><label>Ort</label><input type="text" id="eOrt"></div>
+      <div class="feld"><label>Location</label><input type="text" id="eLocation"></div>
+    </div>
+    <div class="feld"><label>Location Google Maps Link</label><input type="url" id="eMaps"></div>
+    <div class="zeile2">
+      <div class="feld"><label>Website Anbieter</label><input type="url" id="eWebsite"></div>
+      <div class="feld"><label>Email Anbieter</label><input type="email" id="eEmail"></div>
+    </div>
+    <div class="zeile2">
+      <div class="feld"><label>Telefonnummer Anbieter</label><input type="text" id="eTelefon"></div>
+      <div class="feld"><label>Anmeldung erforderlich?</label>
+        <select id="eAnmeldung"><option>ja</option><option>nein</option><option>empfohlen</option></select></div>
+    </div>
+    <div class="feld">
+      <label>Bild / Flyer vom Anbieter</label>
+      <img class="bild-vorschau" id="eBildVorschau" alt="Bildvorschau">
+      <input type="file" id="eBildDatei" accept=".png,.jpg,.jpeg,.webp,.gif">
+    </div>
+    <div class="feld"><label>Beschreibung detailliert</label><textarea id="eDetail" rows="5"></textarea></div>
+    <div class="feld"><label>Quelle</label><input type="text" id="eQuelle"></div>
+    <div class="feld"><label>Eventhinweis vom Aggregator</label><textarea id="eHinweis" rows="2"></textarea></div>
+  </div>
+  <div class="drawer-fuss">
+    <span class="meta" id="drawerMeta"></span>
+    <button class="danger" id="btnLoeschen">Löschen</button>
+    <button class="primary" id="btnSpeichern">Speichern</button>
+  </div>
+</aside>
+
+<div id="meldung"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+let events = [], kategorien = [], dups = {}, aktuelleId = null;
+
+const KAT_FARBEN = {
+  "Inspiration & Lernen":  ["#eeedfe", "#534ab7"],
+  "Tanz":                  ["#faece7", "#993c1d"],
+  "Heilsame Angebote":     ["#e1f5ee", "#0f6e56"],
+  "Singen & Musik":        ["#fbeaf0", "#993556"],
+  "Mehrtägige Events":     ["#faeeda", "#854f0b"],
+};
+
+async function api(pfad, opts = {}) {
+  const r = await fetch(pfad, { headers: { "Content-Type": "application/json" }, ...opts });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.status);
+  return j;
+}
+
+function meldung(text) {
+  const m = $("meldung");
+  m.textContent = text; m.style.display = "block";
+  clearTimeout(m._t); m._t = setTimeout(() => m.style.display = "none", 2500);
+}
+
+// ---- Duplikat-Erkennung: ähnlicher Name + gleicher Ort --------------------
+function tokens(s) {
+  return new Set((s || "").toLowerCase().normalize("NFD").replace(/[^a-z0-9äöüß ]/g, " ")
+    .split(/\s+/).filter(w => w.length > 2));
+}
+function findeDuplikate() {
+  dups = {};
+  for (let i = 0; i < events.length; i++) {
+    for (let j = i + 1; j < events.length; j++) {
+      const a = events[i], b = events[j];
+      if ((a.ort || "") !== (b.ort || "")) continue;
+      const ta = tokens(a.name), tb = tokens(b.name);
+      if (!ta.size || !tb.size) continue;
+      let schnitt = 0;
+      ta.forEach(t => { if (tb.has(t)) schnitt++; });
+      const jaccard = schnitt / (ta.size + tb.size - schnitt);
+      if (jaccard >= 0.6) { dups[a.event_id] = b.event_id; dups[b.event_id] = a.event_id; }
+    }
+  }
+}
+
+// ---- Filter + Tabelle ------------------------------------------------------
+function gefiltert() {
+  const q = $("suche").value.trim().toLowerCase();
+  const kat = $("fKategorie").value;
+  const st = $("fStatus").value;
+  return events.filter(e => {
+    if (kat && e.kategorie !== kat) return false;
+    if (st === "ungeprueft" && e.geprueft) return false;
+    if (st === "geprueft" && (!e.geprueft || e.hochgeladen)) return false;
+    if (st === "hochgeladen" && !e.hochgeladen) return false;
+    if (st === "duplikate" && !dups[e.event_id]) return false;
+    if (q) {
+      const heu = [e.name, e.ort, e.location, e.beschreibung_kurz, e.beschreibung_detail, e.quelle, e.subkategorie]
+        .join(" ").toLowerCase();
+      if (!heu.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function datumAnzeige(e) {
+  if (!e.datum_start) return "";
+  const f = s => s.split("-").reverse().slice(0, 2).join(".") + ".";
+  return e.datum_ende && e.datum_ende !== e.datum_start ? f(e.datum_start) + "–" + f(e.datum_ende) : f(e.datum_start);
+}
+
+function render() {
+  findeDuplikate();
+  const liste = gefiltert();
+  const tb = $("tbody");
+  tb.innerHTML = "";
+  $("leer").style.display = liste.length ? "none" : "block";
+  for (const e of liste) {
+    const tr = document.createElement("tr");
+    if (dups[e.event_id]) tr.className = "dup";
+    const [bg, fg] = KAT_FARBEN[e.kategorie] || ["#f1efe8", "#5f5e5a"];
+    const dupInfo = dups[e.event_id] ? `<div class="dup-hinweis">⚠ mögliches Duplikat von ${dups[e.event_id]}</div>` : "";
+    const importDatum = (e.erstellt_am || "").slice(0, 10).split("-").reverse().join(".");
+    tr.innerHTML = `
+      <td style="font-family:ui-monospace,monospace;font-size:11.5px;color:var(--muted);white-space:nowrap">${e.event_id}</td>
+      <td>${e.bild ? `<img class="thumb" src="/${e.bild}" alt="" loading="lazy">` : ""}</td>
+      <td>${datumAnzeige(e)}<div style="font-size:11.5px;color:var(--muted)">${e.startzeit || ""}</div></td>
+      <td><div class="ev-name">${e.name}</div>
+          <span class="badge" style="background:${bg};color:${fg}">${e.kategorie}${e.subkategorie ? " · " + e.subkategorie : ""}</span>${dupInfo}</td>
+      <td>${e.ort || ""}</td>
+      <td style="font-size:12px;color:var(--muted)">${e.quelle || ""}</td>
+      <td style="font-size:12px;color:var(--muted)">${importDatum}</td>
+      <td class="center"><input type="checkbox" ${e.geprueft ? "checked" : ""} data-feld="geprueft" data-id="${e.event_id}" title="Datensatz geprüft"></td>
+      <td class="center"><input type="checkbox" ${e.hochgeladen ? "checked" : ""} ${e.geprueft ? "" : "disabled title='Erst prüfen, dann hochladen'"} data-feld="hochgeladen" data-id="${e.event_id}"></td>
+      <td class="center"><button class="icon-btn" data-del="${e.event_id}" title="Datensatz löschen">🗑</button></td>`;
+    tr.addEventListener("click", ev => {
+      if (ev.target.closest("input,button")) return;
+      oeffneDrawer(e.event_id);
+    });
+    tb.appendChild(tr);
+  }
+  const h = events.filter(e => e.hochgeladen).length;
+  const g = events.filter(e => e.geprueft && !e.hochgeladen).length;
+  const u = events.filter(e => !e.geprueft).length;
+  const d = Object.keys(dups).length;
+  const st = $("fStatus").value;
+  const chip = (status, klasse, text, titel) => {
+    const aktiv = st === status && status !== "";
+    return `<button class="chip ${klasse}${aktiv ? " aktiv" : ""}" data-status="${status}" title="${titel}">${aktiv ? "✓ " : ""}${text}</button>`;
+  };
+  $("stats").innerHTML =
+    chip("", "", `${events.length} Events`, "Alle anzeigen / Filter zurücksetzen") +
+    chip("ungeprueft", "grau", `${u} ungeprüft`, "Nur ungeprüfte Events anzeigen") +
+    chip("geprueft", "ok", `${g} geprüft`, "Nur geprüfte, noch nicht hochgeladene Events anzeigen") +
+    chip("hochgeladen", "info", `${h} hochgeladen`, "Nur hochgeladene Events anzeigen") +
+    chip("duplikate", "warn", `${d} mögl. Duplikate`, "Nur mögliche Duplikate anzeigen");
+}
+
+// Status-Chips im Kopf wirken als Filter (Klick = an, nochmal Klick = aus)
+$("stats").addEventListener("click", ev => {
+  const c = ev.target.closest(".chip");
+  if (!c) return;
+  const s = c.dataset.status;
+  $("fStatus").value = ($("fStatus").value === s) ? "" : s;
+  render();
+});
+
+// Checkboxen + Löschen in der Tabelle
+$("tbody").addEventListener("change", async ev => {
+  const cb = ev.target;
+  if (!cb.dataset.feld) return;
+  try {
+    const upd = await api("/api/events/" + cb.dataset.id, { method: "PUT", body: JSON.stringify({ [cb.dataset.feld]: cb.checked ? 1 : 0 }) });
+    Object.assign(events.find(e => e.event_id === cb.dataset.id), upd);
+    render();
+  } catch (e) { meldung("Fehler: " + e.message); }
+});
+$("tbody").addEventListener("click", async ev => {
+  const btn = ev.target.closest("[data-del]");
+  if (!btn) return;
+  ev.stopPropagation();
+  const e = events.find(x => x.event_id === btn.dataset.del);
+  if (!confirm(`Event wirklich löschen?\n\n${e.name}\n${datumAnzeige(e)} · ${e.ort}`)) return;
+  try {
+    await api("/api/events/" + e.event_id, { method: "DELETE" });
+    events = events.filter(x => x.event_id !== e.event_id);
+    render();
+    meldung("Event gelöscht");
+  } catch (err) { meldung("Fehler: " + err.message); }
+});
+
+// ---- Drawer ----------------------------------------------------------------
+function fuelleSubkategorien(katName, auswahl) {
+  const kat = kategorien.find(k => k.name === katName);
+  const subs = kat ? kat.subkategorien.split(",").map(s => s.trim()) : [];
+  $("eSub").innerHTML = subs.map(s => `<option${s === auswahl ? " selected" : ""}>${s}</option>`).join("");
+}
+
+function oeffneDrawer(id) {
+  aktuelleId = id;
+  const e = id ? events.find(x => x.event_id === id) : {};
+  $("drawerTitel").textContent = id ? "Event bearbeiten" : "Neues Event";
+  $("drawerId").textContent = id || "ID wird automatisch vergeben";
+  $("btnLoeschen").style.display = id ? "" : "none";
+  $("eName").value = e.name || "";
+  $("eKurz").value = e.beschreibung_kurz || "";
+  $("eKategorie").innerHTML = kategorien.map(k => `<option${k.name === e.kategorie ? " selected" : ""}>${k.name}</option>`).join("");
+  fuelleSubkategorien(e.kategorie || kategorien[0].name, e.subkategorie);
+  $("eDatumStart").value = e.datum_start || "";
+  $("eDatumEnde").value = e.datum_ende || "";
+  $("eStartzeit").value = e.startzeit || "";
+  $("eEndzeit").value = e.endzeit || "";
+  $("eOrt").value = e.ort || "";
+  $("eLocation").value = e.location || "";
+  $("eMaps").value = e.maps_link || "";
+  $("eWebsite").value = e.website || "";
+  $("eEmail").value = e.email || "";
+  $("eTelefon").value = e.telefon || "";
+  $("eAnmeldung").value = e.anmeldung || "ja";
+  $("eDetail").value = e.beschreibung_detail || "";
+  $("eQuelle").value = e.quelle || "";
+  $("eHinweis").value = e.hinweis || "";
+  $("eGeprueft").checked = !!e.geprueft;
+  $("eHochgeladen").checked = !!e.hochgeladen;
+  $("eBildDatei").value = "";
+  const img = $("eBildVorschau");
+  if (e.bild) { img.src = "/" + e.bild + "?t=" + Date.now(); img.style.display = "block"; }
+  else img.style.display = "none";
+  $("drawerMeta").textContent = id ? `angelegt ${e.erstellt_am || "–"} · geändert ${e.geaendert_am || "–"}` : "";
+  $("drawer").classList.add("offen");
+  $("overlay").classList.add("offen");
+  $("eName").focus();
+}
+
+function schliesseDrawer() {
+  $("drawer").classList.remove("offen");
+  $("overlay").classList.remove("offen");
+  aktuelleId = null;
+}
+
+$("eKategorie").addEventListener("change", () => fuelleSubkategorien($("eKategorie").value));
+$("eHochgeladen").addEventListener("change", () => {
+  if ($("eHochgeladen").checked && !$("eGeprueft").checked) {
+    $("eHochgeladen").checked = false;
+    meldung("Bitte zuerst „Geprüft“ setzen");
+  }
+});
+$("eGeprueft").addEventListener("change", () => { if (!$("eGeprueft").checked) $("eHochgeladen").checked = false; });
+$("eBildDatei").addEventListener("change", () => {
+  const f = $("eBildDatei").files[0];
+  if (!f) return;
+  const img = $("eBildVorschau");
+  img.src = URL.createObjectURL(f); img.style.display = "block";
+});
+
+$("btnSpeichern").addEventListener("click", async () => {
+  const rec = {
+    name: $("eName").value.trim(),
+    beschreibung_kurz: $("eKurz").value.trim(),
+    kategorie: $("eKategorie").value,
+    subkategorie: $("eSub").value,
+    datum_start: $("eDatumStart").value,
+    datum_ende: $("eDatumEnde").value || $("eDatumStart").value,
+    startzeit: $("eStartzeit").value,
+    endzeit: $("eEndzeit").value,
+    ort: $("eOrt").value.trim(),
+    location: $("eLocation").value.trim(),
+    maps_link: $("eMaps").value.trim(),
+    website: $("eWebsite").value.trim(),
+    email: $("eEmail").value.trim(),
+    telefon: $("eTelefon").value.trim(),
+    anmeldung: $("eAnmeldung").value,
+    beschreibung_detail: $("eDetail").value.trim(),
+    quelle: $("eQuelle").value.trim(),
+    hinweis: $("eHinweis").value.trim(),
+    geprueft: $("eGeprueft").checked ? 1 : 0,
+    hochgeladen: $("eHochgeladen").checked ? 1 : 0,
+  };
+  if (!rec.name || !rec.datum_start) return meldung("Name und Startdatum sind Pflichtfelder");
+  try {
+    const warNeu = !aktuelleId;
+    let id = aktuelleId;
+    if (id) {
+      await api("/api/events/" + id, { method: "PUT", body: JSON.stringify(rec) });
+    } else {
+      id = (await api("/api/events", { method: "POST", body: JSON.stringify(rec) })).event_id;
+    }
+    const f = $("eBildDatei").files[0];
+    if (f) {
+      const b64 = await new Promise(res => {
+        const r = new FileReader();
+        r.onload = () => res(r.result.split(",")[1]);
+        r.readAsDataURL(f);
+      });
+      await api(`/api/events/${id}/bild`, { method: "POST", body: JSON.stringify({ filename: f.name, data: b64 }) });
+    }
+    await ladeEvents();
+    schliesseDrawer();
+    meldung(warNeu ? `Neues Event angelegt: ${id}` : "Gespeichert");
+  } catch (e) { meldung("Fehler: " + e.message); }
+});
+
+$("btnLoeschen").addEventListener("click", async () => {
+  const e = events.find(x => x.event_id === aktuelleId);
+  if (!confirm(`Event wirklich löschen?\n\n${e.name}`)) return;
+  try {
+    await api("/api/events/" + aktuelleId, { method: "DELETE" });
+    await ladeEvents();
+    schliesseDrawer();
+    meldung("Event gelöscht");
+  } catch (err) { meldung("Fehler: " + err.message); }
+});
+
+$("btnZu").addEventListener("click", schliesseDrawer);
+$("overlay").addEventListener("click", schliesseDrawer);
+document.addEventListener("keydown", e => { if (e.key === "Escape") schliesseDrawer(); });
+$("btnNeu").addEventListener("click", () => oeffneDrawer(null));
+
+// ---- CSV-Import --------------------------------------------------------------
+$("btnImport").addEventListener("click", () => $("importDatei").click());
+$("importDatei").addEventListener("change", async () => {
+  const f = $("importDatei").files[0];
+  if (!f) return;
+  let text = await f.text();
+  if (text.includes("�")) {           // Umlaute kaputt -> Datei ist Windows/Excel-kodiert
+    text = await new Promise(res => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.readAsText(f, "windows-1252");
+    });
+  }
+  try {
+    const r = await api("/api/import", { method: "POST", body: JSON.stringify({ csv: text }) });
+    await ladeEvents();
+    meldung(`${r.importiert} Events importiert (ungeprüft)` +
+      (r.uebersprungen ? ` · ${r.uebersprungen} Zeilen übersprungen` : ""));
+  } catch (e) { meldung("Import-Fehler: " + e.message); }
+  $("importDatei").value = "";
+});
+
+// ---- CSV-Export --------------------------------------------------------------
+$("btnExport").addEventListener("click", () => {
+  const spalten = ["event_id","name","beschreibung_kurz","kategorie","subkategorie","datum_start","datum_ende",
+    "startzeit","endzeit","ort","location","maps_link","website","email","telefon","anmeldung","bild",
+    "beschreibung_detail","quelle","hinweis","geprueft","hochgeladen"];
+  const esc = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const zeilen = [spalten.join(";")].concat(gefiltert().map(e => spalten.map(s => esc(e[s])).join(";")));
+  const blob = new Blob(["﻿" + zeilen.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "events_export.csv";
+  a.click();
+});
+
+// ---- Start -------------------------------------------------------------------
+["suche", "fKategorie", "fStatus"].forEach(id => $(id).addEventListener("input", render));
+
+async function ladeEvents() {
+  events = await api("/api/events");
+  render();
+}
+(async () => {
+  try {
+    kategorien = await api("/api/kategorien");
+    $("fKategorie").innerHTML = '<option value="">Alle Kategorien</option>' +
+      kategorien.map(k => `<option>${k.name}</option>`).join("");
+    await ladeEvents();
+  } catch (e) {
+    const leer = $("leer");
+    leer.style.display = "block";
+    leer.innerHTML = location.protocol === "file:"
+      ? `<strong>Die Seite wurde als Datei geöffnet – so kann sie die Datenbank nicht erreichen.</strong><br><br>
+         Bitte stattdessen die Datei <code>Event-Datentool starten.command</code> im Projektordner
+         doppelklicken<br>(oder im Terminal <code>python3 Tool/server.py</code> ausführen) und dann
+         <a href="http://localhost:8765">http://localhost:8765</a> öffnen.`
+      : `<strong>Der Server ist nicht erreichbar.</strong><br><br>
+         Bitte <code>Event-Datentool starten.command</code> doppelklicken oder im Terminal
+         <code>python3 Tool/server.py</code> ausführen und die Seite neu laden.`;
+  }
+})();
+</script>
+</body>
+</html>

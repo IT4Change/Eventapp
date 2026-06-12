@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "event-datentool",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["Tool/server.py"],
+      "port": 8765
+    }
+  ]
+}

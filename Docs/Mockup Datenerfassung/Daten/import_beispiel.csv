@@ -1,0 +1,4 @@
+Name Event;Beschreibung (Zusammenfassung);Kategorie;Subkategorie;Datum Start;Datum Ende;Startzeit;Endzeit;Ort;Location;Website Anbieter;Email Anbieter;Anmeldung erfoderlich?;Quelle
+Klangschalen-Abend im Lichtgarten;Sanfte Klangreise zum Wochenausklang.;Heilsame Angebote;Zeremonien;2026-10-02;2026-10-02;19:30;21:00;Heidelberg;Lichtgarten Studio;https://www.lichtgarten.example;info@lichtgarten.example;ja;CSV-Import Testdaten
+Singkreis am Fluss;Offenes Singen am Mainufer bei Sonnenuntergang.;Singen & Musik;Singkreis;09.10.2026;09.10.2026;18:00;20:00;Frankfurt am Main;Mainufer, Treffpunkt Eiserner Steg;https://www.flusssingen.example;hallo@flusssingen.example;empfohlen;CSV-Import Testdaten
+Ecstatic Dance Herbstwelle;Bewusster Tanzabend mit Live-DJ.;Tanz;Ecstatic Dance;2026-10-16;2026-10-16;20:00;23:00;Darmstadt;Tanzhalle Ost;https://www.herbstwelle.example;info@herbstwelle.example;empfohlen;CSV-Import Testdaten
