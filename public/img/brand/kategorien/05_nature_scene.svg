@@ -12,13 +12,6 @@
   <!-- Sky -->
   <rect width="1200" height="525" fill="url(#forestSky)"/>
 
-  <!-- Sun rays through trees -->
-  <g opacity="0.30">
-    <polygon points="600,80 548,525 652,525" fill="#F7EFE0"/>
-    <polygon points="500,130 474,525 526,525" fill="#F7EFE0"/>
-    <polygon points="700,130 674,525 726,525" fill="#F7EFE0"/>
-  </g>
-
   <!-- Distant tree line (greener, fuller) -->
   <g fill="#73804A">
     <path d="M -20 525 L 60 300 L 110 380 L 170 290 L 230 390 L 290 320 L 360 525 Z"/>
@@ -56,41 +49,62 @@
     <path d="M -74 2 L -86 2 M 74 2 L 86 2" stroke="#6B3410" stroke-width="3"/>
   </g>
 
-  <!-- People gathered around the fire (larger) -->
-  <g fill="#6B3410">
-    <!-- far person (left, smaller) -->
-    <g transform="translate(438, 588) scale(1.05)">
-      <circle cx="0" cy="-46" r="13"/>
-      <path d="M -21 2 Q -23 -36 0 -36 Q 23 -36 21 2 Z"/>
-    </g>
-    <!-- left person -->
-    <g transform="translate(506, 612) scale(1.25)">
-      <circle cx="0" cy="-48" r="14"/>
-      <path d="M -22 2 Q -24 -38 0 -38 Q 24 -38 22 2 Z"/>
-    </g>
-    <!-- right person -->
-    <g transform="translate(700, 612) scale(1.25)">
-      <circle cx="0" cy="-48" r="14"/>
-      <path d="M -22 2 Q -24 -38 0 -38 Q 24 -38 22 2 Z"/>
-    </g>
+  <!-- People seated around the fire — articulated figures with arms and brand-coloured
+       clothing, matching the dance/music illustrations (terracotta / olive / gold). -->
+
+  <!-- back person, behind the fire (gold top, smallest for depth) -->
+  <g transform="translate(560, 538) scale(0.64)">
+    <path d="M -40 0 Q -46 -26 -14 -30 L 14 -30 Q 46 -26 40 0 Z" fill="#6B3410"/>
+    <path d="M -17 -84 Q -21 -55 -19 -30 L 19 -30 Q 21 -55 17 -84 Q 9 -95 0 -95 Q -9 -95 -17 -84 Z" fill="#D4A047"/>
+    <circle cx="0" cy="-114" r="15" fill="#6B3410"/>
+    <path d="M -15 -80 Q -33 -62 -28 -36" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 15 -80 Q 33 -62 28 -36" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
   </g>
 
-  <!-- Campfire (larger) -->
-  <g transform="translate(604, 620) scale(1.45)">
+  <!-- front-left person (dark-green top — stands out against the olive ground) -->
+  <g transform="translate(502, 582) scale(0.86)">
+    <path d="M -40 0 Q -46 -26 -14 -30 L 14 -30 Q 46 -26 40 0 Z" fill="#6B3410"/>
+    <path d="M -17 -84 Q -21 -55 -19 -30 L 19 -30 Q 21 -55 17 -84 Q 9 -95 0 -95 Q -9 -95 -17 -84 Z" fill="#3F4C29"/>
+    <circle cx="0" cy="-114" r="15" fill="#6B3410"/>
+    <path d="M -15 -80 Q -34 -62 -29 -34" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 15 -80 Q 30 -66 30 -38" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- front-right person (terracotta top) -->
+  <g transform="translate(706, 580) scale(0.84)">
+    <path d="M -40 0 Q -46 -26 -14 -30 L 14 -30 Q 46 -26 40 0 Z" fill="#6B3410"/>
+    <path d="M -17 -84 Q -21 -55 -19 -30 L 19 -30 Q 21 -55 17 -84 Q 9 -95 0 -95 Q -9 -95 -17 -84 Z" fill="#C25E2A"/>
+    <circle cx="0" cy="-114" r="15" fill="#6B3410"/>
+    <path d="M -15 -80 Q -30 -66 -30 -38" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 15 -80 Q 34 -62 29 -34" stroke="#6B3410" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Campfire (raised toward the centre, taller / more vertical flames) -->
+  <g transform="translate(604, 556) scale(1.4)">
     <path d="M -30 6 L 30 -4" stroke="#6B3410" stroke-width="10" stroke-linecap="round"/>
     <path d="M -30 -4 L 30 6" stroke="#7A4A24" stroke-width="10" stroke-linecap="round"/>
-    <path d="M 0 -4 Q -18 -22 -9 -46 Q -2 -32 2 -46 Q 1 -24 10 -40 Q 16 -20 0 -4 Z" fill="#E2742E"/>
-    <path d="M 0 -8 Q -9 -24 -2 -44 Q 2 -30 5 -42 Q 9 -22 0 -8 Z" fill="#F4C95D"/>
+    <path d="M 0 -4 Q -20 -26 -10 -60 Q -2 -42 2 -62 Q 1 -32 11 -52 Q 18 -26 0 -4 Z" fill="#E2742E"/>
+    <path d="M 0 -8 Q -10 -30 -3 -58 Q 2 -40 6 -56 Q 10 -28 0 -8 Z" fill="#F4C95D"/>
   </g>
 
-  <!-- Smoke rising up -->
+  <!-- Smoke: cone rising from the fire — small + denser at the base, growing into a
+       wider, fuller cloud toward the top (more + bigger bubbles up high). -->
   <g fill="#9C9488">
-    <circle cx="606" cy="548" r="13" opacity="0.30"/>
-    <circle cx="620" cy="510" r="16" opacity="0.26"/>
-    <circle cx="602" cy="468" r="18" opacity="0.22"/>
-    <circle cx="618" cy="424" r="21" opacity="0.18"/>
-    <circle cx="604" cy="378" r="23" opacity="0.13"/>
-    <circle cx="616" cy="330" r="25" opacity="0.09"/>
+    <!-- rising column -->
+    <circle cx="606" cy="460" r="15" opacity="0.46"/>
+    <circle cx="614" cy="420" r="20" opacity="0.43"/>
+    <circle cx="600" cy="378" r="25" opacity="0.39"/>
+    <circle cx="617" cy="334" r="30" opacity="0.34"/>
+    <circle cx="601" cy="288" r="35" opacity="0.30"/>
+    <circle cx="616" cy="242" r="40" opacity="0.25"/>
+    <!-- upper cloud: more and bigger bubbles, fanning out -->
+    <circle cx="602" cy="200" r="44" opacity="0.21"/>
+    <circle cx="642" cy="208" r="30" opacity="0.18"/>
+    <circle cx="566" cy="212" r="28" opacity="0.17"/>
+    <circle cx="610" cy="158" r="46" opacity="0.15"/>
+    <circle cx="574" cy="168" r="30" opacity="0.12"/>
+    <circle cx="648" cy="170" r="30" opacity="0.12"/>
+    <circle cx="606" cy="116" r="42" opacity="0.09"/>
   </g>
 
   <!-- A few sparkles -->

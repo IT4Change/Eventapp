@@ -4,6 +4,32 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-17 — Kategorien: Figuren im Retreat-Bild an Markenstil angeglichen
+
+### Ausgangslage
+Die Kategorien-Karte „Mehrtägige Events" nutzt die Illustration [05_nature_scene.svg](public/img/brand/kategorien/05_nature_scene.svg) (Wald + Zelt + Lagerfeuer). Die drei Personen am Feuer waren einfarbig braune „Klötzchen" (Kopf-Kreis + glockenförmiger Block, ohne Arme/Beine/Kleidungsfarbe) und passten dadurch stilistisch nicht zu den Figuren der anderen Kategorie-Bilder (Tanz `04_dance_silhouettes.svg`, Singen & Musik `08_music_scene.svg`).
+
+### Ziel
+Die Menschen im Retreat-Bild so neu zeichnen, dass sie demselben Figuren-Stil und derselben Farbpalette folgen wie Tanz/Musik.
+
+### Was umgesetzt wurde
+- Die drei Block-Figuren in `05_nature_scene.svg` durch **ausgearbeitete, am Feuer sitzende Figuren** ersetzt (passend zum Lagerfeuer-Kontext, analog zum sitzenden Gitarristen der Musik-Szene): brauner Kopf, sitzender Körper, **Arme als geschwungene Strichlinien** (stroke-linecap round), gekreuzte Beine als brauner Sitzsockel.
+- **Kleidung in Markenfarben** wie in den Referenzbildern: Oliv `#7A8B4A` (vorne links), Terrakotta `#C25E2A` (vorne rechts), Gold `#D4A047` (hinten, kleiner skaliert für Tiefe). Köpfe/Arme/Sockel in `#6B3410` wie die anderen Figuren.
+- Komposition als Halbkreis um das Feuer; hintere Figur wird vom (später gezeichneten) Feuer leicht verdeckt → korrekte Tiefenstaffelung.
+- **Refinement (gleiche Session):** Personen insgesamt verkleinert (Front ~0.85, hinten 0.64) und die ganze Gruppe + Feuer + Rauch nach oben Richtung vertikale Bildmitte verschoben (Karten-Crop ist `cover`, vertikal zentriert). Feuer höher positioniert mit **längeren/vertikaleren Flammen**. Front-links von Oliv `#7A8B4A` auf **Dunkelgrün `#3F4C29`** geändert — Oliv war fast identisch mit dem Bodengrün (`#83904D`), wodurch der Körper „verschwand"; Dunkelgrün hebt sich klar ab. Oberteile jetzt Dunkelgrün / Gold / Terrakotta.
+- **Refinement 2 (gleiche Session):** Rauch als **aufsteigender Kegel** neu gestaltet — 7 Blasen, am Feuer klein/dichter, nach oben wachsend (r 14→38) und höher reichend; Deckkraft deutlich erhöht (0.45→0.16 statt vorher 0.30→0.09), damit die Rauchfahne klar erkennbar ist.
+- **Refinement 3 (gleiche Session):** Die drei hellen „Sonnenstrahlen"-Polygone (`#F7EFE0`, opacity 0.30) entfernt. Rauch weiter ausgebaut: größere Blasen und mehr davon (jetzt 13), die oben zu einer breiteren Wolke auffächern (seitliche Blasen im oberen Bereich, r bis 46).
+
+### Verifikation
+- `xmllint --noout` → XML valide.
+- SVG via `qlmanage` zu PNG gerendert und gegen `04_dance_silhouettes.svg` / `08_music_scene.svg` gegengeprüft: Figuren-Sprache und Farbpalette stimmen jetzt überein.
+- Reine statische Asset-Änderung; `categories.ts` referenziert die Datei unverändert, keine Code-/Layout-Anpassung nötig (Mobile unberührt).
+
+### Offene Punkte / nächste Schritte
+- Keine. Bei Bedarf könnten die übrigen Kategorie-Illustrationen auf konsistente Figuren-Anzahl/-Posen geprüft werden.
+
+---
+
 ## 2026-06-09 — Baikal/CalDAV als Event-Backend
 
 ### Ausgangslage
