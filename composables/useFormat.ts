@@ -46,6 +46,15 @@ export const useFormat = () => {
     return `${date.getDate()}.${(date.getMonth() + 1).toString().padStart(2, '0')}.`
   }
 
+  // "17.06.26" — TT.MM.JJ (zweistellig), für die kompakte Datums-Spalte der Liste.
+  function dayMonthYearShort(d: Date | string): string {
+    const date = new Date(d)
+    const dd = date.getDate().toString().padStart(2, '0')
+    const mm = (date.getMonth() + 1).toString().padStart(2, '0')
+    const yy = (date.getFullYear() % 100).toString().padStart(2, '0')
+    return `${dd}.${mm}.${yy}`
+  }
+
   function time(d: Date | string): string {
     const date = new Date(d)
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
@@ -76,5 +85,5 @@ export const useFormat = () => {
     return `${dayMonth(start)} – ${dayMonth(end)} ${end.getFullYear()}`
   }
 
-  return { weekday, weekdayShort, monthShort, dayMonth, dayMonthShort, time, timeRange, isToday, dateRangeLabel }
+  return { weekday, weekdayShort, monthShort, dayMonth, dayMonthShort, dayMonthYearShort, time, timeRange, isToday, dateRangeLabel }
 }

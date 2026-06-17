@@ -4,6 +4,48 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-17 — Event-Listenansicht neu formatiert + Heroes schmaler
+
+### Ausgangslage
+Events lagen auf der Startseite (`index.vue` → `EventList`) gruppiert unter großen Tages-Überschriften (`DayBlock`). Jede Zeile (`EventListItem`) zeigte links die Zeitspanne (Start–Ende), oben Kategorie-Pille + Ort, darunter Titel, Beschreibung, Pfeil. Heroes waren dem User noch zu hoch.
+
+### Ziel
+Event-Übersicht analog dem User-Beispiel komplett neu formatieren; Heroes auf allen Seiten schmaler (oben + unten). Plan & abgestimmte Entscheidungen: [08_event-listenansicht.md](08_event-listenansicht.md).
+
+### Was umgesetzt wurde
+- **`components/EventListItem.vue` komplett neu:** flache Zeile mit Datums-Spalte links (Wochentag-Kürzel + `TT.MM.JJ` fett, **nur Startzeit** darunter); Zeile 1 = Titel groß (sans, 21/24px) + externer Domain-Link (`url`→Hostname ohne `www.`); Zeile 2 = Kategorie-Pille (Akzentfarbe) + Stadt + Pin-Icon + Veranstaltungsort; Zeile 3 = Kurzbeschreibung (Teaser, gedämpft, 2 Zeilen). Ganze Zeile = Stretched-Link zur Detailseite, Domain-Link liegt per `z-index` darüber.
+- **`components/EventList.vue`:** Tages-Gruppierung entfernt → flache Liste über `visibleEvents`.
+- **`components/DayBlock.vue` gelöscht** (nur dort verwendet); `visibleByDay`/`dayKey` aus `useEvents.ts` entfernt (keine Leichen).
+- **`composables/useFormat.ts`:** `dayMonthYearShort` (`TT.MM.JJ`) ergänzt.
+- **`composables/useEvents.ts`:** `visibleEvents` exportiert.
+- **`components/HeroSection.vue`:** Paddings + Min-Höhen aller Varianten moderat reduziert (z. B. slim-inner 22/15→15/11 mobil, 32/22→22/15 desktop; medium 360/420/480→300/340/380; large 480/600/720→400/500/560; generisches inner 48/80→34/56).
+
+### Architekturentscheidungen (Warum)
+- **Stretched-Link statt verschachteltem `<a>`:** ganze Zeile klickbar (Detailseite) + eigenständiger externer Domain-Link ohne ungültiges HTML-Nesting.
+- **Tag = Hauptkategorie in Akzentfarbe** (nicht Unterkategorie/grau wie im Beispiel) — vom User so entschieden, hält Kategorie-Farbsystem konsistent.
+
+### Wortmarke mobil gehärtet (auf User-Wunsch)
+- `components/BrandWordmark.vue` (Größe `md`, Nav-Logo): Wortmarke und nowrap-Tagline-Zeile 1 skalieren auf schmalen Screens per `clamp(... , vw, ...)` herunter (Wortmarke `clamp(32px, 10.5vw, 52px)`, Tagline-Zeilen analog). **Desktop ≥1024px unverändert** (feste 78px greifen weiter; clamp erreicht bei ~495px die bisherigen 52px, ab 640px die festen Werte). Schutz gegen Mobile-Overflow gemäß Mobile-First-Regel.
+
+### Verifikation
+- Startseite DE + `/en`: HTTP 200, Konsole sauber. Desktop (1280px): neue flache Liste korrekt — Datums-Spalte, großer Titel + Domain-Link, farbige Pille, Ort + Teaser; Hero schmaler. Entspricht dem User-Beispiel.
+- **Mobile via CDP-Emulation (echter Viewport) gemessen:** bei 375 / 390 / 430px **kein horizontaler Overflow** (`document.documentElement.scrollWidth === innerWidth`, 0 überlaufende Elemente). 390px-Screenshot: Titel brechen sauber um, Wortmarke + Burger passen, Pille/Ort/Teaser korrekt.
+- **Lektion (Tooling):** Headless-Chrome `--window-size` erzwingt eine Mindest-Layoutbreite (~500px) und schneidet den Screenshot nur zu → täuscht „Overflow"/Beschnitt vor. Für echte Mobile-Prüfung `Emulation.setDeviceMetricsOverride` (CDP) statt `--window-size` nutzen.
+
+### Refinement (gleiche Session) — Platznutzung & Lesbarkeit
+- **Heroes/Abstände enger:** slim-Hero-Padding weiter reduziert (mobil 10/8px, Desktop 14/10px); `EventList`-Section `py-9 sm:py-12` → `py-4 sm:py-6`; Abstand Filter→erstes Event (`.event-list` margin-top 20→8px).
+- **Event-Zeilen kompakter:** Zeilen-Padding 20→12px (mobil) bzw. 24→14px (Desktop) — deutlich engere Trennlinien-Abstände.
+- **Kurzbeschreibung einzeilig:** `white-space: nowrap` + `text-overflow: ellipsis` statt 2-Zeilen-Clamp.
+- **Tag-Pille viel kleiner:** font 11→9px, Padding 4/12→2/8px, letter-spacing 1.2→0.6px.
+- **Wochentag + Datum größer und ausgeschrieben:** `weekdayShort` → `weekday` (Freitag, Samstag …); Wochentag 16px (mobil)/18px (Desktop), Datum 17/19px. Datums-Spalte 84/104 → 108/132px.
+- **Verwaisten „·" behoben:** Trenn-Punkt + Domain in `.ev-linkwrap` (inline-flex) gebündelt → brechen gemeinsam um.
+- **Verifikation (CDP, echter Viewport):** 375/390/430 kein Overflow; gemessen passt „Donnerstag" (längster dt. Wochentag) in die Datums-Spalte — 90px in 108px (mobil, 18px Reserve), 101px in 132px (Desktop, 31px Reserve); kein Umbruch. Desktop 1280px deutlich kompakter, Platz hinter Hero/zwischen Events spürbar reduziert.
+
+### Offene Punkte / nächste Schritte
+- Keine. (Der zunächst vermutete „Mobile-Overflow" war ein Headless-Crop-Artefakt; Wortmarke auf Wunsch dennoch responsiv gehärtet.)
+
+---
+
 ## 2026-06-17 — Kategorien: Figuren im Retreat-Bild an Markenstil angeglichen
 
 ### Ausgangslage

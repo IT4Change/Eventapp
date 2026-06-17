@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white py-9 sm:py-12">
+  <section class="bg-white py-4 sm:py-6">
     <div class="container-w">
       <div class="ev-head">
         <div class="ev-eyebrow grad-text">{{ $t('home.week.eyebrow') }}</div>
@@ -9,12 +9,11 @@
 
       <EventFilter />
 
-      <div v-if="visibleByDay.length" class="event-days">
-        <DayBlock
-          v-for="entry in visibleByDay"
-          :key="entry.day.toISOString()"
-          :day="entry.day"
-          :events="entry.events"
+      <div v-if="visibleEvents.length" class="event-list">
+        <EventListItem
+          v-for="evt in visibleEvents"
+          :key="evt.id"
+          :event="evt"
         />
       </div>
       <div v-else class="empty-state">
@@ -34,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-const { visibleByDay, hasMore, loadMore, visibleCount, totalCount } = useEvents()
+const { visibleEvents, hasMore, loadMore, visibleCount, totalCount } = useEvents()
 </script>
 
 <style scoped>
@@ -63,8 +62,8 @@ const { visibleByDay, hasMore, loadMore, visibleCount, totalCount } = useEvents(
   font-weight: 300;
 }
 
-.event-days {
-  margin-top: 28px;
+.event-list {
+  margin-top: 8px;
 }
 .empty-state {
   padding: 48px 0;

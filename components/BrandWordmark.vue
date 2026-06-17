@@ -97,8 +97,10 @@ const taglineLines = computed(() => {
 }
 
 .brand-lockup.sm .brand-wordmark { font-size: 44px; }
-/* md (Nav-Logo): mobil kleiner, ab lg unverändert bei 78px */
-.brand-lockup.md .brand-wordmark { font-size: 52px; }
+/* md (Nav-Logo): skaliert auf schmalen Screens mit der Viewport-Breite herunter,
+   damit der nowrap-Schriftzug die Body-Breite nicht sprengt (Mobile-Overflow-Schutz).
+   Bei ~495px erreicht clamp die bisherigen 52px; ab 640/1024 greifen die festen Werte. */
+.brand-lockup.md .brand-wordmark { font-size: clamp(32px, 10.5vw, 52px); }
 .brand-lockup.lg .brand-wordmark { font-size: 92px; }
 .brand-lockup.xl .brand-wordmark { font-size: 116px; }
 
@@ -107,9 +109,10 @@ const taglineLines = computed(() => {
 .brand-lockup.lg .brand-tagline { font-size: 14px; }
 .brand-lockup.xl .brand-tagline { font-size: 16px; }
 
-/* Nav-Logo (md): Zeile 1 = Logo-Breite; Zeile 2 (längerer Text) kleiner = gleiche Breite */
-.brand-lockup.md .brand-tagline-line:first-child { font-size: 17.5px; }
-.brand-lockup.md .brand-tagline-line:last-child  { font-size: 12.5px; letter-spacing: 1px; }
+/* Nav-Logo (md): Zeile 1 = Logo-Breite; Zeile 2 (längerer Text) kleiner = gleiche Breite.
+   Zeile 1 ist nowrap → ebenfalls per clamp gegen Mobile-Overflow geschützt. */
+.brand-lockup.md .brand-tagline-line:first-child { font-size: clamp(12px, 3.9vw, 17.5px); }
+.brand-lockup.md .brand-tagline-line:last-child  { font-size: clamp(8.6px, 2.8vw, 12.5px); letter-spacing: 1px; }
 
 @media (min-width: 640px) {
   .brand-lockup.md .brand-wordmark { font-size: 64px; }

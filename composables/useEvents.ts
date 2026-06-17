@@ -40,10 +40,6 @@ function isSameDay(a: Date, b: Date): boolean {
   )
 }
 
-function dayKey(d: Date): string {
-  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
-}
-
 export function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -104,18 +100,6 @@ export const useEvents = () => {
   })
 
   const visibleEvents = computed(() => filtered.value.slice(0, visibleCount.value))
-
-  const visibleByDay = computed(() => {
-    const groups = new Map<string, { day: Date; events: Event[] }>()
-    for (const evt of visibleEvents.value) {
-      const start = new Date(evt.start)
-      const day = startOfDay(start)
-      const key = dayKey(day)
-      if (!groups.has(key)) groups.set(key, { day, events: [] })
-      groups.get(key)!.events.push(evt)
-    }
-    return Array.from(groups.values()).sort((a, b) => a.day.getTime() - b.day.getTime())
-  })
 
   const eventsByDay = computed(() => {
     return weekDays.value.map((day) => {
@@ -178,7 +162,7 @@ export const useEvents = () => {
     weekOffset,
     weekDays,
     eventsByDay,
-    visibleByDay,
+    visibleEvents,
     hasAnyEventsThisWeek,
     hasMore,
     totalCount,

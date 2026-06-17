@@ -81,14 +81,14 @@ const bgStyle = computed(() => {
   background-color: var(--off);
 }
 .hero-inner {
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 34px;
+  padding-bottom: 34px;
 }
 .hero-large {
-  min-height: 480px;
+  min-height: 400px;
 }
 .hero-medium {
-  min-height: 360px;
+  min-height: 300px;
 }
 .hero-slim {
   min-height: 0;
@@ -105,8 +105,8 @@ const bgStyle = computed(() => {
   opacity: 0.55;
 }
 .hero-slim .hero-inner {
-  padding-top: 22px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 .hero-title {
   font-family: 'Helvetica Neue', sans-serif;
@@ -133,11 +133,11 @@ const bgStyle = computed(() => {
 /* md ≥ 768px (Tablet) */
 @media (min-width: 768px) {
   .hero-inner {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 56px;
+    padding-bottom: 56px;
   }
-  .hero-large { min-height: 600px; }
-  .hero-medium { min-height: 420px; }
+  .hero-large { min-height: 500px; }
+  .hero-medium { min-height: 340px; }
   .hero-title { font-size: 46px; }
   .hero-title .script { font-size: 64px; }
   .hero-slim .hero-title { font-size: 35px; white-space: nowrap; }
@@ -147,15 +147,15 @@ const bgStyle = computed(() => {
 
 /* lg ≥ 1024px (Desktop — unverändert zum bisherigen Stand) */
 @media (min-width: 1024px) {
-  .hero-large { min-height: 720px; }
-  .hero-medium { min-height: 480px; }
+  .hero-large { min-height: 560px; }
+  .hero-medium { min-height: 380px; }
   .hero-title { font-size: 60px; }
   .hero-title .script { font-size: 82px; }
   .hero-slim .hero-title { font-size: 42px; }
   .hero-slim .hero-title .script { font-size: 64px; }
   .hero-slim .hero-inner {
-    padding-top: 32px;
-    padding-bottom: 22px;
+    padding-top: 14px;
+    padding-bottom: 10px;
   }
 }
 </style>
