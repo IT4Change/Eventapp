@@ -45,7 +45,7 @@ function onSubmit() {
 <style scoped>
 .newsletter {
   background-image:
-    linear-gradient(135deg, rgba(232, 122, 93, 0.92), rgba(107, 168, 216, 0.92)),
+    linear-gradient(135deg, rgba(192, 80, 32, 0.92), rgba(232, 122, 93, 0.92)),
     url('/img/brand/03_pattern_tile.png');
   background-size: 320px;
   color: #fff;

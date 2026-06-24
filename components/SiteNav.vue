@@ -2,10 +2,10 @@
   <nav class="sticky top-0 z-50 nav-bg backdrop-blur-md">
     <div class="flex items-center justify-between px-5 sm:px-6 lg:px-8 py-[18px] max-w-container mx-auto gap-8">
       <NuxtLinkLocale to="/" class="flex items-center gap-3 logo-link" aria-label="Soul & Bliss">
-        <BrandWordmark size="md" with-tagline />
+        <BrandWordmark size="md" with-tagline with-icon />
       </NuxtLinkLocale>
 
-      <ul class="hidden lg:flex gap-[36px] list-none items-center flex-1 justify-end">
+      <ul class="hidden lg:flex gap-[22px] xl:gap-[36px] list-none items-center ml-3 xl:ml-6">
         <li v-for="link in links" :key="link.to">
           <NuxtLinkLocale
             :to="link.to"
@@ -17,7 +17,7 @@
         </li>
       </ul>
 
-      <div class="hidden lg:flex items-center gap-5 nav-actions">
+      <div class="hidden lg:flex items-center gap-4 xl:gap-5 nav-actions ml-auto">
         <NuxtLinkLocale to="/newsletter" class="btn nav-newsletter">
           {{ $t('nav.newsletter') }}
         </NuxtLinkLocale>
@@ -140,13 +140,17 @@ watch(() => route.path, () => { mobileOpen.value = false })
 
 .nav-actions {
   border-left: 1.5px solid rgba(46, 90, 87, 0.15);
-  padding-left: 22px;
+  padding-left: 16px;
 }
 
 .nav-newsletter {
-  padding: 10px 24px !important;
+  padding: 9px 18px !important;
   font-size: 15px !important;
-  letter-spacing: 1.4px !important;
+  letter-spacing: 1.2px !important;
+}
+@media (min-width: 1280px) {
+  .nav-actions { padding-left: 22px; }
+  .nav-newsletter { padding: 10px 24px !important; letter-spacing: 1.4px !important; }
 }
 
 .lang-switch {
@@ -172,6 +176,10 @@ watch(() => route.path, () => { mobileOpen.value = false })
   font-weight: 600;
 }
 
+/* Burger nur mobil — scoped-Spezifität würde sonst Tailwinds lg:hidden überstimmen */
+@media (min-width: 1024px) {
+  .burger { display: none !important; }
+}
 .burger {
   background: none;
   border: none;

@@ -25,6 +25,6 @@ defineProps<{
 
 <style scoped>
 .quote-band {
-  background: linear-gradient(120deg, #54C0B4 0%, #6BA8D8 100%);
+  background: linear-gradient(120deg, #6B3410 0%, #C05020 100%);
 }
 </style>

@@ -4,6 +4,66 @@ Dieses Dokument wird bei jeder Arbeitssession aktualisiert. Neueste Einträge ob
 
 ---
 
+## 2026-06-24 — Neues Icon-Logo in der Nav + warmer Marken-Recolor
+
+### Ausgangslage
+Die Marke nutzte einen „Regenbogen"-Verlauf (Coral→Gold→Teal→Blau) für die Wortmarke „Soul & Bliss" und alle Überschriften/Eyebrows (`.grad-text` → `--grad-rainbow`). Der User hat in `Docs/Logo neu/` ein neues Icon-Logo (Sonne + zwei Menschen, warm-erdig) abgelegt.
+
+### Ziel
+Logo links vom Schriftzug oben links integrieren; den Schriftzug-Verlauf und die Überschriften auf eine warme, vom Logo abgeleitete Palette (Amber→Terrakotta→Braun) umstellen; auch die türkis/blauen Verlaufs-Akzente warm ziehen. Schriftzug verkleinern, sodass Logo + Schriftzug zusammen denselben Platz einnehmen. Plan: `~/.claude/plans/ich-habe-im-unterordner-bright-acorn.md` (mit User abgestimmt).
+
+### Was umgesetzt wurde
+- **Asset:** `Docs/Logo neu/logo-final-icon dunkel.png` (transparent) → `public/img/logos/icon-logo.png` kopiert (Docs/ wird nicht ausgeliefert; sauberer Dateiname ohne Leerzeichen).
+- **`components/BrandWordmark.vue`:** neue Prop `withIcon`; Lockup in horizontale `.brand-row` mit `<img class="brand-icon">` links gepackt (nur `md`/Nav opted-in, `alt=""` da Link `aria-label` trägt). Icon `clamp()`-skaliert (mobil 40–64px, ≥640 78px, ≥1024 96px) → skaliert mit der Wortmarke mit. Wortmarke um ~18 % verkleinert (md: clamp 32→26/8.6vw/42; ≥640 64→52; ≥1024 78→64), Tagline proportional. Wortmarken-Gradient → `linear-gradient(to right, #F0A85A, #D9722E, #C05020, #6B3410, #5A2D0E)` (hält dunkelbraun für Lesbarkeit).
+- **`components/SiteNav.vue`:** `<BrandWordmark size="md" with-tagline with-icon />`.
+- **Recolor (Quellen synchron):** `--grad-rainbow` in `assets/css/main.css` **und** `tailwind.config.ts` → `linear-gradient(120deg, #E8902E 0%, #C05020 50%, #6B3410 100%)` (treibt via `.grad-text` alle Eyebrows/Script-Titel + `.hero-slim::after`). `--grad-cool` → Terrakotta→Braun (`#C05020`→`#6B3410`); ebenso `QuoteBand.vue` (Inline-Gradient) und `NewsletterSection.vue` (blaues Overlay-Ende → Terrakotta). `.btn-outline` Rahmen/Hover-Schatten von Teal → Terrakotta (letzte türkise Restspur). `grad-soulevents` (toter Token) auf den neuen Wortmarken-Gradient aktualisiert.
+- **Bewusst NICHT geändert:** Kategorie-Akzentfarben (Pills/Filter) und die Tokens `--teal`/`--blue` (funktionales Farbkodierungssystem); `--grad-warm` (Buttons, bereits warm); Footer-Ink (`#2E5A57`, dunkle Markenbasis, kein Verlauf).
+
+### Verifikation (CDP, echter Viewport)
+- DE (Standard `/`) Desktop 1280: Icon links vom Schriftzug, „Soul & Bliss" warm Amber→Braun, Eyebrows/Script („AKTUELLE EVENTS", „Wochenübersicht") warm, Hero-Linie warm. `/vision`: QuoteBand + Newsletter Terrakotta/Braun, weißer Text gut lesbar.
+- **Kein horizontaler Overflow** bei 375/390/430px (`scrollWidth === innerWidth`); Icon skaliert mit (49/51/56px), brand-row 261/275/307px.
+- DE-Tagline mobil sauber zweizeilig (kein Umbruch). Hinweis: in **EN** bricht die längere Tagline-Zeile 2 bei sehr schmalen Screens um (kürzeres EN-Zeile-1 → schmaleres Lockup) — kosmetisch, kein Overflow.
+
+### Refinement (gleiche Session) — Logo größer/ausgerichtet, Verlauf umgekehrt, Kategorie-Farben
+- **Logo zugeschnitten:** `public/img/logos/icon-logo.png` hatte ~16 % transparenten Rand pro Seite (der „verschenkte Platz") → per PIL auf Inhalt beschnitten (856×928, +3 % Sicherheitsrand → 910×982). Motiv dadurch deutlich größer im selben Rahmen.
+- **Logo-Größe/Ausrichtung** (`BrandWordmark.vue`): höhenbasiert (`height` clamp 52–74 mobil, 86 ≥640, 98 ≥1024; `width:auto` via `aspect-ratio: 910/982`), `align-items: center` → Icon-Höhe ≈ Lockup-Höhe, oben/unten bündig mit Schriftzug-Oberkante bis Tagline-Unterkante (gemessen: Icon 98 vs. Lockup 100px Desktop, 62 vs. 64 mobil). **Wichtig:** erster Versuch mit `align-items: stretch` + `height:auto` ließ das `<img>` auf seine native 982px-Höhe ausweichen → definite Höhe nötig.
+- **Verlauf umgekehrt (dunkel → hell)** überall: Wortmarken-Gradient (`#5A2D0E→…→#EFA24E`), `--grad-rainbow` (`#6B3410→#C05020→#E8902E`, Überschriften/Eyebrows), `--grad-cool`, `QuoteBand`, `NewsletterSection`, `grad-soulevents` (main.css + tailwind.config.ts synchron).
+- **Kategorie-Farben aus dem Logo** (`data/categories.ts` accents + Pill/Pin-Klassen in `EventListItem`, `EventFilter`, `CategoryCard`): Tanz=Rot `#C24A22`, Singen&Musik=Gold `#DDA02A`, Inspiration=helles Gold `#EFC868`, Heilsame=Grün `#5E7D36`, Mehrtägige=helles Grün `#9DBA64`. Alte Akzent-Klassen (coral/orange/teal/blue/green/gold via `var(--*)`) vollständig entfernt. Textfarbe je Pille passend (weiß auf Rot/Grün, Dunkelbraun auf den hellen Gold-/Grüntönen) für Kontrast; Filter-Ruhepille = farbiger Rahmen + lesbarer farbiger Text, aktiv = gefüllt.
+
+### Verifikation (Refinement, CDP)
+- DE Desktop 1280 + Mobile 390/375/430: **kein Overflow**; Logo bündig zum Textblock; Wortmarke & Überschriften links dunkel → rechts hell; Filter-/Tag-/CategoryCard-Pillen in den 5 Logo-Farben, alle lesbar. `/kategorien` geprüft.
+
+### Refinement 2 (gleiche Session) — Volltöne statt Verlauf, „&" orange, helle Kategorie-Buttons (Farben.md)
+Grundlage: `Docs/Design 03/Farben.md` (autoritative Palette: Creme `#F7EDDD`, Sonnen-Gold `#E3B576`, Terrakotta `#C0542E`, Espresso `#632E17`; erweitert u. a. Sonnen-Orange `#F48F4A`, Moos-Grün `#6E8047`, Lehm-Sienna `#A0714D`, Türkis `#39B7AB`).
+- **Kein Verlauf mehr in Schriftzügen:** `.grad-text` auf erdige Volltöne umgestellt — Script-Wörter (Wortmarke-Stil, z. B. „Wochenübersicht") = **Espresso `#632E17`** (Logo-Figuren-Ton), Eyebrows/Labels = **Terrakotta `#C0542E`**. Wortmarke „Soul & Bliss" jetzt Espresso-Vollton; das **„&" im Sonnen-Orange `#F48F4A`** (eigener `.brand-amp`-Span, `brand.name` per `split('&')`). Wortmarken-Verlauf entfernt.
+- **Kategorie-Buttons hell & erdig, nie weißer Text:** neue CSS-Variablen `--cat-*` (+ `-deep`) in `main.css`; Pill/Pin-Klassen in `EventListItem`/`EventFilter`/`CategoryCard` auf helle Tints mit **Espresso-Text** (`--cat-text`). Filter: Ruhe = heller gefüllter Chip + kräftigerer Rahmen, aktiv = `-deep`-Füllung + Espresso-Rahmen. Zuordnung: Tanz=Terrakotta-Clay `#E4A98E`, Singen&Musik=Gold `#F0D6A4`, **Inspiration=Sienna `#D8B58D`** (distinkt), **Heilsame=Türkis `#A2D8D0`**, Mehrtägige=Moos `#B9C58E`. Alte gesättigte Accent-Keys (red/gold/goldlight/green/greenlight) → clay/gold/sienna/teal/moss.
+- **Verifikation (CDP, DE):** Wortmarke Espresso (`rgb(99,46,23)`) + „&" `rgb(244,143,74)`; Überschriften Volltöne; Buttons hell mit dunklem Text, 5 Farben klar unterscheidbar; Desktop 1280 + Mobile 390 kein Overflow; `/kategorien` geprüft.
+
+### Refinement 3 (gleiche Session) — „&" gelb, Wortmarke kompakter, Header sauber, Kategorie-Farben zurückgesetzt
+- **„&" im Sonnen-Gelb `#F0C24F`** (statt Orange); `.brand-amp`.
+- **Wortmarke kompakter:** `&`-Teile getrimmt + `margin: 0 0.1em` am `.brand-amp`, `letter-spacing: -0.012em`, `padding-right` 0.25→0.1em (Lockup-Breite ~397→348px).
+- **Header-Übergang zu „Events" gefixt:** Ursache war ein **scoped-Spezifitäts-Bug** — `.burger { display:flex }` überstimmte Tailwinds `lg:hidden`, sodass der Burger **auch auf Desktop** sichtbar war und die Nav verstopfte. Fix: `@media (min-width:1024px){ .burger{ display:none !important } }`. Danach greift `flex-1 justify-end` → Abstand Logo→„Events" jetzt **71px** (vorher 32). Zusätzlich Nav enger gestuft (lg-Link-Gap 22px/xl 36px, Newsletter-Button/`nav-actions` bei lg kleiner) → **kein horizontaler Overflow mehr bei 1024 und 1280** (vorher 94px Overflow bei 1024).
+- **Kategorie-Farben auf Original zurückgesetzt** (User: alte Farben hoben sich besser ab): `categories.ts` accents → orange/teal/blue/green/coral; Pill/Pin-Klassen in `EventListItem`/`EventFilter`/`CategoryCard` wieder `var(--coral/orange/gold/teal/blue/green)` mit weißer Schrift (gefüllt) bzw. farbigem Outline (Filter-Ruhe). Die `--cat-*`-Variablen wieder entfernt.
+- **Verifikation (CDP, DE):** Header 1280 sauber (kein Burger, 71px Abstand, gelbes „&"); 1024+1280 ohne Overflow; Filter-Tags in den 5 Originalfarben.
+
+### Refinement 4 (gleiche Session) — Wortmarke Terrakotta + Tagline-bündig, „&"-Verlauf, Nav näher
+- **Wortmarke heller = Terrakotta `#C0542E`** (identisch zur Hero-Eyebrow „Aktuelle Events · Rhein · Main · Neckar"); zuvor Espresso. Lockerer gesetzt (`letter-spacing 0.012em`, `&`-`margin 0.18em`, `padding-right 0.16em`) → **Wortmarke ~278px = Tagline-Zeile-1 ~277px**, richtet sich exakt auf die Tagline aus.
+- **„&" mit Sonnen-Verlauf** Orange→helles Gelb (`linear-gradient(135deg, #ED8C3C, #F8DD93)`, background-clip:text) — nur das `&`.
+- **Hero-Script-Wörter** („Wochenübersicht" etc., `.grad-text.script`) ebenfalls Terrakotta `#C0542E` (= Wortmarke/Eyebrow). Jetzt sind Wortmarke, Eyebrows und Script-Titel einheitlich Terrakotta.
+- **Nav-Leiste näher an den Schriftzug:** `ul` ohne `flex-1 justify-end`, stattdessen `ml-3 xl:ml-6` + `nav-actions ml-auto` → Abstand Logo→„Events" **56px** (1280) / 44px (1024) statt 71px, Aktionen rechts. Kein Overflow bei 1024/1280.
+
+### Refinement 5 (gleiche Session) — Schriftzug minimal dunkler, „&"-Beschnitt behoben, Verlauf stärker
+- **„Soul & Bliss" + Hero-Script („Wochenübersicht" etc.)** minimal dunkler: Terrakotta `#C0542E` → **`#AC4824`** (Wortmarke-Farbe + `.grad-text.script`). Eyebrow bleibt `#C0542E`.
+- **„&"-Beschnitt behoben:** `.brand-amp` auf `display:inline-block` + Padding (background-clip:text beschnitt zuvor den kursiven Glyph). **Nachbesserung:** das erste, nur horizontale Padding reichte nicht — der Beschnitt war **oben** (Glyph ragt über die Zeilenbox). Lösung: Padding auch vertikal erweitert, `margin` neutralisiert es für die Zeilenhöhe. **2. Nachbesserung:** obere rechte Spitze wirkte weiter „abgeschnitten" — Ursache war v. a. **geringer Kontrast** (fast-cremefarbenes helles Verlaufsende `#FBE6A6` auf Creme-Hintergrund) + minimal Clipping. Final: `padding: 0.3em 0.16em` / `margin: -0.3em 0.03em` (mehr Malfläche, Lockup bleibt 100px) und helles Verlaufsende auf **sichtbares Gold `#F3C95E`** (Gradient `#A8500D → #ED8E22 → #F3C95E`). „&" jetzt vollständig und kontrastreich.
+- **„&"-Verlauf kräftiger, dunkel → hell:** `linear-gradient(135deg, #B0540F 0%, #EE9026 42%, #FBE6A6 100%)` (dunkles Orange → Sonnen-Orange → helles Gelb).
+- Verifikation (CDP, DE): Wortmarke `rgb(172,72,36)`, „&" vollständig + sichtbar stärkerer Verlauf, kein Overflow, weiter Tagline-bündig.
+
+### Offene Punkte / nächste Schritte
+- Optional: `hell.png` (App-Icon) als Favicon/PWA-Icon.
+- `--grad-rainbow` (warmer Verlauf) nur noch für die dekorative `.hero-slim`-Linie aktiv.
+
+---
+
 ## 2026-06-17 — Event-Listenansicht neu formatiert + Heroes schmaler
 
 ### Ausgangslage

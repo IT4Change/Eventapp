@@ -16,8 +16,10 @@
     --off: #FBF9F5;
     --mist: #F4F1EB;
     --grad-warm: linear-gradient(120deg, #E87A5D 0%, #F2994A 50%, #F4C95D 100%);
-    --grad-cool: linear-gradient(120deg, #54C0B4 0%, #6BA8D8 100%);
-    --grad-rainbow: linear-gradient(120deg, #E87A5D 0%, #F4C95D 35%, #54C0B4 70%, #6BA8D8 100%);
+    /* warm/erdig, dunkel → hell (Braun → Terrakotta) */
+    --grad-cool: linear-gradient(120deg, #6B3410 0%, #C05020 100%);
+    /* Marken-Verlauf, dunkel → hell: Braun → Terrakotta → Amber (ersetzt den Regenbogen) */
+    --grad-rainbow: linear-gradient(120deg, #6B3410 0%, #C05020 50%, #E8902E 100%);
   }
 
   body {
@@ -37,16 +39,18 @@
     @apply max-w-container mx-auto px-5 sm:px-6 lg:px-8;
   }
 
+  /* Kein Verlauf mehr in den Schriftzügen — erdige Volltöne:
+     Eyebrows/Labels = Terrakotta-Akzent, Script-Wörter = Espresso (Figuren-Ton). */
   .grad-text {
-    background: var(--grad-rainbow);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-text-fill-color: #C0542E;
+    color: #C0542E;
   }
   .grad-text.script {
     display: inline-block;
     padding: 0 0.18em;
+    -webkit-text-fill-color: #AC4824;
+    color: #AC4824;
   }
 
   .btn {
@@ -61,13 +65,13 @@
   .btn-outline {
     @apply bg-transparent text-ink rounded-full;
     background: transparent;
-    border: 1.5px solid var(--teal);
+    border: 1.5px solid #C05020;
   }
   .btn-outline:hover {
     background: var(--grad-cool);
     color: #fff;
     border-color: transparent;
-    box-shadow: 0 8px 20px rgba(84, 192, 180, 0.3);
+    box-shadow: 0 8px 20px rgba(192, 80, 32, 0.3);
   }
 
   /* E-Mail-Variante: transparent mit Umrandung, klein geschrieben, größer,
